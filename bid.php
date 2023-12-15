@@ -525,7 +525,9 @@ background: #0d6efd;} */
                             const secondsInMinuteRemaining<?php echo $bid_id; ?> = Math.floor(secondsRemaining<?php echo $bid_id; ?> % 60);
 
                             // Update the timer display
-                            timerElement<?php echo $bid_id; ?>.innerText = "" + `${hoursRemaining<?php echo $bid_id; ?>}` + ":" + `${minutesRemaining<?php echo $bid_id; ?>}` + ":" + `${secondsInMinuteRemaining<?php echo $bid_id; ?>}`; //${secondsInMinuteRemaining<?php echo $bid_id; ?> < 10 ? '0' : ''}
+                            // timerElement<?php echo $bid_id; ?>.innerText = "" + `${hoursRemaining<?php echo $bid_id; ?>}` + ":" + `${minutesRemaining<?php echo $bid_id; ?>}` + ":" + `${secondsInMinuteRemaining<?php echo $bid_id; ?>}`; //${secondsInMinuteRemaining<?php echo $bid_id; ?> < 10 ? '0' : ''}
+                            timerElement<?php echo $bid_id; ?>.innerText =
+                                `${hoursRemaining<?php echo $bid_id; ?>}:${minutesRemaining<?php echo $bid_id; ?>}:${secondsInMinuteRemaining<?php echo $bid_id; ?> < 10 ? '0' : ''}${secondsInMinuteRemaining<?php echo $bid_id; ?>}`;
 
                             // Decrement the number of seconds remaining
                             secondsRemaining<?php echo $bid_id; ?>--;
@@ -1464,9 +1466,6 @@ for search results */
 
 <script>
     $(document).ready(function() {
-        const popover = new bootstrap.Popover('.popover-dismiss', {
-            trigger: 'focus'
-        })
         $(".increase").click(function() {
             var alert = confirm("Do you want Bid the Product");
             var data = $(this).attr('data-min_amo');
@@ -1475,6 +1474,7 @@ for search results */
             var user_id_no = $(this).attr('user');
             var newBid_price = <?php echo $bid_inc_price; ?>;
             var newBid = parseInt(data) + parseInt(bid_data);
+
             // alert(newBid);
             // exit();
 
@@ -1488,10 +1488,10 @@ for search results */
                         bid_amount: newBid,
                         user_id_no: user_id_no
                     },
+                    dataType:"json",
                     success: function(data) {
-                        // console.log(data);
-                        $("#bidbtn" + bidId).html(data);
-                        $("#bidbtn" + bidId).attr("data-min_amo", data);
+                        $("#bidbtn" + bidId).html(data[0]+" "+data[1]);
+                        $("#bidbtn" + bidId).attr("data-min_amo", data[1]);
                     }
                 });
             } else {

@@ -1,5 +1,7 @@
-<?php include("include/head.php"); 
-ini_set('display_errors', 0);?>
+<?php
+include("include/head.php");
+ini_set('display_errors', 0);
+?>
 
 
 <style>
@@ -145,7 +147,7 @@ ini_set('display_errors', 0);?>
         display: block;
         padding: 10px;
     }
-   
+
     .date-form {
         margin-bottom: 20px;
     }
@@ -166,7 +168,6 @@ ini_set('display_errors', 0);?>
         cursor: pointer;
         font-size: 14px;
     }
-
 </style>
 
 <link href='jquery-ui.min.css' rel='stylesheet' type='text/css'>
@@ -193,13 +194,13 @@ ini_set('display_errors', 0);?>
 <div class="cart-area ptb-100" style="padding-top: 15px;">
 
     <div class="container">
-    <form method='post' action=''>
-    Start Date <input type='text' class='dateFilter' name='fromDate' value='<?php if (isset($_POST['fromDate'])) echo $_POST['fromDate']; ?>'>
+        <form method='post' action=''>
+            Start Date <input type='date' class='dateFilter' name='fromDate'  style="padding: 0px 20px;" >
 
-    End Date <input type='text' class='dateFilter' name='endDate' value='<?php if (isset($_POST['endDate'])) echo $_POST['endDate']; ?>'>
+            End Date <input type='date' class='dateFilter' name='endDate'  style="padding: 0px 20px;" >
 
-    <input type='submit' name='but_search' value='Search'>
-</form><br><br>
+            <input type='submit' name='but_search' value='Search'>
+        </form><br><br>
         <div class="parent">
             <div class="tab-pane mb-3" id="account-orders">
                 <div class="icon-box icon-box-side icon-box-light">
@@ -245,11 +246,12 @@ ini_set('display_errors', 0);?>
                             $endDate = $_POST['endDate'];
 
                             if (!empty($fromDate) && !empty($endDate)) {
-                                $sql .= " and date between '" . $fromDate . "' and '" . $endDate . "' ";
+                                // $sql .= " and date between '" . $fromDate . "' and '" . $endDate . "' ";
+                                $sql .= " and payment_date between '" . $fromDate . "' and '" . $endDate . "' ";
                             }
                         }
                         // Sort
-                        $sql.= "ORDER BY date DESC";
+                        $sql .= "ORDER BY date DESC";
 
 
 
@@ -259,21 +261,22 @@ ini_set('display_errors', 0);?>
                         } else {
 
 
-                           
+
                             while ($row = mysqli_fetch_assoc($result)) {
-                                
+
                                 $product_name = $row['product_name'];
-                                $product_price = $row['product_new_price'];
+                                $product_price = $row['total_amount'];
                                 $product_id = $row['product_id'];
                                 $product_img = $row['product_image1'];
                                 $date = $row['payment_date'];
                                 $status = $row['status'];
                                 $payment_mode = $row['payment_mode'];
                                 $total_qty = $row['total_qty'];
-                                // $total_amount = $row['total_amount']; ?>
+                                // $total_amount = $row['total_amount']; 
+                        ?>
 
 
-                                <tr>
+                                <tr><?php echo $row['order_id']; ?>
                                     <td style="padding-right: 84px;"><?php echo $product_name; ?></td>
                                     <td style="padding-right: 84px;"><img style="width:100px; height:66px;object-fit: cover" src="./upload/product/<?php echo $product_img; ?>" alt="product_images"></td>
                                     <td style="padding-right: 84px;"><?php echo $product_price; ?></td>
@@ -282,8 +285,8 @@ ini_set('display_errors', 0);?>
                                     <td style="padding-right: 84px;"><?php echo $date; ?></td>
                                     <td style="padding-right: 84px;"><?php echo  $payment_mode; ?></td>
                                     <!-- <td><button class="btn btn-success" style="margin-right: 70px;"><a href="invoice.php">Invoice</a></button></td> -->
-                                    <td><button class="btn btn-success" style="margin-right: 70px;"><a href="printpdf.php?id=<?php echo $row['order_for_id']?>">PDF</a></button></td>
-                                    <td><a  style="padding-right: 84px;" href="delete.php?del_inv=<?php echo $row['order_id'];?> "><i class="fas fa-trash fip deleteic" style="color:grey;"></i></a></td>
+                                    <td><button class="btn btn-success" style="margin-right: 70px;"><a target="_blank" href="printpdf.php?id=<?php echo $row['order_for_id'] ?>"  >PDF</a></button></td>
+                                    <td><a style="padding-right: 84px;" href="delete.php?del_inv=<?php echo $row['order_id']; ?> "><i class="fas fa-trash fip deleteic" style="color:grey;"></i></a></td>
                                 </tr>
                         <?php }
                         } ?>

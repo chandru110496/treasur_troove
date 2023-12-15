@@ -5,7 +5,8 @@ include('include/database.php');
 
 ob_start();
 
-$id = $_GET['id'];
+// $id = $_GET['id'];
+$id = 16;
 $invoice = "SELECT * FROM  `invoice` 
 JOIN `order` ON `order`.`order_id` = `invoice`.`order_for_id`
 JOIN `product_details` ON `order`.`product_id` = `product_details`.`product_id`
@@ -36,8 +37,7 @@ if ($result && $result2) {
         'total_amount' => $row['total_amount'],
         'total_weight' => $row['total_weight'],
         'total_touch' => $row['total_touch'],
-        'total_fine' => $row['total_fine'],
-        'total_fine' => $row['total_fine'],
+        'total_fine' => $row['total_fine']
         //  'product_name'=>$row['product_name']
         //  'total_amount'=>$row2['total_amount'],
         //  'silver_amount'=>$row2['silver_amount'],
@@ -53,7 +53,7 @@ $order = "SELECT *
 FROM `order`
 JOIN `product_details` ON `order`.`product_id` = `product_details`.`product_id`
 JOIN `billing_address` ON `order`.`user_id` = `billing_address`.`user_id`
-ORDER BY `order`.`product_id` WHERE `order_id` = '$id'";
+ WHERE `order_id` = '$id' ORDER BY `order`.`product_id`";
 
 
 $result2 = mysqli_query($db, $order);
@@ -61,15 +61,15 @@ if ($result2) {
     while ($row = mysqli_fetch_assoc($result2)) {
         $product_info = [
             [
-                'id' => $row["id"],
-                'brand' => $row['brand'],
-                // 'product_name'=>$row['product_name'],
-                'action' => $row['action'],
-                'weight' => $row['weight'],
-                'touch' => $row['touch'],
-                'fine' => $row['fine'],
-                'paid' => $row['paid'],
-                'balance' => $row['balance']
+                'id' => $row["product_id"],
+                'brand' => $row['brand_name'],
+                'product_name' => $row['product_name'],
+                // 'action' => $row['action'],
+                // 'weight' => $row['weight'],
+                // 'touch' => $row['touch'],
+                // 'fine' => $row['fine'],
+                // 'paid' => $row['paid'],
+                // 'balance' => $row['balance']
             ],
 
         ];
@@ -92,7 +92,7 @@ class pdf extends fpdf
         $this->SetY(10);
         $this->SetX(-35);
         $this->SetFont('Arial', 'B', 18);
-        $this->Image('assets/images/logo.png', 170, 15, 30, 30, 'PNG');
+        $this->Image('assets/images/logo.png', 170, 10, 30, 30, 'PNG');
         $this->Line(0, 48, 210, 48);
     }
 
@@ -134,7 +134,8 @@ class pdf extends fpdf
         $this->SetY(105);
         $this->SetX(1);
 
-        $id = $_GET['id'];
+        // $id = $_GET['id'];
+        $id = 16;
 
         $cate = "SELECT *
         FROM `order`
@@ -144,13 +145,13 @@ class pdf extends fpdf
 
         // $db = mysqli_connect("localhost","traitspm_treasure","traitspm_treasure","traitspm_treasure");
 
-        // $db = mysqli_connect("localhost","root","","treasure");
-        $db = mysqli_connect("localhost", "u541379268_treasure", "Teckzy@123", "u541379268_treasure");
+        $db = mysqli_connect("localhost", "root", "", "treasure");
+        // $db = mysqli_connect("localhost", "u541379268_treasure", "Teckzy@123", "u541379268_treasure");
 
 
 
         $count = 1;
-
+        $y_direction = 105;
         $result = mysqli_query($db, $cate);
         if ($result) {
 
@@ -162,7 +163,7 @@ class pdf extends fpdf
 
                 $this->Cell(22, 10, $row['total_amount'], "R", 0, "C");
 
-
+                $this->SetY($y_direction += 5);
 
                 $count++;
             }
@@ -194,9 +195,7 @@ class pdf extends fpdf
     function Footer()
     {
 
-
-
-        $this->Ln(5);
+        $this->Ln(125);
         $this->SetFont("Arial", "B", 12);
         $this->Cell(0, 5, "Treasure Troove   ", 0, 1, "R");
 
