@@ -5,8 +5,8 @@ include('include/database.php');
 
 ob_start();
 
-// $id = $_GET['id'];
-$id = 16;
+$id = $_GET['id'];
+// $id = 16;
 $invoice = "SELECT * FROM  `invoice` 
 JOIN `order` ON `order`.`order_id` = `invoice`.`order_for_id`
 JOIN `product_details` ON `order`.`product_id` = `product_details`.`product_id`
@@ -117,7 +117,7 @@ class pdf extends fpdf
         $this->Cell(50, 7, 'Invoice Date:' . $info['invoice_date']);
 
         $this->SetY(95);
-        $this->SetX(1);
+        $this->SetX(12);
         $this->SetFont('Arial', 'B', 9);
         $this->Cell(9, 10, "S.No", 1, 0, "C");
         $this->Cell(20, 10, "Brand", 1, 0, "C");
@@ -132,10 +132,10 @@ class pdf extends fpdf
 
 
         $this->SetY(105);
-        $this->SetX(1);
+        $this->SetX(12);
 
-        // $id = $_GET['id'];
-        $id = 16;
+        $id = $_GET['id'];
+        // $id = 16;
 
         $cate = "SELECT *
         FROM `order`
@@ -156,7 +156,7 @@ class pdf extends fpdf
         if ($result) {
 
             while ($row = mysqli_fetch_assoc($result)) {
-                $this->SetX(1);
+                $this->SetX(12);
                 $this->Cell(9, 10, $count, "LR", 0, "C");
                 $this->Cell(20, 10, $row['brand_name'], "LR", 0, "C");
                 $this->Cell(20, 10, $row['product_name'], "C", 0, "C");
@@ -169,12 +169,12 @@ class pdf extends fpdf
             }
         }
 
-        $this->SetX(1);
+        $this->SetX(12);
         $this->Cell(9, 10, "", "LR", 0);
         $this->Cell(20, 10, "", "R", 0, "R");
         $this->Cell(20, 10, "", "R", 0, "R");
         $this->Cell(22, 10, "", "R", 1, "C");
-        $this->SetX(1);
+        $this->SetX(12);
 
         $this->Cell(9, 10, "", "LR", 0);
         $this->Cell(20, 10, "", "R", 0, "R");
@@ -185,7 +185,7 @@ class pdf extends fpdf
 
 
         $this->Cell(22, 10, "", "R", 1, "C");
-        $this->SetX(1);
+        $this->SetX(12);
         $this->Cell(49, 10, "Total", 1, 0, "L");
 
 
