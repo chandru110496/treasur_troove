@@ -1,0 +1,2 @@
+check.php is a file used for checking purpose
+ if all work gets completed delete the file at last and this file to as well

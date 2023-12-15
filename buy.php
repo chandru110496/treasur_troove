@@ -1112,7 +1112,7 @@ for search results */
             var productId = $(this).data('product-id');
             // alert(productId);
             // alert(user_id);
-            alert('add to cart');
+            // alert('add to cart');
 
             $.ajax({
                 url: 'add_to_cart.php',

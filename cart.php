@@ -239,7 +239,7 @@ if (isset($_SESSION['user_details'])) {
                                 <h6 class="me-2 text-body">Total Tax</h6><span class="text-end product_tax">Rs.0.00</span>
                             </li>
                             <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                                <h6 class="me-2">Grand Total</h6><span class="text-end text-dark fetch_cart_value_sub">Rs.0.00</span>
+                                <h6  class="me-2">Grand Total</h6><span class="text-end text-dark fetch_cart_value_sub">Rs.0.00</span>
                             </li>
                         </ul>
                         <form action="checkout.php">
@@ -300,18 +300,23 @@ if ($reg_status != '') {
     function loadAllCart() {
         $(".fetch_cart").html("");
         $(".side_bar_cart").html("");
-        let user_id=<?= $user_id ?>;
-        alert(user_id+" for loading all chart");
+        let user_ID = <?= $user_id ?>;
+        // alert(user_id + " for loading all chart");
         $.ajax({
-            url: 'cart_fetch.php',
+            url: './ajax/cart_fetch.php?user_id=user_ID',
             type: "GET",
-            data:{user_id },
+            // data: {
+            //     user_id
+            // },
+            dataType: "json",
             success: function(data) {
+                console.log(data);
+
                 $(".fetch_cart").html("");
                 $(".side_bar_cart").html("");
-                console.log(data);
-                if (data.status == false) {
-                    $(".fetch_cart").append("<tr><td colspan='3'><h2>" + data.message + "</h2></td></tr>");
+
+                if (data=='not availabel') {
+                    $(".fetch_cart").append("<tr><td style='align-items: center;' colspan='6' ><h2>" + "No Product or Item Is Available In Your Cart" + "</h2></td></tr>");
                     $(".side_bar_cart").append();
                 } else {
                     $.each(data, function(key, value) {
@@ -327,7 +332,7 @@ if ($reg_status != '') {
                             '<input id="minus' + value.id + '" value="' + value.minus_qty + '" type="hidden">' +
                             '<div class="pro-qty">' +
                             '<span id="' + value.id + '" value="minus" style="cursor:pointer;width:50px;padding-right: 3px;" class="btn_minus dec qtybtn">-</span>' +
-                            '<input type="text" name="qtybutton"  value="' + value.qty + '" style="width:50px;text-align:center;">' +
+                            '<input type="text" name="qtybutton"  value="' + value.pro_qty + '" style="width:50px;text-align:center;">' +
                             '<span id="' + value.id + '" value="plus"  class="btn_plus inc qtybtn">+</span>' +
                             '</div>' +
                             '</div>' +
@@ -338,17 +343,17 @@ if ($reg_status != '') {
                             '</td>' +
                             '</tr>');
 
-                        $(".fetch_Order_cart").append('<tr>' +
-                            '<td class="text-center product-thumbnail">' +
-                            '<a class="text-reset" href="#"><img src="https://www.purie.in/upload/product/' + value.image + '" class="img-fluid" width="100" alt=""></a>' +
-                            '</td>' +
-                            '<td class="text-center product-name"><a class="text-reset" href="#">' + value.product_name + '</a></td>' +
-                            '<td class="text-center product-price-cart"><span class="amount">Rs.' + value.price + '</span></td>' +
-                            '<td class="text-center product-price-cart"><span class="amount">' + value.qty + '</span></td>' +
+                        // $(".fetch_Order_cart").append('<tr>' +
+                        //     '<td class="text-center product-thumbnail">' +
+                        //     '<a class="text-reset" href="#"><img src="https://www.purie.in/upload/product/' + value.image + '" class="img-fluid" width="100" alt=""></a>' +
+                        //     '</td>' +
+                        //     '<td class="text-center product-name"><a class="text-reset" href="#">' + value.product_name + '</a></td>' +
+                        //     '<td class="text-center product-price-cart"><span class="amount">Rs.' + value.price + '</span></td>' +
+                        //     '<td class="text-center product-price-cart"><span class="amount">' + value.qty + '</span></td>' +
 
-                            '<td class="text-center product-subtotal">Rs.' + value.total + '</td>' +
+                        //     '<td class="text-center product-subtotal">Rs.' + value.total + '</td>' +
 
-                            '</tr>');
+                        //     '</tr>');
                         $(".side_bar_cart").append('<li class="py-3 border-bottom">' +
                             '<div class="row align-items-center">' +
                             '<div class="col-4">' +
@@ -363,7 +368,6 @@ if ($reg_status != '') {
                             '</div>' +
                             '</div>' +
                             '</li>');
-                        // loadAllCart();
 
                     });
                 }

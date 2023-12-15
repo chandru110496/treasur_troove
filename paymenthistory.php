@@ -276,7 +276,7 @@ ini_set('display_errors', 0);
                         ?>
 
 
-                                <tr><?php echo $row['order_id']; ?>
+                                <tr>
                                     <td style="padding-right: 84px;"><?php echo $product_name; ?></td>
                                     <td style="padding-right: 84px;"><img style="width:100px; height:66px;object-fit: cover" src="./upload/product/<?php echo $product_img; ?>" alt="product_images"></td>
                                     <td style="padding-right: 84px;"><?php echo $product_price; ?></td>
