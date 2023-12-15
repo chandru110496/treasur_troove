@@ -1,0 +1,210 @@
+[15-Apr-2023 11:27:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 11:27:16 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_vendor_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:06:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:06:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:06:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:06:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[15-Apr-2023 12:24:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[17-Apr-2023 07:20:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_category.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[17-Apr-2023 07:20:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_category.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[17-Apr-2023 07:26:22 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[17-Apr-2023 07:26:24 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[17-Apr-2023 07:26:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[17-Apr-2023 07:29:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[17-Apr-2023 07:29:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[17-Apr-2023 07:29:16 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/view_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
+[17-Apr-2023 07:50:21 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home4/a1658cvu/public_html/aja/config.php:3
+Stack trace:
+#0 /home4/a1658cvu/public_html/aja/config.php(3): mysqli->__construct('localhost', 'root', '', 'taazameat')
+#1 /home4/a1658cvu/public_html/aja/edit_details.php(2): include('/home4/a1658cvu...')
+#2 {main}
+  thrown in /home4/a1658cvu/public_html/aja/config.php on line 3
