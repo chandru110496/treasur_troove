@@ -230,19 +230,19 @@ if (isset($_SESSION['user_details'])) {
                     <div class="card-body ">
                         <ul class="list-unstyled">
                             <li class="d-flex justify-content-between align-items-center mb-2 ">
-                                <h6 class="me-2 text-body">Subtotal</h6><span class="text-end fetch_cart_value" data-checkId>Rs.0.00</span>
+                                <h6 class="me-2 text-body">Subtotal</h6><span class="text-end fetch_cart_value" data-cart_value="0.00" data-checkId>Rs. 0.00</span>
                             </li>
                             <li class="d-flex justify-content-between align-items-center mb-2 ">
-                                <h6 class="me-2 text-body">S. Charges</h6><span class="text-end fetch_cart_value_tax">Rs.0.00</span>
+                                <h6 class="me-2 text-body">S. Charges</h6><span class="text-end fetch_cart_value_tax" data-cart_value_tax="0.00">Rs. 0.00</span>
                             </li>
                             <li class="d-flex justify-content-between align-items-center mb-2 ">
-                                <h6 class="me-2 text-body">Total Tax</h6><span class="text-end product_tax">Rs.0.00</span>
+                                <h6 class="me-2 text-body">Total Tax</h6><span class="text-end product_tax" data-product_tax="0.00">Rs. 0.00</span>
                             </li>
                             <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                                <h6  class="me-2">Grand Total</h6><span class="text-end text-dark fetch_cart_value_sub">Rs.0.00</span>
+                                <h6 class="me-2">Grand Total</h6><span class="text-end text-dark fetch_cart_value_sub" data-total_price="0.00">Rs. 0.00</span>
                             </li>
                         </ul>
-                        <form action="checkout.php">
+                        <form id="checkout_form" action="checkout.php">
 
                             <li class="d-flex justify-content-between align-items-center">
                                 <style>
@@ -251,7 +251,7 @@ if (isset($_SESSION['user_details'])) {
                                     }
                                 </style>
                                 <?php if (isset($_SESSION['user_details'])) {
-                                    echo '<div class="d-grid gap-2 mx-auto" style="color:#ec2474;"><button type="submit" class="btn btn-primary">
+                                    echo '<div class="d-grid gap-2 mx-auto" style="color:#ec2474;"><button type="submit"  class="btn btn-primary">
                                      <i class="fa fa-user"></i> Checkout</button></div>';
                                 } else {
                                     echo '<div class="d-grid gap-2 mx-auto" style="color:#ec2474;"><a href="profile-authentication.php?page=cart" class="btn btn-primary">
@@ -299,88 +299,148 @@ if ($reg_status != '') {
     // load all chart details obtained from the common.js file
     function loadAllCart() {
         $(".fetch_cart").html("");
-        $(".side_bar_cart").html("");
         let user_ID = <?= $user_id ?>;
         // alert(user_id + " for loading all chart");
         $.ajax({
             url: './ajax/cart_fetch.php?user_id=user_ID',
             type: "GET",
-            // data: {
-            //     user_id
-            // },
             dataType: "json",
             success: function(data) {
-                console.log(data);
-
+                // console.log(data);
                 $(".fetch_cart").html("");
-                $(".side_bar_cart").html("");
-
-                if (data=='not availabel') {
-                    $(".fetch_cart").append("<tr><td style='align-items: center;' colspan='6' ><h2>" + "No Product or Item Is Available In Your Cart" + "</h2></td></tr>");
-                    $(".side_bar_cart").append();
+                if (data == 'not availabel') {
+                    $(".fetch_cart").append("<tr  ><td class='text-center' style='height:308px' colspan='6' ><h1>" + " Your Cart Is Empty Is Show" + "</h1></td></tr>");
+                   $('#checkout_form').css('display','none');
                 } else {
                     $.each(data, function(key, value) {
+
                         $(".fetch_cart").append('<tr>' +
                             '<td class="text-center product-thumbnail">' +
                             '<a class="text-reset" href="#"><img src="upload/product/' + value.image + '" class="img-fluid" width="100" alt=""></a>' +
                             '</td>' +
-                            '<td class="text-center product-name"><a class="text-reset" href="#">' + value.product_name + '</a></td>' +
-                            '<td class="text-center product-price-cart"><span class="amount">Rs.' + value.product_price + '</span></td>' +
+                            '<td class="text-center product-name' + value.id + '"><a class="text-reset" href="#">' + value.product_name + '</a></td>' +
+                            '<td class="text-center product-price-cart "><span class="amount' + value.id + '" data-price="' + value.product_price + '"  >Rs.' + value.product_price + '</span></td>' +
                             '<td class="text-center product-quantity">' +
                             '<div class="cart-qty d-inline-flex">' +
                             '<input id="plus' + value.id + '" value="' + value.plus_qty + '" type="hidden">' +
                             '<input id="minus' + value.id + '" value="' + value.minus_qty + '" type="hidden">' +
                             '<div class="pro-qty">' +
-                            '<span id="' + value.id + '" value="minus" style="cursor:pointer;width:50px;padding-right: 3px;" class="btn_minus dec qtybtn">-</span>' +
-                            '<input type="text" name="qtybutton"  value="' + value.pro_qty + '" style="width:50px;text-align:center;">' +
-                            '<span id="' + value.id + '" value="plus"  class="btn_plus inc qtybtn">+</span>' +
+                            '<span id="minus' + value.id + '" value="minus" style="cursor:pointer;width:10px;" class="btn btn_minus dec qtybtn">-</span>&nbsp;' +
+                            '<input id="old_qty' + value.id + '" value="' + value.pro_qty + '" type="hidden">' + // hidden input to seek the old quantity of the product
+                            '<input type="text" name="qtybutton" id="prd_qty' + value.id + '"  value="' + value.pro_qty + '" readonly style="width:50px;text-align:center;">&nbsp;' +
+                            '<span id="plus' + value.id + '" value="plus" style="cursor:pointer;width:10px;" class="btn btn_plus inc qtybtn">+</span>' +
                             '</div>' +
                             '</div>' +
                             '</td>' +
-                            '<td class="text-center product-subtotal">Rs.' + value.total + '</td>' +
+                            '<td class="text-center product-subtotal"><span class="product-subtotal' + value.id + '" data-totalPrice="' + value.total + '" >Rs.' + value.total + '</span></td>' +
                             '<td class="product-remove text-end text-nowrap">' +
-                            '<a id="' + value.id + '" class="delete-cart btn btn-sm btn-outline-danger text-nowrap px-3"><i class="bi bi-x lh-1"></i> <span class="d-none d-md-inline-block">Remove</span></a>' +
+                            '<a id="delete-cart' + value.id + '" data-id="' + value.id + '" class="delete-cart btn btn-sm btn-outline-danger text-nowrap px-3"><i class="bi bi-x lh-1"></i> <span class="d-none d-md-inline-block">Remove</span></a>' +
                             '</td>' +
                             '</tr>');
 
-                        // $(".fetch_Order_cart").append('<tr>' +
-                        //     '<td class="text-center product-thumbnail">' +
-                        //     '<a class="text-reset" href="#"><img src="https://www.purie.in/upload/product/' + value.image + '" class="img-fluid" width="100" alt=""></a>' +
-                        //     '</td>' +
-                        //     '<td class="text-center product-name"><a class="text-reset" href="#">' + value.product_name + '</a></td>' +
-                        //     '<td class="text-center product-price-cart"><span class="amount">Rs.' + value.price + '</span></td>' +
-                        //     '<td class="text-center product-price-cart"><span class="amount">' + value.qty + '</span></td>' +
+                        getOrderTotal($(`.product-subtotal${value.id}`).attr('data-totalPrice'), 'default');
 
-                        //     '<td class="text-center product-subtotal">Rs.' + value.total + '</td>' +
+                        // functions to add quantity of the product in the cart
+                        function updateQuantityAndTotalPrice(new_qty) {
+                            $(`#old_qty${value.id}`).val($(`#prd_qty${value.id}`).val());
+                            $(`#prd_qty${value.id}`).val(new_qty);
+                            let prd_price = Number($(`.amount${value.id}`).attr('data-price'));
+                            // let total_price = Number($(`.product-subtotal${value.id}`).attr('data-totalPrice'));
+                            // alert(total_price);
+                            let new_total_price = new_qty * prd_price;
+                            $(`.product-subtotal${value.id}`).html(`Rs.  ${new_total_price} `);
+                            $(`.product-subtotal${value.id}`).attr('data-totalPrice', new_total_price);
+                            // alert($(`.product-subtotal${value.id}`).attr('data-totalPrice'));
 
-                        //     '</tr>');
-                        $(".side_bar_cart").append('<li class="py-3 border-bottom">' +
-                            '<div class="row align-items-center">' +
-                            '<div class="col-4">' +
-                            '<img class="img-fluid border" src="https://www.purie.in/upload/product/' + value.image + '" alt="...">' +
-                            '</div>' +
-                            '<div class="col-8">' +
-                            '<p class="mb-2">' +
-                            '<a class="text-dark fw-500" href="#">' + value.product_name + '</a>' +
-                            '<span class="m-0 text-muted w-100 d-block">Rs.' + value.price + '.00 x ' + value.qty + '</span>' +
-                            '<span class="m-0 text-muted w-100 d-block">Total : Rs.' + value.total + '.00</span>' +
-                            '</p>' +
-                            '</div>' +
-                            '</div>' +
-                            '</li>');
+                        }
 
+                        $(document).on("click", `#minus${value.id}`, function() {
+                            // alert($(`#prd_qty${value.id}`).val());
+                            let old_qty = Number($(`#prd_qty${value.id}`).val());
+                            if (old_qty > 1) {
+                                let new_qty = old_qty - 1;
+                                updateQuantityAndTotalPrice(new_qty);
+                                getOrderTotal($(`.amount${value.id}`).attr('data-price'), 'minus');
+                            }
+                        })
+
+                        $(document).on("click", `#plus${value.id}`, function() {
+                            // alert($(`#prd_qty${value.id}`).val());
+                            let old_qty = Number($(`#prd_qty${value.id}`).val());
+                            let new_qty = old_qty + 1;
+                            updateQuantityAndTotalPrice(new_qty);
+                            getOrderTotal($(`.amount${value.id}`).attr('data-price'), 'plus');
+                        })
+
+                        $(document).on('click', `#delete-cart${value.id}`, function() {
+                            let product_id = $(this).attr('data-id');
+                            // alert(product_id)
+                            $.ajax({
+                                type: "GET",
+                                url: `ajax/cart-remove.php?prd_id=${product_id}`,
+                                success: function(response) {
+                                    window.location.reload();
+                                }
+                            });
+                        })
+
+                        // document.getElementById(`prd_qty${value.id}`).onkeyup = (e) => { //onkeyup onchange
+                        //     let new_qty = Number(e.target.value);
+                        //     if (new_qty < 1) {
+                        //         return;
+                        //     }
+                        //     updateQuantityAndTotalPrice(new_qty);
+                        //     let amount = Number($(`.amount${value.id}`).attr('data-price'));
+                        //     getOrderTotalByInputFiedChange(new_qty, old, amount);
+                        // }
                     });
                 }
             }
         });
     }
+    // function to obtain to total price of the product available in the cart of the user
+    // function getOrderTotalByInputFiedChange(new_q, old_q, amount) {
+    //     let old_total = parseFloat(parseFloat(($('.fetch_cart_value').attr('data-cart_value'))).toFixed(2));
+    //     old_total = old_total - (old_q * amount);
+    //     let price = amount * new_q;
+    //     let new_amount = old_total + price;
+    //     new_amount = parseFloat(new_amount).toFixed(2);
+    //     $('.fetch_cart_value').attr('data-cart_value', new_amount)
+    //     $('.fetch_cart_value').html(`Rs. ${new_amount}`);
+    // }
 
+
+    function getOrderTotal(product_total, opertion) {
+
+        // geting the total amout of cart alone
+        let pd_total = parseFloat(parseFloat(product_total).toFixed(2));
+        let old_total = parseFloat(parseFloat(($('.fetch_cart_value').attr('data-cart_value'))).toFixed(2));
+        let amount;
+        if (opertion == 'default') {
+            amount = ((old_total + pd_total)).toFixed(2);
+        } else if (opertion == 'minus') {
+            amount = ((old_total - pd_total)).toFixed(2);
+        } else if (opertion == 'plus') {
+            amount = ((old_total + pd_total)).toFixed(2);
+        }
+        $('.fetch_cart_value').attr('data-cart_value', amount);
+        $('.fetch_cart_value').html(`Rs. ${amount}`);
+        // service charge of the product
+        let ser_charge = parseFloat(parseFloat(($('.fetch_cart_value_tax').attr('data-cart_value_tax'))).toFixed(2));
+        // total tax amount for the product
+        let tax_amount = parseFloat(parseFloat(($('.product_tax').attr('data-product_tax'))).toFixed(2));
+        // grandt total include of all the amount 
+        // parseFloat(parseFloat(($('.fetch_cart_value_sub').attr('data-total_price'))).toFixed(2));
+        let grand_total = parseFloat(amount) + ser_charge + tax_amount;
+        grand_total = grand_total.toFixed(2)
+        // alert(grand_total)
+        $('.fetch_cart_value_sub').html(`Rs. ${grand_total  }`)
+
+    }
     loadAllCart();
 </script>
 
-
 <?php include("include/footer.php"); ?>
-
 
 <script>
     $(document).ready(function() {

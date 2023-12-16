@@ -1,32 +1,31 @@
 <?php
-print_r("<script>alert('hello boss ')</script>");
-//action.php
 ini_set('error_reporting', 0);
 ini_set('display_errors', 0);
 session_start();
-include("include/database.php");
+include("../include/database.php");
 
+// 
+$user_id;
+$user;
+$user_table;
 
-$user_id = $_SESSION['user_details']['user_id'];
-print_r("<script>alert(<?= $user_id; ?>+`befor entering the block`)</script>");
-// if (isset($_POST["action"])) {
-
-if ($_POST["action"] == 'remove') {
-	// foreach ($_SESSION["cart"] as $k => $v) {
-	// 	if ($_POST["product_id"] == $k)
-	// 		unset($_SESSION["cart"][$k]);
-	// 	if (empty($_SESSION["cart"]))
-	// 		unset($_SESSION["cart"]);
-	// }
-	$product_id = $_POST["product_id"];
+if (isset($_SESSION['user_details'])) {
 	$user_id = $_SESSION['user_details']['user_id'];
-	print_r("<script>alert(<?= $user_id; ?>)</script>");
-	$sql = " DELETE FROM my_cart WHERE user_id=$user_id AND product_id=$product_id AND status!='Completed' ";
-	$smt = $db->query($sql);
-	echo true;
-	exit();
+	$user_table = "user_details";
+	$user = "user_id";
+} else if (isset($_SESSION['vendor_details'])) {
+	$user_id = $_SESSION['vendor_details']['vendor_id'];
+	$user_table = "vendor_details";
+	$user = "vendor_id";
+} else if (isset($_SESSION['s_provider'])) {
+	$user_id = $_SESSION['s_provider']['user_id'];
+	$user_table = "service_provider";
+	$user = "user_id";
 }
-if ($_POST["action"] == 'empty') {
-	unset($_SESSION["shopping_cart"]);
-}
-// }
+
+$product_id = $_GET['prd_id'];
+$sql = "DELETE FROM my_cart  WHERE product_id='$product_id' AND $user='$user_id' AND status!='Completed';";
+
+$query = mysqli_query($db, $sql);
+
+
