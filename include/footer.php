@@ -1,3 +1,11 @@
+<!--  this footer part is included in the 
+1.bid.php
+2.index.php
+3.buy.php
+
+-->
+
+
 <!-- Start Footer Area -->
 
 <!-- End Footer Area -->

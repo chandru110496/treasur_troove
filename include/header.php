@@ -1,3 +1,7 @@
+<!--  which is included for 
+1. bid.php
+2. index.php
+-->
 <?php
 include("include/database.php");
 ini_set('error-reporting', 0);
@@ -76,7 +80,9 @@ if (isset($_SESSION['user_details']) || isset($_SESSION['vendor_details']) || is
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <title>Treasure Troove</title>
+        <link rel="icon" type="image/png" href="assets/images/logo.png">
         <style>
             .fa-heart {
                 position: absolute;
@@ -1070,7 +1076,7 @@ if (isset($_SESSION['user_details']) || isset($_SESSION['vendor_details']) || is
                                         <?php } else if (isset($_SESSION['vendor_details'])) { ?>
                                             <img src="upload/vendors/<?php echo $resultProfile['vendor_image'] ?>" class="sc-himrzO kCyZje rounded-circle" style="width: 25px;height: 25px;">
                                         <?php } else { ?>
-                                            <img src="#" alt="profile">
+                                            <img src="upload/profile/blank-profile-picture.webp" class="sc-himrzO kCyZje rounded-circle" style="width: 25px;height: 25px;">
                                         <?php
                                         }
                                         if (isset($_SESSION['user_details'])) {
@@ -1079,7 +1085,7 @@ if (isset($_SESSION['user_details']) || isset($_SESSION['vendor_details']) || is
                                             echo $_SESSION['vendor_details']['vendor'];
                                         } else {
                                         ?>
-                                            My Account
+                                            <!-- My Account -->
                                         <?php
                                         } ?>
                                         <!-- My Account -->
@@ -1095,7 +1101,19 @@ if (isset($_SESSION['user_details']) || isset($_SESSION['vendor_details']) || is
                                         <?php } ?>
                                         <a class="dropdown-item" href="wishlist.php">Wish List</a>
                                         <a class="dropdown-item" href="#">Setting</a>
-                                        <a class="dropdown-item" href="log_out.php">Logout</a>
+                                        <?php if (isset($_SESSION['user_details'])) {
+                                        ?>
+                                            <a class="dropdown-item" href="log_out.php">Logout</a>
+                                        <?php } else if (isset($_SESSION['vendor_details'])) {
+                                        ?>
+                                            <a class="dropdown-item" href="log_out.php">Logout</a>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <a class="dropdown-item" href="profile-authentication.php">Login</a>
+                                        <?php }
+                                        ?>
+
                                     </ul>
                                 </li>
                                 <!-- accoutn end here -->

@@ -35,36 +35,11 @@ if (isset($_SESSION['user_details'])) {
     margin-left: 10px;margin-top:1px;"> </h5>
     </div>
 </div>
-</div>
+
 <h1 style="margin-right: 600px;font-size:px;">BID</h1>
-<!-- <div class="collapse navbar-collapse" id="navbarColor">
-        <ul class="navbar-nav">                          
-            <li class="nav-item "><a class="nav-link" style="font-size: 50px; padding-left: 9.5rem; color: black;">Bid</a> </li>          
-        </ul>        
-    </div> -->
-</div>
+
 </nav>
 
-
-<style>
-    .product-con {
-        display: flex;
-        width: 100%;
-    }
-
-    .pro-con {
-        margin: 10px;
-        padding: 10px;
-        width: 100%;
-    }
-
-    .list-pro {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        margin: 0 20px;
-    }
-</style>
 <div id="scrollButtonContainer">
     <button onclick="goBack()" class="back">
         <i class="ri-arrow-left-line button"></i>
@@ -197,7 +172,6 @@ if (isset($_SESSION['user_details'])) {
     curl_close($curl);
     ?>
 
-
     <link rel="stylesheet" href="assets/css/modal.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
@@ -233,25 +207,7 @@ background: #0d6efd;} */
             margin-left: 10px;
         }
     </style>
-    <style>
-        .product-con {
-            display: flex;
-            width: 100%;
-        }
 
-        .pro-con {
-            margin: 10px;
-            padding: 10px;
-            width: 100%;
-        }
-
-        .list-pro {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin: 0 20px;
-        }
-    </style>
     <?php
     // print_r($_SESSION['currency_type']);               
     if ($currency != "" || $currency == NULL || $currency == "INR") {
@@ -263,367 +219,365 @@ background: #0d6efd;} */
     <!-- Start Shop Area -->
 
     <section id="products" class="pro-con">
-        <div class="list-pro">
-            <?php
-            // print_r($_SESSION['currency_type']);
+        <div class="container">
+            <div class="row">
+                <?php
+                // print_r($_SESSION['currency_type']);
 
-            if ($currency != "" || $currency == NULL || $currency == "INR") {
-                $currency = 1;
-            } else {
-                // $currency=$_SESSION['currency_type']; 
-            }
-            ?>
+                if ($currency != "" || $currency == NULL || $currency == "INR") {
+                    $currency = 1;
+                } else {
+                    // $currency=$_SESSION['currency_type']; 
+                }
+                ?>
 
-            <?php
-            // $sc_id=$_GET['sub_cat_id'];
-            // <!-- COMMON TO THE BID PAGE UP TO THIS FOR BID AND EMPTY BIT DISPLAY -->
-
-            $current_time = date('Y-m-d H:i:s');
-            $sql = "SELECT *" .
-                "FROM `vendor_details`" .
-                "JOIN `bid_product_details` ON `vendor_details`.`vendor_id` = `bid_product_details`.`vendor_id`" .
-                "JOIN `user_details` ON `user_details`.`user_id` = `bid_product_details`.`user_id`" .
-                "WHERE `bid_product_details`.`expiry_time` > '$current_time' " .
-                "ORDER BY `bid_product_details`.`bid_close` ASC;";
-            $result = $db->query($sql);
-            // print_r($result);
-            $contains = true;
-            while ($row = mysqli_fetch_assoc($result)) {
-                $contains = false;
-                // print_r($row);
-                $bid_id = $row['bid_id'];
-                $bid_name = $row['product_name'];
-                $bid_description = $row['product_description'];
-                $bid_image = $row['product_image1'];
-                $bid_image2 = $row['product_image2'];
-                $bid_image3 = $row['product_image3'];
-                $bid_image4 = $row['product_image4'];
-                $bid_image5 = $row['product_image5'];
-                $bid_price = $row['product_new_price'];
-                $retail = $row['retail'];
-                $bid_inc_price = $row['product_old_price'];
-                $vendor_name = $row['name'];
-                $vendor = $row['vendor_id'];
-                $user = $row['user_id'];
-                $user_name = $row['user_name'];
-                $user_image = $row['user_img'];
-                $min = $row['min'];
-                $bid_closess = $row['expiry_time'];
-
+                <?php
+                // $sc_id=$_GET['sub_cat_id'];
+                // <!-- COMMON TO THE BID PAGE UP TO THIS FOR BID AND EMPTY BIT DISPLAY -->
 
                 $current_time = date('Y-m-d H:i:s');
+                $sql = "SELECT *" .
+                    "FROM `vendor_details`" .
+                    "JOIN `bid_product_details` ON `vendor_details`.`vendor_id` = `bid_product_details`.`vendor_id`" .
+                    "JOIN `user_details` ON `user_details`.`user_id` = `bid_product_details`.`user_id`" .
+                    "WHERE `bid_product_details`.`expiry_time` > '$current_time' " .
+                    "ORDER BY `bid_product_details`.`bid_close` ASC;";
+                $result = $db->query($sql);
+                // print_r($result);
+                $contains = true;
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $contains = false;
+                    // print_r($row);
+                    $bid_id = $row['bid_id'];
+                    $bid_name = $row['product_name'];
+                    $bid_description = $row['product_description'];
+                    $bid_image = $row['product_image1'];
+                    $bid_image2 = $row['product_image2'];
+                    $bid_image3 = $row['product_image3'];
+                    $bid_image4 = $row['product_image4'];
+                    $bid_image5 = $row['product_image5'];
+                    $bid_price = $row['product_new_price'];
+                    $retail = $row['retail'];
+                    $bid_inc_price = $row['product_old_price'];
+                    $vendor_name = $row['name'];
+                    $vendor = $row['vendor_id'];
+                    $user = $row['user_id'];
+                    $user_name = $row['user_name'];
+                    $user_image = $row['user_img'];
+                    $min = $row['min'];
+                    $bid_closess = $row['expiry_time'];
 
-                // $end_time = date('Y-m-d H:i:s', strtotime($min . ' + ' . $bid_closess . 'minutes'));
-                $end_time = date('Y-m-d H:i:s', strtotime($bid_closess));
+                    $current_time = date('Y-m-d H:i:s');
 
-                $start_time = date('Y-m-d H:i:s', strtotime($min));
-                $to_time = strtotime($current_time);
-                $from_time = strtotime($end_time);
-                $bit_st_time = strtotime($start_time);
-                $bid_closes = (abs($to_time - $from_time) / 60);
-                $bid_starts = (abs($bit_st_time - $to_time) / 60);
-                $bid_close = number_format("$bid_closes", 1);
-                $bid_start = number_format("$bid_starts", 1);
-                //  print_r("<script>console.log(`bid_start .$bid_start`)</script>");
+                    // $end_time = date('Y-m-d H:i:s', strtotime($min . ' + ' . $bid_closess . 'minutes'));
+                    $end_time = date('Y-m-d H:i:s', strtotime($bid_closess));
 
-                print_r($bid_id);
+                    $start_time = date('Y-m-d H:i:s', strtotime($min));
+                    $to_time = strtotime($current_time);
+                    $from_time = strtotime($end_time);
+                    $bit_st_time = strtotime($start_time);
+                    $bid_closes = (abs($to_time - $from_time) / 60);
+                    $bid_starts = (abs($bit_st_time - $to_time) / 60);
+                    $bid_close = number_format("$bid_closes", 1);
+                    $bid_start = number_format("$bid_starts", 1);
+                    //  print_r("<script>console.log(`bid_start .$bid_start`)</script>");
 
+                    // print_r($bid_id);
 
+                    // $bid_close = round($bid_close_new);      
+                    // 
+                    // $sqld = "DELETE FROM `bid_product_details` WHERE min + INTERVAL bid_close MINUTE <= NOW()";
+                    // $db->query($sqld);
 
-                // $bid_close = round($bid_close_new);      
-                // 
-                // $sqld = "DELETE FROM `bid_product_details` WHERE min + INTERVAL bid_close MINUTE <= NOW()";
-                // $db->query($sqld);
+                    // ------<<<<<<      this is all for currency  type conversion     >>>>>>>>>>>>--------------
+                    if (isset($_SESSION['user_details'])) {
 
-                // ------<<<<<<      this is all for currency  type conversion     >>>>>>>>>>>>--------------
-                if (isset($_SESSION['user_details'])) {
-
-                    $user_id = $_SESSION['user_details']['user_id'];
-                    $sqls = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency = $ro['cur_type'];
-                    }
-                    // print_r($currency);
-                    $data = json_decode($response, true);
-                    // print_r($response);
-                    // print_r($data['conversion_rates']['INR']);
-
-                    // ------------------>>>>>>>>>>>>>>>>>>>
-                    // $usd = $data['conversion_rates'][$currency];  
-                    // ------------------>>>>>>>>>>>>>>>>>>>
-
-
-
-                    //    $usd=$data['conversion_rates']['BIF'];
-                    // print_r($usd);
-                    // ------------------>>>>>>>>>>>>>>>>>>>
-                    // $convert_price = (int)$bid_price * (int)$usd;
-                    // ------------------>>>>>>>>>>>>>>>>>>>
-                    // print_r($convert_price);
-                    // print_r($result);
-                } else if (isset($_SESSION['vendor_details'])) {
-                    $user_id = $_SESSION['vendor_details']['vendor_id'];
-                    $sqls = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency = $ro['cur_type'];
-                    }
-                    // print_r($currency);
-                    $data = json_decode($response, true);
-                    // print_r($response);
-                    // print_r($data['conversion_rates']['INR']);
-                    $usd = $data['conversion_rates'][$currency];
-                    //    $usd=$data['conversion_rates']['BIF'];
-                    // print_r($usd);
-                    $convert_price = (int)$bid_price * (int)$usd;
-                    // print_r($convert_price);
-                    // print_r($result);
-                } else if (isset($_SESSION['s_provider'])) {
-                    $user_id = $_SESSION['s_provider']['user_id'];
-                    $sqls = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency = $ro['cur_type'];
-                    }
-                    // print_r($currency);
-                    $data = json_decode($response, true);
-                    // print_r($response);
-                    // print_r($data['conversion_rates']['INR']);
-                    $usd = $data['conversion_rates'][$currency];
-                    //    $usd=$data['conversion_rates']['BIF'];
-                    // print_r($usd);
-                    $convert_price = (int)$bid_price * (int)$usd;
-                    // print_r($convert_price);
-                    // print_r($result);
-                }
-                // print_r($sqls);
-
-
-
-                if (isset($_SESSION['user_details'])) {
-                    $cur_type = $_SESSION['user_details']['cur_type'];
-                    $user_id = $_SESSION['user_details']['user_id'];
-                    $get_qry = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
-                    // print_r($get_qry);
-                    $get_exc = mysqli_query($db, $get_qry);
-                    $user_details = mysqli_fetch_assoc($get_exc);
-                    $user_currency_type = $user_details['cur_type'];
-                    // print_r();
-                    // print_r($cur_type);
-                    $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency_symbol = $ro['symbol'];
-                    }
-                } else if (isset($_SESSION['vendor_details'])) {
-                    $cur_type = $_SESSION['vendor_details']['cur_type'];
-                    $user_id = $_SESSION['vendor_details']['vendor_id'];
-                    $get_qry = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
-                    // print_r($get_qry);
-                    $get_exc = mysqli_query($db, $get_qry);
-                    $user_details = mysqli_fetch_assoc($get_exc);
-                    $user_currency_type = $user_details['cur_type'];
-                    // print_r();
-                    // print_r($cur_type);
-                    $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency_symbol = $ro['symbol'];
-                    }
-                } else if (isset($_SESSION['s_provider'])) {
-                    $cur_type = $_SESSION['s_provider']['cur_type'];
-                    $user_id = $_SESSION['s_provider']['user_id'];
-                    $get_qry = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
-                    // print_r($get_qry);
-                    $get_exc = mysqli_query($db, $get_qry);
-                    $user_details = mysqli_fetch_assoc($get_exc);
-                    $user_currency_type = $user_details['cur_type'];
-                    // print_r();
-                    // print_r($cur_type);
-                    $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency_symbol = $ro['symbol'];
-                    }
-                }
-
-            ?>
-
-                <!-- // ------<<<<<<      this is all for currency  type conversion     >>>>>>>>>>>>-------------- -->
-
-                <div class="card" id="pro<?php echo $bid_id; ?>">
-
-                    <img class="card-img-top" style="object-fit: cover;" data-bidId="<?php echo $bid_id ?>" src="./upload/cards/<?php echo $bid_image; ?>" alt="Card image cap">
-                    <!-- The Modal -->
-                    <div class="card-body">
-                        <p class="card-text"><?php echo $bid_name; ?></p>
-                        <?php
-                        if ($current_time < $min) {
-                            // echo 'Bids Starts in ' . date('H:i:s', strtotime($min));
-                        ?>
-                            <div style="color:black;" id="timerToStart<?php echo $bid_id; ?>" style="text-align:center;margin-bottom:4px;">Bid Starts IN
-                            </div>
-                        <?php
-                        } else if ($current_time >= $min && $current_time <= $end_time) {
-                        ?>
-                            <div style="color:black;" id="timer<?php echo $bid_id; ?>" style="text-align:center;margin-bottom:4px;">Bid Ends IN
-                            </div>
-                        <?php
-                        } else {
-                            echo 'CLOSED';
+                        $user_id = $_SESSION['user_details']['user_id'];
+                        $sqls = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency = $ro['cur_type'];
                         }
-                        ?>
+                        // print_r($currency);
+                        $data = json_decode($response, true);
+                        // print_r($response);
+                        // print_r($data['conversion_rates']['INR']);
+
+                        // ------------------>>>>>>>>>>>>>>>>>>>
+                        $usd = $data['conversion_rates'][$currency];
+                        // ------------------>>>>>>>>>>>>>>>>>>>
 
 
-                        <?php
-                        if (isset($_SESSION['user_details'])) { ?>
-                            <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['user_details']['user_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
-                            <?php } else if (isset($_SESSION['vendor_details'])) { ?>
-                                <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['vendor_details']['vendor_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
-                                <?php  } else if (isset($_SESSION['s_provider'])) { ?>
-                                    <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['s_provider']['user_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
-                                    <?php  } else { ?>
-                                        <button id="bidbtn" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto not " style="justify-content: center;">
-                                        <?php }
 
-                                        ?>
-                                        <?php echo $currency_symbol; ?> <?php echo $bid_price; ?> </button>
+                        //    $usd=$data['conversion_rates']['BIF'];
+                        // print_r($usd);
+                        // ------------------>>>>>>>>>>>>>>>>>>>
+                        $convert_price = (int)$bid_price * (int)$usd;
+                        // ------------------>>>>>>>>>>>>>>>>>>>
+                        // print_r($convert_price);
+                        // print_r($result);
+                    } else if (isset($_SESSION['vendor_details'])) {
+                        $user_id = $_SESSION['vendor_details']['vendor_id'];
+                        $sqls = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency = $ro['cur_type'];
+                        }
+                        // print_r($currency);
+                        $data = json_decode($response, true);
+                        // print_r($response);
+                        // print_r($data['conversion_rates']['INR']);
+                        $usd = $data['conversion_rates'][$currency];
+                        //    $usd=$data['conversion_rates']['BIF'];
+                        // print_r($usd);
+                        $convert_price = (int)$bid_price * (int)$usd;
+                        // print_r($convert_price);
+                        // print_r($result);
+                    } else if (isset($_SESSION['s_provider'])) {
+                        $user_id = $_SESSION['s_provider']['user_id'];
+                        $sqls = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency = $ro['cur_type'];
+                        }
+                        // print_r($currency);
+                        $data = json_decode($response, true);
+                        // print_r($response);
+                        // print_r($data['conversion_rates']['INR']);
+                        $usd = $data['conversion_rates'][$currency];
+                        //    $usd=$data['conversion_rates']['BIF'];
+                        // print_r($usd);
+                        $convert_price = (int)$bid_price * (int)$usd;
+                        // print_r($convert_price);
+                        // print_r($result);
+                    }
+                    // print_r($sqls);
 
-                                        <div class="retail" style="margin-bottom:3px;color:#323030;font-size:14px;">
-                                            <b>Retail:<?php echo  $currency_symbol . " ";
-                                                        echo ($retail > 0) ? $retail : "Not Availe" ?></b>
-                                        </div>
-                                        <div><span class="sc-bBXxYQ cIskxF"><b style="color:#323030;font-size:13px;">Sold
-                                                    By:</b></span><a style="padding-left:1px;" data-cy="sold-by-vendor-link" href="vendor_products_page.php?vendor_id=<?php echo $vendor ?>"><?php echo $vendor_name ?></a>
-                                        </div>
+                    if (isset($_SESSION['user_details'])) {
+                        $cur_type = $_SESSION['user_details']['cur_type'];
+                        $user_id = $_SESSION['user_details']['user_id'];
+                        $get_qry = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
+                        // print_r($get_qry);
+                        $get_exc = mysqli_query($db, $get_qry);
+                        $user_details = mysqli_fetch_assoc($get_exc);
+                        $user_currency_type = $user_details['cur_type'];
+                        // print_r();
+                        // print_r($cur_type);
+                        $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency_symbol = $ro['symbol'];
+                        }
+                    } else if (isset($_SESSION['vendor_details'])) {
+                        $cur_type = $_SESSION['vendor_details']['cur_type'];
+                        $user_id = $_SESSION['vendor_details']['vendor_id'];
+                        $get_qry = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
+                        // print_r($get_qry);
+                        $get_exc = mysqli_query($db, $get_qry);
+                        $user_details = mysqli_fetch_assoc($get_exc);
+                        $user_currency_type = $user_details['cur_type'];
+                        // print_r();
+                        // print_r($cur_type);
+                        $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency_symbol = $ro['symbol'];
+                        }
+                    } else if (isset($_SESSION['s_provider'])) {
+                        $cur_type = $_SESSION['s_provider']['cur_type'];
+                        $user_id = $_SESSION['s_provider']['user_id'];
+                        $get_qry = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
+                        // print_r($get_qry);
+                        $get_exc = mysqli_query($db, $get_qry);
+                        $user_details = mysqli_fetch_assoc($get_exc);
+                        $user_currency_type = $user_details['cur_type'];
+                        // print_r();
+                        // print_r($cur_type);
+                        $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency_symbol = $ro['symbol'];
+                        }
+                    } ?>
+
+                    <!-- // ------<<<<<<      this is all for currency  type conversion     >>>>>>>>>>>>-------------- -->
+
+                    <div class="col-6 col-sm-3">
+                        <div class="card" id="pro<?php echo $bid_id; ?>">
+
+                            <img class="card-img-top" style="object-fit: cover;" data-bidId="<?php echo $bid_id ?>" src="./upload/cards/<?php echo $bid_image; ?>" alt="Card image cap">
+                            <!-- The Modal -->
+                            <div class="card-body">
+                                <p class="card-text"><?php echo $bid_name; ?></p>
+                                <?php
+                                if ($current_time < $min) {
+                                    // echo 'Bids Starts in ' . date('H:i:s', strtotime($min));
+                                ?>
+                                    <div style="color:black;" id="timerToStart<?php echo $bid_id; ?>" style="text-align:center;margin-bottom:4px;">Bid Starts IN
+                                    </div>
+                                <?php
+                                } else if ($current_time >= $min && $current_time <= $end_time) {
+                                ?>
+                                    <div style="color:black;" id="timer<?php echo $bid_id; ?>" style="text-align:center;margin-bottom:4px;">Bid Ends IN
+                                    </div>
+                                <?php
+                                } else {
+                                    echo 'CLOSED';
+                                }
+                                ?>
+
+
+                                <?php
+                                if (isset($_SESSION['user_details'])) { ?>
+                                    <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['user_details']['user_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
+                                    <?php } else if (isset($_SESSION['vendor_details'])) { ?>
+                                        <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['vendor_details']['vendor_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
+                                        <?php  } else if (isset($_SESSION['s_provider'])) { ?>
+                                            <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['s_provider']['user_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
+                                            <?php  } else { ?>
+                                                <button id="bidbtn" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto not " style="justify-content: center;">
+                                                <?php }
+
+                                                ?>
+                                                <?php echo $currency_symbol; ?> <?php echo $bid_price; ?> </button>
+
+                                                <div class="retail" style="margin-bottom:3px;color:#323030;font-size:14px;">
+                                                    <b>Retail:<?php echo  $currency_symbol . " ";
+                                                                echo ($retail > 0) ? $retail : "Not Availe" ?></b>
+                                                </div>
+                                                <div><span class="sc-bBXxYQ cIskxF"><b style="color:#323030;font-size:13px;">Sold
+                                                            By:</b></span><a style="padding-left:1px;" data-cy="sold-by-vendor-link" href="vendor_products_page.php?vendor_id=<?php echo $vendor ?>"><?php echo $vendor_name ?></a>
+                                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- script for bit to end  -->
-                <script>
-                    function loadBet() {
+                    <!-- script for bit to end  -->
+                    <script>
+                        function loadBet() {
 
+                            // Set the duration of the timer in minutes
+                            const durationInMinutes<?php echo $bid_id; ?> = <?php echo $bid_close; ?>;
+                            // Calculate the total number of seconds based on the duration in minutes
+                            const totalSeconds<?php echo $bid_id; ?> = durationInMinutes<?php echo $bid_id; ?> * 60;
+                            // Get the HTML element where the timer will be displayed
+                            const timerElement<?php echo $bid_id; ?> = document.getElementById("timer<?= $bid_id ?>");
+                            // Start the timer
+                            let secondsRemaining<?php echo $bid_id; ?> = totalSeconds<?php echo $bid_id; ?>;
+                            let timerId<?php echo $bid_id; ?> = setInterval(() => {
+                                // Calculate the number of hours, minutes, and seconds remaining
+                                const hoursRemaining<?php echo $bid_id; ?> = Math.floor(secondsRemaining<?php echo $bid_id; ?> / 3600);
+                                const minutesRemaining<?php echo $bid_id; ?> = Math.floor((secondsRemaining<?php echo $bid_id; ?> % 3600) / 60);
+                                const secondsInMinuteRemaining<?php echo $bid_id; ?> = Math.floor(secondsRemaining<?php echo $bid_id; ?> % 60);
+
+                                // Update the timer display
+                                // timerElement<?php echo $bid_id; ?>.innerText = "" + `${hoursRemaining<?php echo $bid_id; ?>}` + ":" + `${minutesRemaining<?php echo $bid_id; ?>}` + ":" + `${secondsInMinuteRemaining<?php echo $bid_id; ?>}`; //${secondsInMinuteRemaining<?php echo $bid_id; ?> < 10 ? '0' : ''}
+                                timerElement<?php echo $bid_id; ?>.innerText =
+                                    `${hoursRemaining<?php echo $bid_id; ?>}:${minutesRemaining<?php echo $bid_id; ?>}:${secondsInMinuteRemaining<?php echo $bid_id; ?> < 10 ? '0' : ''}${secondsInMinuteRemaining<?php echo $bid_id; ?>}`;
+
+                                // Decrement the number of seconds remaining
+                                secondsRemaining<?php echo $bid_id; ?>--;
+
+                                // If the timer has reached zero, stop the interval
+                                if (secondsRemaining<?php echo $bid_id; ?> < 0) {
+                                    clearInterval(timerId<?php echo $bid_id; ?>);
+                                    timerElement<?php echo $bid_id; ?>.innerText = "CLOSED";
+                                    $("#bidbtn<?php echo $bid_id; ?>").prop('disabled', true);
+                                    setTimeout(() => {
+                                        location.reload();
+                                    }, 10000);
+
+                                    setTimeout(function() {
+                                        $.ajax({
+                                            url: 'winner_aja.php?bid_id=<?php echo $bid_id; ?>',
+                                            type: "POST",
+                                            success: function(response) {
+                                                if (response == 1) {
+                                                    setTimeout(function() {
+                                                        $("#pro<?php echo $bid_id; ?>").fadeOut('slow');
+                                                    }, 300);
+                                                }
+                                            },
+                                        });
+                                    }, 5000);
+                                }
+
+                            }, 1000);
+
+                        }
+                        loadBet();
+                        setInterval(() => {
+                            $.ajax({
+                                type: "POST",
+                                url: `update_bid_amount.php?bid_id=<?php echo $bid_id; ?>`, //C:\xampp\htdocs\_treasuretroove_backup_from_live by jeeva bro\update_bid_amount.php                             
+                                success: function(response) {
+                                    // console.log(response);
+                                    $("#bidbtn<?php echo $bid_id; ?>").html(response);
+                                    $("#bidbtn<?php echo $bid_id; ?>").attr("data-min_amo", response);
+                                }
+                            });
+
+                        }, 15000)
+                    </script>
+
+                    <!-- script for bid start -->
+                    <script>
                         // Set the duration of the timer in minutes
-                        const durationInMinutes<?php echo $bid_id; ?> = <?php echo $bid_close; ?>;
+                        const durationInMinutesToStart<?php echo $bid_id; ?> = <?php echo $bid_start; ?>;
                         // Calculate the total number of seconds based on the duration in minutes
-                        const totalSeconds<?php echo $bid_id; ?> = durationInMinutes<?php echo $bid_id; ?> * 60;
+                        const totalSecondsToStart<?php echo $bid_id; ?> = durationInMinutesToStart<?php echo $bid_id; ?> * 60;
                         // Get the HTML element where the timer will be displayed
-                        const timerElement<?php echo $bid_id; ?> = document.getElementById("timer<?= $bid_id ?>");
+                        const timerElementToStart<?php echo $bid_id; ?> = document.getElementById("timerToStart<?php echo $bid_id; ?>");
                         // Start the timer
-                        let secondsRemaining<?php echo $bid_id; ?> = totalSeconds<?php echo $bid_id; ?>;
-                        let timerId<?php echo $bid_id; ?> = setInterval(() => {
+                        let secondsRemainingToStart<?php echo $bid_id; ?> = totalSecondsToStart<?php echo $bid_id; ?>;
+                        let timerIdToStart<?php echo $bid_id; ?> = setInterval(() => {
                             // Calculate the number of hours, minutes, and seconds remaining
-                            const hoursRemaining<?php echo $bid_id; ?> = Math.floor(secondsRemaining<?php echo $bid_id; ?> / 3600);
-                            const minutesRemaining<?php echo $bid_id; ?> = Math.floor((secondsRemaining<?php echo $bid_id; ?> % 3600) / 60);
-                            const secondsInMinuteRemaining<?php echo $bid_id; ?> = Math.floor(secondsRemaining<?php echo $bid_id; ?> % 60);
+                            const hoursRemainingToStart<?php echo $bid_id; ?> = Math.floor(secondsRemainingToStart<?php echo $bid_id; ?> / 3600);
+                            const minutesRemainingToStart<?php echo $bid_id; ?> = Math.floor((secondsRemainingToStart<?php echo $bid_id; ?> % 3600) / 60);
+                            const secondsInMinuteRemainingToStart<?php echo $bid_id; ?> = Math.floor(secondsRemainingToStart<?php echo $bid_id; ?> % 60);
 
                             // Update the timer display
-                            // timerElement<?php echo $bid_id; ?>.innerText = "" + `${hoursRemaining<?php echo $bid_id; ?>}` + ":" + `${minutesRemaining<?php echo $bid_id; ?>}` + ":" + `${secondsInMinuteRemaining<?php echo $bid_id; ?>}`; //${secondsInMinuteRemaining<?php echo $bid_id; ?> < 10 ? '0' : ''}
-                            timerElement<?php echo $bid_id; ?>.innerText =
-                                `${hoursRemaining<?php echo $bid_id; ?>}:${minutesRemaining<?php echo $bid_id; ?>}:${secondsInMinuteRemaining<?php echo $bid_id; ?> < 10 ? '0' : ''}${secondsInMinuteRemaining<?php echo $bid_id; ?>}`;
+                            timerElementToStart<?php echo $bid_id; ?>.innerText =
+                                `Bids Starts in ${hoursRemainingToStart<?php echo $bid_id; ?>}:${minutesRemainingToStart<?php echo $bid_id; ?>}:${secondsInMinuteRemainingToStart<?php echo $bid_id; ?> < 10 ? '0' : ''}${secondsInMinuteRemainingToStart<?php echo $bid_id; ?>}`;
 
                             // Decrement the number of seconds remaining
-                            secondsRemaining<?php echo $bid_id; ?>--;
+                            secondsRemainingToStart<?php echo $bid_id; ?>--;
 
                             // If the timer has reached zero, stop the interval
-                            if (secondsRemaining<?php echo $bid_id; ?> < 0) {
-                                clearInterval(timerId<?php echo $bid_id; ?>);
-                                timerElement<?php echo $bid_id; ?>.innerText = "CLOSED";
+                            if (secondsRemainingToStart<?php echo $bid_id; ?> < 0) {
+                                clearInterval(timerIdToStart<?php echo $bid_id; ?>);
+                                timerElementToStart<?php echo $bid_id; ?>.innerText = "";
+
+                                // loadBet();
+                                $("#bidbtn<?php echo $bid_id; ?>").prop('disabled', false);
+                                // loadBet();
+                                location.reload();
+
+                            } else {
                                 $("#bidbtn<?php echo $bid_id; ?>").prop('disabled', true);
-                                setTimeout(() => {
-                                    location.reload();
-                                }, 10000);
-
-                                setTimeout(function() {
-                                    $.ajax({
-                                        url: 'winner_aja.php?bid_id=<?php echo $bid_id; ?>',
-                                        type: "POST",
-                                        success: function(response) {
-                                            if (response == 1) {
-                                                setTimeout(function() {
-                                                    $("#pro<?php echo $bid_id; ?>").fadeOut('slow');
-                                                }, 300);
-                                            }
-                                        },
-                                    });
-                                }, 5000);
                             }
-
                         }, 1000);
-
-                    }
-                    loadBet();
-                    setInterval(() => {
-                        $.ajax({
-                            type: "POST",
-                            url: `update_bid_amount.php?bid_id=<?php echo $bid_id; ?>`, //C:\xampp\htdocs\_treasuretroove_backup_from_live by jeeva bro\update_bid_amount.php                             
-                            success: function(response) {
-                                // console.log(response);
-                                $("#bidbtn<?php echo $bid_id; ?>").html(response);
-                                $("#bidbtn<?php echo $bid_id; ?>").attr("data-min_amo", response);
-                            }
-                        });
-
-                    }, 15000)
-                </script>
-
-                <!-- script for bid start -->
-                <script>
-                    // Set the duration of the timer in minutes
-                    const durationInMinutesToStart<?php echo $bid_id; ?> = <?php echo $bid_start; ?>;
-                    // Calculate the total number of seconds based on the duration in minutes
-                    const totalSecondsToStart<?php echo $bid_id; ?> = durationInMinutesToStart<?php echo $bid_id; ?> * 60;
-                    // Get the HTML element where the timer will be displayed
-                    const timerElementToStart<?php echo $bid_id; ?> = document.getElementById("timerToStart<?php echo $bid_id; ?>");
-                    // Start the timer
-                    let secondsRemainingToStart<?php echo $bid_id; ?> = totalSecondsToStart<?php echo $bid_id; ?>;
-                    let timerIdToStart<?php echo $bid_id; ?> = setInterval(() => {
-                        // Calculate the number of hours, minutes, and seconds remaining
-                        const hoursRemainingToStart<?php echo $bid_id; ?> = Math.floor(secondsRemainingToStart<?php echo $bid_id; ?> / 3600);
-                        const minutesRemainingToStart<?php echo $bid_id; ?> = Math.floor((secondsRemainingToStart<?php echo $bid_id; ?> % 3600) / 60);
-                        const secondsInMinuteRemainingToStart<?php echo $bid_id; ?> = Math.floor(secondsRemainingToStart<?php echo $bid_id; ?> % 60);
-
-                        // Update the timer display
-                        timerElementToStart<?php echo $bid_id; ?>.innerText =
-                            `Bids Starts in ${hoursRemainingToStart<?php echo $bid_id; ?>}:${minutesRemainingToStart<?php echo $bid_id; ?>}:${secondsInMinuteRemainingToStart<?php echo $bid_id; ?> < 10 ? '0' : ''}${secondsInMinuteRemainingToStart<?php echo $bid_id; ?>}`;
-
-                        // Decrement the number of seconds remaining
-                        secondsRemainingToStart<?php echo $bid_id; ?>--;
-
-                        // If the timer has reached zero, stop the interval
-                        if (secondsRemainingToStart<?php echo $bid_id; ?> < 0) {
-                            clearInterval(timerIdToStart<?php echo $bid_id; ?>);
-                            timerElementToStart<?php echo $bid_id; ?>.innerText = "";
-
-                            // loadBet();
-                            $("#bidbtn<?php echo $bid_id; ?>").prop('disabled', false);
-                            // loadBet();
-                            location.reload();
-
-                        } else {
-                            $("#bidbtn<?php echo $bid_id; ?>").prop('disabled', true);
-                        }
-                    }, 1000);
-                </script>
+                    </script>
 
 
-            <?php }
-            if ($contains) { ?>
-                <!-- <div style="height: 450px;justify-content:center;"> -->
-                <img style="height:450px;width:65%;object-fit: contain;justify-content:center;" src="./upload/deal/come_soon.jpg" alt="">
-                <!-- </div> -->
-            <?php } ?>
+                <?php }
+                if ($contains) { ?>
+                    <div class="text-center">
+                        <img style="height:300px; width:780px; position:relative; left:175px" src="./upload/deal/giphy.gif" alt="">
+                    </div>
+                <?php } ?>
+            </div>
         </div>
+    </section>
 </div>
 <!-- COMMON TO THE BID PAGE UP TO THIS FOR BID AND EMPTY BIT DISPLAY -->
-</section>
+
 <style>
     .parent {
         display: flex;
@@ -1101,12 +1055,8 @@ for search results */
         </div>
     </div>
 </div>
-</div>
 
 
-</div>
-</div>
-</div>
 <style>
     .parent {
         display: flex;
@@ -1387,6 +1337,7 @@ for search results */
         text-transform: uppercase;
     }
 </style>
+
 <script>
     function increaseQuantity() {
         var quantity = parseInt(document.getElementById("quantity").value); // Get the current quantity value
@@ -1394,6 +1345,7 @@ for search results */
         document.getElementById("quantity").value = quantity; // Update the quantity value in the input field
     }
 </script>
+
 <script>
     $(document).ready(function() {
         $(".jewel").hide();
@@ -1488,9 +1440,9 @@ for search results */
                         bid_amount: newBid,
                         user_id_no: user_id_no
                     },
-                    dataType:"json",
+                    dataType: "json",
                     success: function(data) {
-                        $("#bidbtn" + bidId).html(data[0]+" "+data[1]);
+                        $("#bidbtn" + bidId).html(data[0] + " " + data[1]);
                         $("#bidbtn" + bidId).attr("data-min_amo", data[1]);
                     }
                 });
@@ -1502,12 +1454,7 @@ for search results */
         });
     });
 </script>
-
-
 <!-- go to back page button -->
-
-
-
 <style>
     .back {
 
@@ -1542,7 +1489,6 @@ for search results */
         margin-right: auto;
     }
 </style>
-
 <!--  End of the search your Product  items -->
 <!-- go back button -->
 <script>
@@ -1551,7 +1497,6 @@ for search results */
         history.back();
     }
 </script>
-
 <!-- go to back page end -->
 
 <!-- go to back page end -->

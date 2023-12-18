@@ -1,7 +1,15 @@
 <?php
 include("include/header.php");
 date_default_timezone_set('Asia/Kolkata');
+if (isset($_SESSION['user_details'])) {
+    $user_id = $_SESSION['user_details']['user_id'];
+} elseif (isset($_SESSION['vendor_details'])) {
+    $user_id = $_SESSION['vendor_details']['vendor_id'];
+} elseif (isset($_SESSION['s_provider'])) {
+    $user_id = $_SESSION['s_provider']['user_id'];
+}
 ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor" aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
 </button>
@@ -9,6 +17,7 @@ date_default_timezone_set('Asia/Kolkata');
 <div class="container" style="justify-content:stretch;">
     <!-- niy search -->
     <div class="searchInputBox pull-right">
+        <!-- <input type="search" id="search" placeholder=" search..." class="search-input" autocomplete="off" /> -->
         <input type="search" id="search" placeholder="search..." style="padding-left: 25px;" class="search-input" autocomplete="off" />
         <span type="btn" id="clear_search_text" style="cursor:pointer; z-index: index;">&times;</span>
         <button class="btn-nobg search-btn" type="submit">
@@ -21,37 +30,16 @@ date_default_timezone_set('Asia/Kolkata');
 
     <!-- search your Products End -->
     <div class="div">
-        <h5 onclick="show()" style="margin-top:1px;">
-            <img title="Filter" src="assets/images/products/filter.png" alt="Filter" style="width: 20px; height: 22px;margin-left: 10px;margin-top:1px;">
-        </h5>
+        <h5 onclick="show()" style="margin-top:1px;"> <img title="Filter" src="assets/images/products/filter.png" alt="Filter" style="width: 20px;
+    height: 22px;
+    margin-left: 10px;margin-top:1px;"> </h5>
     </div>
 </div>
 
-<h1 style="margin-right: 600px;font-size:px;">Bid</h1>
-
+<h1 style="margin-right: 600px;font-size:px;">BID</h1>
 
 </nav>
 
-
-<style>
-    .product-con {
-        display: flex;
-        width: 100%;
-    }
-
-    .pro-con {
-        margin: 10px;
-        padding: 10px;
-        width: 100%;
-    }
-
-    .list-pro {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        margin: 0 20px;
-    }
-</style>
 <div id="scrollButtonContainer">
     <button onclick="goBack()" class="back">
         <i class="ri-arrow-left-line button"></i>
@@ -76,11 +64,11 @@ date_default_timezone_set('Asia/Kolkata');
 </script>
 <div class="product-con">
     <nav id="menuu">
+        <!-- display the filter container section  -->
         <section class="containers" id="showw" style="display: none;height:450px; overflow-y: scroll;width:70%;" onclick="expand()">
             <div class="rows">
                 <aside class="col-lg-11">
                     <div class="accordion">
-
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="accordion_a000">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_b000" aria-expanded="true" aria-controls="accordion_b000">Modules</button>
@@ -88,14 +76,10 @@ date_default_timezone_set('Asia/Kolkata');
 
                             <div id="accordion_b000" class="accordion-collapse collapse show" aria-labelledby="accordion_a000" data-bs-parent="#accordion_a000">
                                 <div class="accordion-body pt-1">
-
                                     <ul class="list-unstyled mb-0">
-                                        <!-- <li><a href="#">All/Any</a></li> -->
                                         <li><a href="bid.php">Bid</a></li>
                                         <li><a href="buy.php">Buy</a></li>
                                         <li><a href="make-deal.php">Deal</a></li>
-                                        <!-- <li><a href="#">Catalog</a></li> -->
-                                        <!-- <li><a href="#">Invest</a></li> -->
                                     </ul>
                                 </div>
                             </div>
@@ -107,45 +91,42 @@ date_default_timezone_set('Asia/Kolkata');
                             <div id="accordion_b001" class="accordion-collapse collapse show" aria-labelledby="accordion_a001" data-bs-parent="#accordion_a001">
                                 <div class="accordion-body pt-1">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="">Frequently Bought</a></li>
-                                        <li><a href="buy.php">Shop</a></li>
+                                        <li><a href="#">Most Popular</a></li>
+                                        <li><a href="#">New Arrivals</a></li>
+                                        <li><a href="#">Offers</a></li>
+                                        <li><a href="#">Must Buy</a></li>
+                                        <li><a href="wearhouse.php">Vendor</a></li>
                                         <li><a href="make-deal.php">Daily Deal</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <form action="filter_results_bid.php" method="GET">
-                            <div class="accordion-item mt-0">
-                                <h2 class="accordion-header" id="accordion_a001">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_b001" aria-expanded="true" aria-controls="accordion_b001">Price</button>
-                                </h2>
-                                <div id="accordion_b001" class="accordion-collapse collapse show" aria-labelledby="accordion_a001" data-bs-parent="#accordion_a001">
-                                    <div class="accordion-body pt-1">
-
-
-
-                                        <div class="row row-cols-md-2 g-2 mb-3">
-                                            <div class="col">
-                                                <label>Min</label>
-                                                <input class="form-control px-1" name="min_price" id="min_price" placeholder="0" type="number" />
-                                            </div>
-                                            <div class="col text-end">
-                                                <label>Max</label>
-                                                <input class="form-control px-1" name="max_price" id="max_price" placeholder="10000" type="number" />
-                                            </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="accordion_a001">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_b001" aria-expanded="true" aria-controls="accordion_b001">Price</button>
+                            </h2>
+                            <div id="accordion_b001" class="accordion-collapse collapse show" aria-labelledby="accordion_a001" data-bs-parent="#accordion_a001">
+                                <div class="accordion-body pt-1">
+                                    <input type="range" class="form-range" />
+                                    <div class="row row-cols-md-2 g-2 mb-3">
+                                        <div class="col">
+                                            <label>Min</label>
+                                            <input class="form-control px-1" placeholder="0" type="number" />
                                         </div>
-
-                                        <button class="btn btn-primary w-100" type="submit" value="Filter">Apply</button>
+                                        <div class="col text-end">
+                                            <label>Max</label>
+                                            <input class="form-control px-1" placeholder="10000" type="number" />
+                                        </div>
                                     </div>
+                                    <button class="btn btn-primary w-100">Apply</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </aside>
+            </div>
         </section>
     </nav>
-
-
 
     <?php
 
@@ -178,22 +159,18 @@ date_default_timezone_set('Asia/Kolkata');
             $currency = $row['cur_type'];
         }
     }
-
-
     //   print_r($currency);
-
-    $api_key = 'd42beed07fffe3e8fd759791';
+    $api_key = 'e1cbe9d7cd31b9bb8ff06a9e';
     // $base_currency = 'USD';
     // $target_currency = 'EUR';
     // $url = "https://api.exchangerate-api.com/v4/latest/{$base_currency}";
-    $url = "https://v6.exchangerate-api.com/v6/d42beed07fffe3e8fd759791/latest/KWD";
+    $url = "https://v6.exchangerate-api.com/v6/e1cbe9d7cd31b9bb8ff06a9e/latest/KWD";
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($curl);
     curl_close($curl);
     ?>
-
 
     <link rel="stylesheet" href="assets/css/modal.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
@@ -230,25 +207,7 @@ background: #0d6efd;} */
             margin-left: 10px;
         }
     </style>
-    <style>
-        .product-con {
-            display: flex;
-            width: 100%;
-        }
 
-        .pro-con {
-            margin: 10px;
-            padding: 10px;
-            width: 100%;
-        }
-
-        .list-pro {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin: 0 20px;
-        }
-    </style>
     <?php
     // print_r($_SESSION['currency_type']);               
     if ($currency != "" || $currency == NULL || $currency == "INR") {
@@ -260,229 +219,266 @@ background: #0d6efd;} */
     <!-- Start Shop Area -->
 
     <section id="products" class="pro-con">
-        <div class="list-pro">
-            <?php
-            // print_r($_SESSION['currency_type']);
+        <div class="container">
+            <div class="row">
+                <?php
+                // print_r($_SESSION['currency_type']);
 
-            if ($currency != "" || $currency == NULL || $currency == "INR") {
-                $currency = 1;
-            } else {
-                // $currency=$_SESSION['currency_type']; 
-            }
-            ?>
+                if ($currency != "" || $currency == NULL || $currency == "INR") {
+                    $currency = 1;
+                } else {
+                    // $currency=$_SESSION['currency_type']; 
+                }
+                ?>
 
-            <?php
-            // $sc_id=$_GET['sub_cat_id'];
-
-            //  <!-- COMMON TO THE BID PAGE UP TO THIS FOR BID AND EMPTY BIT DISPLAY -->
-
-            $current_time = date('Y-m-d H:i:s');
-            $sql = "SELECT *" .
-                "FROM `vendor_details`" .
-                "JOIN `bid_product_details` ON `vendor_details`.`vendor_id` = `bid_product_details`.`vendor_id`" .
-                "JOIN `user_details` ON `user_details`.`user_id` = `bid_product_details`.`user_id`" .
-                "WHERE `bid_product_details`.`expiry_time` > '$current_time' " .
-                "ORDER BY `bid_product_details`.`bid_close` ASC;";
-            $result = $db->query($sql);
-            // print_r($result);
-            $contains = true;
-            while ($row = mysqli_fetch_assoc($result)) {
-                $contains = false;
-                // print_r($result);
-                $bid_id = $row['bid_id'];
-                $bid_name = $row['product_name'];
-                $bid_description = $row['product_description'];
-                $bid_image = $row['product_image1'];
-                $bid_image2 = $row['product_image2'];
-                $bid_image3 = $row['product_image3'];
-                $bid_image4 = $row['product_image4'];
-                $bid_image5 = $row['product_image5'];
-                $bid_price = $row['product_new_price'];
-                $retail = $row['retail'];
-                $bid_inc_price = $row['product_old_price'];
-                $vendor_name = $row['name'];
-                $vendor = $row['vendor_id'];
-                $user = $row['user_id'];
-                $user_name = $row['user_name'];
-                $user_image = $row['user_img'];
-                $min = $row['min'];
-                $bid_closess = $row['bid_close'];
-
+                <?php
+                // $sc_id=$_GET['sub_cat_id'];
+                // <!-- COMMON TO THE BID PAGE UP TO THIS FOR BID AND EMPTY BIT DISPLAY -->
 
                 $current_time = date('Y-m-d H:i:s');
+                $sql = "SELECT *" .
+                    "FROM `vendor_details`" .
+                    "JOIN `bid_product_details` ON `vendor_details`.`vendor_id` = `bid_product_details`.`vendor_id`" .
+                    "JOIN `user_details` ON `user_details`.`user_id` = `bid_product_details`.`user_id`" .
+                    "WHERE `bid_product_details`.`expiry_time` > '$current_time' " .
+                    "ORDER BY `bid_product_details`.`bid_close` ASC;";
+                $result = $db->query($sql);
+                // print_r($result);
+                $contains = true;
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $contains = false;
+                    // print_r($row);
+                    $bid_id = $row['bid_id'];
+                    $bid_name = $row['product_name'];
+                    $bid_description = $row['product_description'];
+                    $bid_image = $row['product_image1'];
+                    $bid_image2 = $row['product_image2'];
+                    $bid_image3 = $row['product_image3'];
+                    $bid_image4 = $row['product_image4'];
+                    $bid_image5 = $row['product_image5'];
+                    $bid_price = $row['product_new_price'];
+                    $retail = $row['retail'];
+                    $bid_inc_price = $row['product_old_price'];
+                    $vendor_name = $row['name'];
+                    $vendor = $row['vendor_id'];
+                    $user = $row['user_id'];
+                    $user_name = $row['user_name'];
+                    $user_image = $row['user_img'];
+                    $min = $row['min'];
+                    $bid_closess = $row['expiry_time'];
 
-                $end_time = date('Y-m-d H:i:s', strtotime($min . ' + ' . $bid_closess . 'minutes'));
-                $to_time = strtotime($current_time);
-                $from_time = strtotime($end_time);
-                $bid_closes = (abs($to_time - $from_time) / 60);
+                    $current_time = date('Y-m-d H:i:s');
 
-                $bid_close = number_format("$bid_closes", 1);
+                    // $end_time = date('Y-m-d H:i:s', strtotime($min . ' + ' . $bid_closess . 'minutes'));
+                    $end_time = date('Y-m-d H:i:s', strtotime($bid_closess));
 
-                // $bid_close = round($bid_close_new);      
-                // 
-                // $sqld = "DELETE FROM `bid_product_details` WHERE min + INTERVAL bid_close MINUTE <= NOW()";
-                // $db->query($sqld);
+                    $start_time = date('Y-m-d H:i:s', strtotime($min));
+                    $to_time = strtotime($current_time);
+                    $from_time = strtotime($end_time);
+                    $bit_st_time = strtotime($start_time);
+                    $bid_closes = (abs($to_time - $from_time) / 60);
+                    $bid_starts = (abs($bit_st_time - $to_time) / 60);
+                    $bid_close = number_format("$bid_closes", 1);
+                    $bid_start = number_format("$bid_starts", 1);
+                    //  print_r("<script>console.log(`bid_start .$bid_start`)</script>");
 
+                    // print_r($bid_id);
 
-                if (isset($_SESSION['user_details'])) {
+                    // $bid_close = round($bid_close_new);      
+                    // 
+                    // $sqld = "DELETE FROM `bid_product_details` WHERE min + INTERVAL bid_close MINUTE <= NOW()";
+                    // $db->query($sqld);
 
-                    $user_id = $_SESSION['user_details']['user_id'];
-                    $sqls = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency = $ro['cur_type'];
-                    }
-                    // print_r($currency);
-                    $data = json_decode($response, true);
-                    // print_r($response);
-                    // print_r($data['conversion_rates']['INR']);
-                    $usd = $data['conversion_rates'][$currency];
-                    //    $usd=$data['conversion_rates']['BIF'];
-                    // print_r($usd);
-                    $convert_price = (int)$bid_price * (int)$usd;
-                    // print_r($convert_price);
-                    // print_r($result);
-                } else if (isset($_SESSION['vendor_details'])) {
-                    $user_id = $_SESSION['vendor_details']['vendor_id'];
-                    $sqls = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency = $ro['cur_type'];
-                    }
-                    // print_r($currency);
-                    $data = json_decode($response, true);
-                    // print_r($response);
-                    // print_r($data['conversion_rates']['INR']);
-                    $usd = $data['conversion_rates'][$currency];
-                    //    $usd=$data['conversion_rates']['BIF'];
-                    // print_r($usd);
-                    $convert_price = (int)$bid_price * (int)$usd;
-                    // print_r($convert_price);
-                    // print_r($result);
-                } else if (isset($_SESSION['s_provider'])) {
-                    $user_id = $_SESSION['s_provider']['user_id'];
-                    $sqls = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency = $ro['cur_type'];
-                    }
-                    // print_r($currency);
-                    $data = json_decode($response, true);
-                    // print_r($response);
-                    // print_r($data['conversion_rates']['INR']);
-                    $usd = $data['conversion_rates'][$currency];
-                    //    $usd=$data['conversion_rates']['BIF'];
-                    // print_r($usd);
-                    $convert_price = (int)$bid_price * (int)$usd;
-                    // print_r($convert_price);
-                    // print_r($result);
-                }
-                // print_r($sqls);
+                    // ------<<<<<<      this is all for currency  type conversion     >>>>>>>>>>>>--------------
+                    if (isset($_SESSION['user_details'])) {
 
-
-
-                if (isset($_SESSION['user_details'])) {
-                    $cur_type = $_SESSION['user_details']['cur_type'];
-                    $user_id = $_SESSION['user_details']['user_id'];
-                    $get_qry = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
-                    // print_r($get_qry);
-                    $get_exc = mysqli_query($db, $get_qry);
-                    $user_details = mysqli_fetch_assoc($get_exc);
-                    $user_currency_type = $user_details['cur_type'];
-                    // print_r();
-                    // print_r($cur_type);
-                    $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency_symbol = $ro['symbol'];
-                    }
-                } else if (isset($_SESSION['vendor_details'])) {
-                    $cur_type = $_SESSION['vendor_details']['cur_type'];
-                    $user_id = $_SESSION['vendor_details']['vendor_id'];
-                    $get_qry = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
-                    // print_r($get_qry);
-                    $get_exc = mysqli_query($db, $get_qry);
-                    $user_details = mysqli_fetch_assoc($get_exc);
-                    $user_currency_type = $user_details['cur_type'];
-                    // print_r();
-                    // print_r($cur_type);
-                    $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency_symbol = $ro['symbol'];
-                    }
-                } else if (isset($_SESSION['s_provider'])) {
-                    $cur_type = $_SESSION['s_provider']['cur_type'];
-                    $user_id = $_SESSION['s_provider']['user_id'];
-                    $get_qry = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
-                    // print_r($get_qry);
-                    $get_exc = mysqli_query($db, $get_qry);
-                    $user_details = mysqli_fetch_assoc($get_exc);
-                    $user_currency_type = $user_details['cur_type'];
-                    // print_r();
-                    // print_r($cur_type);
-                    $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency_symbol = $ro['symbol'];
-                    }
-                }
-                //  print_r($currency_symbol);
-                //  $sql = "SELECT *
-                //  FROM `bid_product_details`
-                //  JOIN `vendor_details` ON `bid_product_details`.`vendor_id` = `vendor_details`.`vendor_id`
-                //  WHERE `vendor_details`.`vendor_id` = '$vendor'
-                //  ORDER BY `bid_product_details`.`vendor_id`;
-                //  ";
-            ?>
-                <div class="card" id="pro<?php echo $bid_id; ?>">
-                    <script>
-                        echo $product = <?php echo $product_id; ?>
-                    </script>
-                    <!-- <i onclick="myFunction(this)" class="fas fa-heart" id="wishlist-icon"></i>
-                    <script>
-                    function myFunction(x) {
-                        x.classList.toggle("active");
-                    }
-                    </script> -->
-                    <img class="card-img-top" style="object-fit: cover;" data-bidId="<?php echo $bid_id ?>" src="./upload/cards/<?php echo $bid_image; ?>" alt="Card image cap">
-                    <!-- The Modal -->
-                    <div class="card-body">
-                        <p class="card-text"><?php echo $bid_name; ?></p>
-                        <?php
-                        if ($current_time < $min) {
-                            echo 'Bids Starts in ';
-                        } else if ($current_time >= $min && $current_time <= $end_time) {
-                        ?>
-                            <div style="color:black;" id="timer<?php echo $bid_id; ?>" style="text-align:center;margin-bottom:4px;">
-                            </div>
-                        <?php
-                        } else {
-                            echo 'CLOSED';
+                        $user_id = $_SESSION['user_details']['user_id'];
+                        $sqls = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency = $ro['cur_type'];
                         }
-                        ?>
-                        <script>
+                        // print_r($currency);
+                        $data = json_decode($response, true);
+                        // print_r($response);
+                        // print_r($data['conversion_rates']['INR']);
+
+                        // ------------------>>>>>>>>>>>>>>>>>>>
+                        $usd = $data['conversion_rates'][$currency];
+                        // ------------------>>>>>>>>>>>>>>>>>>>
+
+
+
+                        //    $usd=$data['conversion_rates']['BIF'];
+                        // print_r($usd);
+                        // ------------------>>>>>>>>>>>>>>>>>>>
+                        $convert_price = (int)$bid_price * (int)$usd;
+                        // ------------------>>>>>>>>>>>>>>>>>>>
+                        // print_r($convert_price);
+                        // print_r($result);
+                    } else if (isset($_SESSION['vendor_details'])) {
+                        $user_id = $_SESSION['vendor_details']['vendor_id'];
+                        $sqls = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency = $ro['cur_type'];
+                        }
+                        // print_r($currency);
+                        $data = json_decode($response, true);
+                        // print_r($response);
+                        // print_r($data['conversion_rates']['INR']);
+                        $usd = $data['conversion_rates'][$currency];
+                        //    $usd=$data['conversion_rates']['BIF'];
+                        // print_r($usd);
+                        $convert_price = (int)$bid_price * (int)$usd;
+                        // print_r($convert_price);
+                        // print_r($result);
+                    } else if (isset($_SESSION['s_provider'])) {
+                        $user_id = $_SESSION['s_provider']['user_id'];
+                        $sqls = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency = $ro['cur_type'];
+                        }
+                        // print_r($currency);
+                        $data = json_decode($response, true);
+                        // print_r($response);
+                        // print_r($data['conversion_rates']['INR']);
+                        $usd = $data['conversion_rates'][$currency];
+                        //    $usd=$data['conversion_rates']['BIF'];
+                        // print_r($usd);
+                        $convert_price = (int)$bid_price * (int)$usd;
+                        // print_r($convert_price);
+                        // print_r($result);
+                    }
+                    // print_r($sqls);
+
+
+                    if (isset($_SESSION['user_details'])) {
+                        $cur_type = $_SESSION['user_details']['cur_type'];
+                        $user_id = $_SESSION['user_details']['user_id'];
+                        $get_qry = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
+                        // print_r($get_qry);
+                        $get_exc = mysqli_query($db, $get_qry);
+                        $user_details = mysqli_fetch_assoc($get_exc);
+                        $user_currency_type = $user_details['cur_type'];
+                        // print_r();
+                        // print_r($cur_type);
+                        $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency_symbol = $ro['symbol'];
+                        }
+                    } else if (isset($_SESSION['vendor_details'])) {
+                        $cur_type = $_SESSION['vendor_details']['cur_type'];
+                        $user_id = $_SESSION['vendor_details']['vendor_id'];
+                        $get_qry = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
+                        // print_r($get_qry);
+                        $get_exc = mysqli_query($db, $get_qry);
+                        $user_details = mysqli_fetch_assoc($get_exc);
+                        $user_currency_type = $user_details['cur_type'];
+                        // print_r();
+                        // print_r($cur_type);
+                        $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency_symbol = $ro['symbol'];
+                        }
+                    } else if (isset($_SESSION['s_provider'])) {
+                        $cur_type = $_SESSION['s_provider']['cur_type'];
+                        $user_id = $_SESSION['s_provider']['user_id'];
+                        $get_qry = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
+                        // print_r($get_qry);
+                        $get_exc = mysqli_query($db, $get_qry);
+                        $user_details = mysqli_fetch_assoc($get_exc);
+                        $user_currency_type = $user_details['cur_type'];
+                        // print_r();
+                        // print_r($cur_type);
+                        $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency_symbol = $ro['symbol'];
+                        }
+                    } ?>
+
+                    <!-- // ------<<<<<<      this is all for currency  type conversion     >>>>>>>>>>>>-------------- -->
+
+                    <div class="col-6 col-sm-3">
+                        <div class="card" id="pro<?php echo $bid_id; ?>">
+
+                            <img class="card-img-top" style="object-fit: cover;" data-bidId="<?php echo $bid_id ?>" src="./upload/cards/<?php echo $bid_image; ?>" alt="Card image cap">
+                            <!-- The Modal -->
+                            <div class="card-body">
+                                <p class="card-text"><?php echo $bid_name; ?></p>
+                                <?php
+                                if ($current_time < $min) {
+                                    // echo 'Bids Starts in ' . date('H:i:s', strtotime($min));
+                                ?>
+                                    <div style="color:black;" id="timerToStart<?php echo $bid_id; ?>" style="text-align:center;margin-bottom:4px;">Bid Starts IN
+                                    </div>
+                                <?php
+                                } else if ($current_time >= $min && $current_time <= $end_time) {
+                                ?>
+                                    <div style="color:black;" id="timer<?php echo $bid_id; ?>" style="text-align:center;margin-bottom:4px;">Bid Ends IN
+                                    </div>
+                                <?php
+                                } else {
+                                    echo 'CLOSED';
+                                }
+                                ?>
+
+
+                                <?php
+                                if (isset($_SESSION['user_details'])) { ?>
+                                    <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['user_details']['user_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
+                                    <?php } else if (isset($_SESSION['vendor_details'])) { ?>
+                                        <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['vendor_details']['vendor_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
+                                        <?php  } else if (isset($_SESSION['s_provider'])) { ?>
+                                            <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['s_provider']['user_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
+                                            <?php  } else { ?>
+                                                <button id="bidbtn" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto not " style="justify-content: center;">
+                                                <?php }
+
+                                                ?>
+                                                <?php echo $currency_symbol; ?> <?php echo $bid_price; ?> </button>
+
+                                                <div class="retail" style="margin-bottom:3px;color:#323030;font-size:14px;">
+                                                    <b>Retail:<?php echo  $currency_symbol . " ";
+                                                                echo ($retail > 0) ? $retail : "Not Availe" ?></b>
+                                                </div>
+                                                <div><span class="sc-bBXxYQ cIskxF"><b style="color:#323030;font-size:13px;">Sold
+                                                            By:</b></span><a style="padding-left:1px;" data-cy="sold-by-vendor-link" href="vendor_products_page.php?vendor_id=<?php echo $vendor ?>"><?php echo $vendor_name ?></a>
+                                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- script for bit to end  -->
+                    <script>
+                        function loadBet() {
+
                             // Set the duration of the timer in minutes
                             const durationInMinutes<?php echo $bid_id; ?> = <?php echo $bid_close; ?>;
                             // Calculate the total number of seconds based on the duration in minutes
                             const totalSeconds<?php echo $bid_id; ?> = durationInMinutes<?php echo $bid_id; ?> * 60;
                             // Get the HTML element where the timer will be displayed
-                            const timerElement<?php echo $bid_id; ?> = document.getElementById("timer<?php echo $bid_id; ?>");
+                            const timerElement<?php echo $bid_id; ?> = document.getElementById("timer<?= $bid_id ?>");
                             // Start the timer
                             let secondsRemaining<?php echo $bid_id; ?> = totalSeconds<?php echo $bid_id; ?>;
                             let timerId<?php echo $bid_id; ?> = setInterval(() => {
                                 // Calculate the number of hours, minutes, and seconds remaining
                                 const hoursRemaining<?php echo $bid_id; ?> = Math.floor(secondsRemaining<?php echo $bid_id; ?> / 3600);
                                 const minutesRemaining<?php echo $bid_id; ?> = Math.floor((secondsRemaining<?php echo $bid_id; ?> % 3600) / 60);
-                                const secondsInMinuteRemaining<?php echo $bid_id; ?> = secondsRemaining<?php echo $bid_id; ?> % 60;
+                                const secondsInMinuteRemaining<?php echo $bid_id; ?> = Math.floor(secondsRemaining<?php echo $bid_id; ?> % 60);
 
                                 // Update the timer display
+                                // timerElement<?php echo $bid_id; ?>.innerText = "" + `${hoursRemaining<?php echo $bid_id; ?>}` + ":" + `${minutesRemaining<?php echo $bid_id; ?>}` + ":" + `${secondsInMinuteRemaining<?php echo $bid_id; ?>}`; //${secondsInMinuteRemaining<?php echo $bid_id; ?> < 10 ? '0' : ''}
                                 timerElement<?php echo $bid_id; ?>.innerText =
                                     `${hoursRemaining<?php echo $bid_id; ?>}:${minutesRemaining<?php echo $bid_id; ?>}:${secondsInMinuteRemaining<?php echo $bid_id; ?> < 10 ? '0' : ''}${secondsInMinuteRemaining<?php echo $bid_id; ?>}`;
 
@@ -494,6 +490,9 @@ background: #0d6efd;} */
                                     clearInterval(timerId<?php echo $bid_id; ?>);
                                     timerElement<?php echo $bid_id; ?>.innerText = "CLOSED";
                                     $("#bidbtn<?php echo $bid_id; ?>").prop('disabled', true);
+                                    setTimeout(() => {
+                                        location.reload();
+                                    }, 10000);
 
                                     setTimeout(function() {
                                         $.ajax({
@@ -509,69 +508,81 @@ background: #0d6efd;} */
                                         });
                                     }, 5000);
                                 }
+
                             }, 1000);
-                        </script>
+
+                        }
+                        loadBet();
+                        setInterval(() => {
+                            $.ajax({
+                                type: "POST",
+                                url: `update_bid_amount.php?bid_id=<?php echo $bid_id; ?>`, //C:\xampp\htdocs\_treasuretroove_backup_from_live by jeeva bro\update_bid_amount.php                             
+                                success: function(response) {
+                                    // console.log(response);
+                                    $("#bidbtn<?php echo $bid_id; ?>").html(response);
+                                    $("#bidbtn<?php echo $bid_id; ?>").attr("data-min_amo", response);
+                                }
+                            });
+
+                        }, 15000)
+                    </script>
+
+                    <!-- script for bid start -->
+                    <script>
+                        // Set the duration of the timer in minutes
+                        const durationInMinutesToStart<?php echo $bid_id; ?> = <?php echo $bid_start; ?>;
+                        // Calculate the total number of seconds based on the duration in minutes
+                        const totalSecondsToStart<?php echo $bid_id; ?> = durationInMinutesToStart<?php echo $bid_id; ?> * 60;
+                        // Get the HTML element where the timer will be displayed
+                        const timerElementToStart<?php echo $bid_id; ?> = document.getElementById("timerToStart<?php echo $bid_id; ?>");
+                        // Start the timer
+                        let secondsRemainingToStart<?php echo $bid_id; ?> = totalSecondsToStart<?php echo $bid_id; ?>;
+                        let timerIdToStart<?php echo $bid_id; ?> = setInterval(() => {
+                            // Calculate the number of hours, minutes, and seconds remaining
+                            const hoursRemainingToStart<?php echo $bid_id; ?> = Math.floor(secondsRemainingToStart<?php echo $bid_id; ?> / 3600);
+                            const minutesRemainingToStart<?php echo $bid_id; ?> = Math.floor((secondsRemainingToStart<?php echo $bid_id; ?> % 3600) / 60);
+                            const secondsInMinuteRemainingToStart<?php echo $bid_id; ?> = Math.floor(secondsRemainingToStart<?php echo $bid_id; ?> % 60);
+
+                            // Update the timer display
+                            timerElementToStart<?php echo $bid_id; ?>.innerText =
+                                `Bids Starts in ${hoursRemainingToStart<?php echo $bid_id; ?>}:${minutesRemainingToStart<?php echo $bid_id; ?>}:${secondsInMinuteRemainingToStart<?php echo $bid_id; ?> < 10 ? '0' : ''}${secondsInMinuteRemainingToStart<?php echo $bid_id; ?>}`;
+
+                            // Decrement the number of seconds remaining
+                            secondsRemainingToStart<?php echo $bid_id; ?>--;
+
+                            // If the timer has reached zero, stop the interval
+                            if (secondsRemainingToStart<?php echo $bid_id; ?> < 0) {
+                                clearInterval(timerIdToStart<?php echo $bid_id; ?>);
+                                timerElementToStart<?php echo $bid_id; ?>.innerText = "";
+
+                                // loadBet();
+                                $("#bidbtn<?php echo $bid_id; ?>").prop('disabled', false);
+                                // loadBet();
+                                location.reload();
+
+                            } else {
+                                $("#bidbtn<?php echo $bid_id; ?>").prop('disabled', true);
+                            }
+                        }, 1000);
+                    </script>
 
 
-
-                        <?php
-                        if (isset($_SESSION['user_details'])) { ?>
-                            <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['user_details']['user_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
-                            <?php } else if (isset($_SESSION['vendor_details'])) { ?>
-                                <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['vendor_details']['vendor_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
-                                <?php  } else if (isset($_SESSION['s_provider'])) { ?>
-                                    <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['s_provider']['user_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
-                                    <?php  } else { ?>
-                                        <button id="bidbtn<?php echo $bid_id; ?>" class="btn  btn-lg btn_grad_blgr w-50 text-truncate mt-auto increase" data-min_amo='<?php echo $bid_price; ?>' user='<?php echo $_SESSION['user_details']['user_id']; ?>' data-bid_amo='<?php echo $bid_inc_price; ?>' data-bidId='<?php echo $bid_id ?>'>
-                                        <?php } ?>
-                                        <?php echo $currency_symbol; ?> <?php echo $bid_price; ?> </button>
-                                        <span class="sc-ciZhAO bpCaOA d-inline-block" style="margin-bottom:3px;display:grid;place-items:center;">winning<img src="upload/profile/<?php echo $user_image ?>" class="sc-himrzO kCyZje rounded-circle"><span class="sc-jdAMXn bbLgnY"><?php echo $user_name ?><svg xmlns="http://www.w3.org/2000/svg" height="13" viewBox="0 0 512 341.337">
-                                                    <g transform="translate(0 -85.331)">
-                                                        <rect width="512" height="341.337" transform="translate(0 85.331)" fill="#f0f0f0"></rect>
-                                                        <g>
-                                                            <rect width="512" height="42.663" transform="translate(0 127.994)" fill="#d80027"></rect>
-                                                            <rect width="512" height="42.663" transform="translate(0 213.331)" fill="#d80027"></rect>
-                                                            <rect width="512" height="42.663" transform="translate(0 298.657)" fill="#d80027"></rect>
-                                                            <rect width="512" height="42.663" transform="translate(0 383.994)" fill="#d80027"></rect>
-                                                        </g>
-                                                        <rect width="256" height="183.797" transform="translate(0 85.331)" fill="#2e52b2"></rect>
-                                                        <g>
-                                                            <path d="M99.822,160.624,95.7,173.308H82.363l10.791,7.835-4.123,12.683,10.791-7.835,10.784,7.835-4.122-12.683,10.791-7.835H103.938Z" fill="#f0f0f0"></path>
-                                                            <path d="M103.938,219.08,99.822,206.4,95.7,219.08H82.363l10.791,7.836L89.031,239.6l10.791-7.836,10.784,7.836-4.122-12.683,10.791-7.836Z" fill="#f0f0f0"></path>
-                                                            <path d="M47.577,219.08,43.46,206.4,39.337,219.08H26l10.791,7.836L32.669,239.6l10.791-7.836L54.245,239.6l-4.122-12.683,10.789-7.836Z" fill="#f0f0f0"></path>
-                                                            <path d="M43.46,160.624l-4.123,12.684H26l10.791,7.835-4.123,12.683,10.791-7.835,10.785,7.835-4.122-12.683,10.789-7.835H47.577Z" fill="#f0f0f0"></path>
-                                                            <path d="M99.822,114.85,95.7,127.535H82.363l10.791,7.836-4.123,12.683,10.791-7.836,10.784,7.836-4.122-12.683,10.791-7.836H103.938Z" fill="#f0f0f0"></path>
-                                                            <path d="M43.46,114.85l-4.123,12.685H26l10.791,7.836-4.123,12.683,10.791-7.836,10.785,7.836-4.122-12.683,10.789-7.836H47.577Z" fill="#f0f0f0"></path>
-                                                            <path d="M156.183,160.624l-4.122,12.684H138.725l10.79,7.835-4.121,12.683,10.789-7.835,10.786,7.835-4.123-12.683,10.791-7.835H160.3Z" fill="#f0f0f0"></path>
-                                                            <path d="M160.3,219.08,156.183,206.4l-4.122,12.683H138.725l10.79,7.836L145.394,239.6l10.789-7.836,10.786,7.836-4.123-12.683,10.791-7.836Z" fill="#f0f0f0"></path>
-                                                            <path d="M216.663,219.08,212.546,206.4l-4.123,12.683H195.088l10.789,7.836L201.755,239.6l10.791-7.836,10.785,7.836-4.123-12.683L230,219.08Z" fill="#f0f0f0"></path>
-                                                            <path d="M212.546,160.624l-4.123,12.684H195.088l10.789,7.835-4.122,12.683,10.791-7.835,10.785,7.835-4.123-12.683L230,173.308H216.663Z" fill="#f0f0f0"></path>
-                                                            <path d="M156.183,114.85l-4.122,12.685H138.725l10.79,7.836-4.121,12.683,10.789-7.836,10.786,7.836-4.123-12.683,10.791-7.836H160.3Z" fill="#f0f0f0"></path>
-                                                            <path d="M212.546,114.85l-4.123,12.685H195.088l10.789,7.836-4.122,12.683,10.791-7.836,10.785,7.836-4.123-12.683L230,127.535H216.663Z" fill="#f0f0f0"></path>
-                                                        </g>
-                                                    </g>
-                                                </svg></span></span>
-                                        <div class="retail" style="margin-bottom:3px;color:#323030;font-size:14px;">
-                                            <b>Retail:<?php echo  $currency_symbol ?><?php echo $retail ?></b>
-                                        </div>
-                                        <div><span class="sc-bBXxYQ cIskxF"><b style="color:#323030;font-size:13px;">Sold
-                                                    By:</b></span><a style="padding-left:1px;" data-cy="sold-by-vendor-link" href="vendor_products_page.php?vendor_id=<?php echo $vendor ?>"><?php echo $vendor_name ?></a>
-                                        </div>
+                <?php }
+                if ($contains) { ?>
+                    <div class="text-center">
+                        <img style="height:300px; width:780px; position:relative; left:175px" src="./upload/deal/giphy.gif" alt="">
                     </div>
-                </div>
-            <?php }
-            if ($contains) { ?>
-                <!-- <div style="height: 450px;justify-content:center;"> -->
-                <img style="height:450px;width:65%;object-fit: contain;justify-content:center;" src="./upload/deal/come_soon.jpg" alt="">
-                <!-- </div> -->
-            <?php } ?>
+                <?php } ?>
+            </div>
         </div>
+    </section>
 </div>
 <!-- COMMON TO THE BID PAGE UP TO THIS FOR BID AND EMPTY BIT DISPLAY -->
-</section>
+
 <style>
     .parent {
         display: flex;
+
     }
 
     .container input {
@@ -603,7 +614,7 @@ background: #0d6efd;} */
         margin-top: 13px;
     }
 </style>
-
+<!--  display the focused view of the individual product -->
 <div class="w3-container">
     <div id="id01" class="w3-modal fullpopupimgsss">
         <div class="w3-modal-content">
@@ -938,37 +949,45 @@ for search results */
                         <div class="product-imgs">
                             <div class="img-display">
                                 <div class="img-showcase">
-                                    <img style="width:300px;height:396px;" src="" class="masterImg" alt="product image">
-                                    <img style="width:300px;height:396px;" src="" class="childOne" alt="product image">
-                                    <img style="width:300px;height:396px;" src="" class="childTwo" alt="product image">
-                                    <img style="width:300px;height:396px;" src="" class="childThree" alt="product image">
-                                    <img style="width:300px;height:396px;" src="" class="childFour" alt="product image">
+                                    <img style="width:300px;height:396px;object-fit:cover" src="" class="masterImg" alt="product image">
+                                    <img style="width:300px;height:396px;object-fit:cover" src="" class="childOne" alt="product image">
+                                    <img style="width:300px;height:396px;object-fit:cover" src="" class="childTwo" alt="product image">
+                                    <img style="width:300px;height:396px;object-fit:cover" src="" class="childThree" alt="product image">
+
+                                    <video width="500px" height="396px" style="display:grid;place-items:center;" class="childFour videoClass" controls>
+                                        <source src="" alt="product video">
+                                        <source src="" alt="product video">
+                                    </video>
                                 </div>
                             </div>
                             <div class="img-select">
-                                <div class="img-item">
+                                <div class="img-item img-select-1">
                                     <a href="#" data-id="1">
                                         <img style="width:100px;height:100px" class="masterImg" src="" alt="image">
                                     </a>
                                 </div>
-                                <div class="img-item">
+                                <div class="img-item img-select-2">
                                     <a href="#" data-id="2">
                                         <img style="width:100px;height:100px" class="childOne" src="" alt="image">
                                     </a>
                                 </div>
-                                <div class="img-item">
+                                <div class="img-item img-select-3">
                                     <a href="#" data-id="3">
                                         <img style="width:100px;height:100px" class="childTwo" src="" alt="image">
                                     </a>
                                 </div>
-                                <div class="img-item">
+                                <div class="img-item img-select-4">
                                     <a href="#" data-id="4">
                                         <img style="width:100px;height:100px" class="childThree" src="" alt="image">
                                     </a>
                                 </div>
-                                <div class="img-item">
+                                <div class="img-item img-select-5">
                                     <a href="#" data-id="5">
-                                        <img style="width:100px;height:100px" class="childFour" src="" alt="image">
+                                        <!-- <img style="width:100px;height:100px"  src="" alt="image"> -->
+                                        <video width="100" height="100" class="childFour videoClass" poster>
+                                            <source src="" alt="product video">
+                                            <source src="" alt="product video">
+                                        </video>
                                     </a>
                                 </div>
                             </div>
@@ -976,7 +995,7 @@ for search results */
                         <!-- card right -->
                         <div class="product-content">
                             <h2 class="product-title">NIke Shoes</h2>
-                            <a href="#" class="product-link">visit nike store</a>
+                            <!-- <a href="#" class="product-link">visit nike store</a>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -984,17 +1003,16 @@ for search results */
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>4.7(21)</span>
-                            </div><br>
+                            </div><br> -->
                             <div class="detail">
                                 <img src="assets/images/delivery-truck (1).png" style="width:39px;" alt="">
-                                <div class="p">
+                                <div class="p"> <b> Free Shipping, Free Returns</b>
                                     Delivery time varies by size, select your size for shipping estimates.</div><br>
                             </div>
                             <div class="product-price">
                                 <p class="last-price">Old Price: <span class="oldprice"></span></p>
                                 <p class="new-price">New Price: <span class="newPrice"></span></p>
                             </div>
-                            <p>Shipping:<b class="free"></b></p>
                             <div class="product-detail">
                                 <h2>about this item: </h2>
                                 <p class="proDisc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet
@@ -1004,30 +1022,17 @@ for search results */
                                     quidem at sequi ipsa!</p>
                                 <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, perferendis eius. Dignissimos, labore suscipit. Unde.</p> -->
                                 <ul>
-                                    <li>Color: <span>Black</span></li>
-                                    <li>Available: <span>in stock</span></li>
-                                    <li>Category: <span>Shoes</span></li>
-                                    <li>Shipping Area: <span>All over the world</span></li>
-                                    <li>Shipping Fee: <span>Free</span></li>
+                                    <!-- <li>Available: <span><b class="stock"></b></li>
+                                <li>Category: <span><b class="category"></b></span></li>
+                                <li>Shipping Area: <span><b class="free"></b></span><li>                     -->
+                                    <li class="jewel">Cut:<span><b class="cut"></b></span></li>
+                                    <li class="jewel">Color:<span><b class="color"></b></span></li>
+                                    <li class="jewel">Clarity:<span><b class="clarity"></b></span></li>
+                                    <li class="jewel">Carat:<span><b class="carat"></b></span></li>
                                 </ul>
                             </div>
-                            <div class="purchase-info">
-                                <h3>Size</h3>
-                                <button type="button" class="btn">
-                                    7 <i class="fas fa-shopping-cart"></i>
-                                </button>
-                                <button type="button" class="btn" style="background-color: white; color: #000;">8</button>
-                                <button type="button" class="btn" style="background-color: white; color: #000;">9</button>
-                                <button type="button" class="btn" style="background-color: white; color: #000;">10</button>
-                            </div>
-                            <div class="purchase-info">
-                                <label for="">Quantity</label>
-                                <input type="number" min="0" value="1">
-                                <button type="button" class="btn">
-                                    <a href="cart.php" style="color:white;"> Add to Cart </a> <i class="fas fa-shopping-cart"></i>
-                                </button>
-                                <button type="button" class="btn">Buy Now</button>
-                            </div>
+
+
                         </div>
                     </div>
                     <div class="social-links">
@@ -1051,18 +1056,8 @@ for search results */
         </div>
     </div>
 </div>
-</div>
 
 
-
-
-
-
-
-
-</div>
-</div>
-</div>
 <style>
     .parent {
         display: flex;
@@ -1112,7 +1107,193 @@ for search results */
         }
     }
 </script>
+
 <?php include("include/footer.php"); ?>
+
+<!-- sctipt from header part start -->
+
+<!-- script for currency start -->
+<script>
+    $(document).ready(function() {
+        $('.cur').click(function() {
+            // var currencyId = <?php echo json_encode($currency); ?>;
+            var currencyId = $(this).attr('data-proId');
+
+            var userid = <?php echo ($user_id); ?>;
+
+            //   alert(currencyId);
+            //  exit();
+            $.ajax({
+                url: 'update_currency.php',
+                method: 'POST',
+                data: {
+                    currency_id: currencyId,
+                    user_id: userid
+                },
+                success: function(response) {
+                    // alert('updated Your Currency Successfullly!');
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert('error');
+                }
+            });
+        });
+    });
+</script>
+<!-- currency script end -->
+
+<!-- search your Product  items on key press -->
+<script>
+    $(document).ready(function() {
+        $("#search_results").empty();
+        $("#search").keyup(function() {
+            var search = $(this).val();
+            if (search === '') {
+                // alert(search);
+                $("#search_results").empty();
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "search_product.php",
+                    data: {
+                        search: search
+                    },
+                    dataType: "json", // Added to parse the response as JSON
+                    success: function(data) {
+                        console.log(data);
+                        // Clear previous search results
+                        $("#search_results").empty();
+
+                        // Append new search results
+                        data.forEach(function(product) {
+                            $("#search_results").append(
+                                '<a href="searchbuy.php?id=' +
+                                product.product_id +
+                                '"><p>' +
+                                product.product_name +
+                                "</p></a><br/>"
+                            );
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    },
+                });
+            }
+
+        });
+
+
+
+    });
+</script>
+<!--  End of the search your Product  items -->
+
+<style>
+    .product-con {
+        display: flex;
+        width: 100%;
+    }
+
+    .pro-con {
+        margin: 10px;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .list-pro {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 0 20px;
+    }
+
+    #clear_search_text {
+        position: relative;
+        right: 25px;
+
+    }
+</style>
+
+<!-- search bid script start on key press -->
+<script>
+    //search result
+    $(document).ready(function() {
+        $("#search").keyup(function() {
+            var search = $(this).val();
+            if (search === '') {
+                // alert("empty");
+                $("#search_results").empty();
+            } else {
+                // alert(search);
+                $.ajax({
+                    type: "POST",
+                    url: "search_bid_product.php",
+                    data: {
+                        search: search
+                    },
+                    dataType: "json", // Added to parse the response as JSON
+                    success: function(data) {
+                        console.log(data);
+                        // Clear previous search results
+                        $("#search_results").empty();
+
+                        // Append new search results
+                        data.forEach(function(product) {
+                            $("#search_results").append(
+                                '<a href="searchbid.php?id=' +
+                                product.product_id +
+                                '"><p>' +
+                                product.product_name +
+                                "</p></a><br/>"
+                            );
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    },
+                });
+            }
+        });
+
+    });
+</script>
+<!-- search bid script end -->
+
+<!-- scritp for nav_link highlight and notifiction popup start -->
+<script>
+    $(document).ready(function() {
+        $('.nav-link').click(function() {
+            // Remove active class from all nav links
+            $('.nav-link').removeClass('active');
+
+            // Add active class to the clicked nav link
+            $(this).addClass('active');
+        });
+    });
+
+    $(document).ready(function() {
+
+        $('.notification-icon').click(function() {
+
+            $('.message-popup').toggle();
+        });
+    });
+
+    $(document).ready(function() {
+
+        $('#clear_search_text').click(function() {
+            document.getElementById('search').value = "";
+            $("#search_results").empty();
+            // alert("clear");
+        });
+    });
+</script>
+<!-- scritp for nav_link highlight and notifiction popup  end-->
+
+<!-- script from header end  -->
+
 <style>
     .btn_grad_blgr {
 
@@ -1157,6 +1338,7 @@ for search results */
         text-transform: uppercase;
     }
 </style>
+
 <script>
     function increaseQuantity() {
         var quantity = parseInt(document.getElementById("quantity").value); // Get the current quantity value
@@ -1164,8 +1346,10 @@ for search results */
         document.getElementById("quantity").value = quantity; // Update the quantity value in the input field
     }
 </script>
+
 <script>
     $(document).ready(function() {
+        $(".jewel").hide();
         $(".card-img-top").click(function() {
             var bidId = $(this).attr('data-bidId');
             // alert(proId);
@@ -1180,25 +1364,58 @@ for search results */
                     var rec = JSON.parse(data);
                     // console.log(data);
                     //  alert(data);
+                    if (rec.category_name == 103) {
+                        $(".jewel").show();
+                        // alert(rec.category_name);
+                    } else {
+                        // alert("failu"); 
+                        $(".jewel").hide();
+                    }
                     console.log(rec.product_name);
                     $(".product-title").text(rec.product_name);
-                    $(".oldprice").text(rec.product_old_price);
-                    $(".newPrice").text(rec.bid_new_price);
+                    // $(".oldprice").text(rec.product_old_price);
+                    // $(".newPrice").text(rec.bid_new_price);
                     $(".proDisc").text(rec.product_description);
-                    $(".free").text(rec.shipping);
-                    $(".masterImg").attr("src", './upload/cards/' + rec.product_image1);
-                    $(".childOne").attr("src", './upload/cards/' + rec.product_image2);
-                    $(".childTwo").attr("src", './upload/cards/' + rec.product_image3);
-                    $(".childThree").attr("src", './upload/cards/' + rec.product_image4);
-                    $(".childFour").attr("src", './upload/cards/' + rec.product_image5);
+                    $(".cut").text(rec.cut);
+                    $(".color").text(rec.color);
+                    $(".clarity").text(rec.clarity);
+                    $(".carat").text(rec.carat);
+                    $(".stock").text(rec.balanced_stock);
+                    $(".category").text(rec.category_id);
+                    $(".free").text(rec.tax);
+                    if (rec.product_image1 != "") {
+                        $(".masterImg").attr("src", './upload/cards/' + rec.product_image1);
+
+                    } else {
+                        $(".img-select-1").hide();
+                    }
+                    if (rec.product_image2 != "") {
+                        $(".childOne").attr("src", './upload/cards/' + rec.product_image2);
+
+                    } else {
+                        $(".img-select-2").hide();
+                    }
+                    if (rec.product_image3 != "") {
+                        $(".childTwo").attr("src", './upload/cards/' + rec.product_image3);
+                    } else {
+                        $(".img-select-3").hide();
+                    }
+                    if (rec.product_image4 != "") {
+                        $(".childThree").attr("src", './upload/cards/' + rec.product_image4);
+                    } else {
+                        $(".img-select-4").hide();
+                    }
+                    if (rec.product_image5 != "") {
+                        $(".childFour").attr("src", './upload/cards/' + rec.product_image5);
+                    } else {
+                        $(".img-select-5").hide();
+                    }
                     $(".fullpopupimgsss").show();
                 }
             });
         });
     });
 </script>
-
-
 
 <script>
     $(document).ready(function() {
@@ -1210,7 +1427,8 @@ for search results */
             var user_id_no = $(this).attr('user');
             var newBid_price = <?php echo $bid_inc_price; ?>;
             var newBid = parseInt(data) + parseInt(bid_data);
-            // alert(user_id_no);
+
+            // alert(newBid);
             // exit();
 
             if (alert == true) {
@@ -1223,18 +1441,12 @@ for search results */
                         bid_amount: newBid,
                         user_id_no: user_id_no
                     },
+                    dataType: "json",
                     success: function(data) {
-                        var obj = JSON.parse(data);
-                        var newPrice = obj.product_new_price;
-                        var new_user = obj.user_id;
-                        $("[data-bidId=" + bidId + "]").text(newPrice);
-                        // $("[user="+user_id_no +"]").text(new_user);
-                        // $(".increase").text(newPrice);
-                        // location.reload();
-                        alert("sri");
+                        $("#bidbtn" + bidId).html(data[0] + " " + data[1]);
+                        $("#bidbtn" + bidId).attr("data-min_amo", data[1]);
                     }
                 });
-                // print_r(data);
             } else {
                 alert("error");
             }
@@ -1243,42 +1455,7 @@ for search results */
         });
     });
 </script>
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Handle increase bid button click
-            $('#increaseBid').click(function() {
-                var currentBid = parseFloat($('#bidAmount').val());
-                var newBid = currentBid + 1;
-
-                // Update the bid input field with the new bid amount
-                $('#bidAmount').val(newBid);
-
-                // Send the new bid to the server using AJAX
-                $.ajax({
-                    type: 'POST',
-                    url: 'update_bid.php',
-                    data: {
-                        user: $('#user').val(),
-                        bid_amount: newBid
-                    },
-                    success: function(response) {
-                        alert(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            });
-        }); -->
-</script>
-
-
 <!-- go to back page button -->
-
-
-
 <style>
     .back {
 
@@ -1313,7 +1490,6 @@ for search results */
         margin-right: auto;
     }
 </style>
-
 <!--  End of the search your Product  items -->
 <!-- go back button -->
 <script>
@@ -1322,10 +1498,6 @@ for search results */
         history.back();
     }
 </script>
-
 <!-- go to back page end -->
-
-
-
 
 <!-- go to back page end -->

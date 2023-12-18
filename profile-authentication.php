@@ -157,9 +157,9 @@ session_start(); ?>
     <link rel="stylesheet" href="assets/css/dark.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
 
-    <title>Eeza - Job Board & Hiring + Dashboard HTML Template</title>
+    <title>Treasure Troove</title>
 
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
 </head>
 
 <body>
@@ -244,8 +244,6 @@ session_start(); ?>
 
                     </div>
 
-
-
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent" style="margin-right:0px;">
                         <ul class="navbar-nav m-auto" style="margin-right: 20px;">
                             <!-- <li class="nav-item">
@@ -292,12 +290,8 @@ session_start(); ?>
                                             </ul>
                                         </li> <?php } ?>
                                 </ul>
-
-
-
-
+                            </li>
                             <li class="nav-item">
-
                                 <a href="buy.php" class="nav-link">
                                     Buy
                                     <i class="ri-arrow-down-s-line"></i>
@@ -336,6 +330,7 @@ session_start(); ?>
                                             </ul>
                                         </li> <?php } ?>
                                 </ul>
+                            </li>
                             <li class="nav-item">
                                 <a href="make-deal.php" class="nav-link">
                                     Deal
@@ -375,6 +370,7 @@ session_start(); ?>
                                             </ul>
                                         </li> <?php } ?>
                                 </ul>
+                            </li>
 
                             <li class="nav-item">
                                 <a href="supplier.php" class="nav-link">
@@ -385,7 +381,6 @@ session_start(); ?>
                             </li>
                             <li class="nav-item">
                                 <?php
-
                                 $sql = "SELECT `ads_id` FROM `advertise` WHERE `ads_id`=3";
 
                                 $result = $db->query($sql);
@@ -396,31 +391,12 @@ session_start(); ?>
                                     // $ads_name = $row['ads_name'];
                                 ?>
                                     <a href="matrimony.php?ads=<?php echo 3 ?>" class="nav-link"><?php echo $ads_name ?></a>
-                                <?php } ?>
-                                </a>
+                                <?php }
+                                ?>
                             </li>
 
-                            <?php if (isset($_SESSION['user_details']) == FALSE) { ?>
-                                <!-- <li class="nav-item">
-                                    <a href="profile-authentication.php"><i class="flaticon-user"></i>Login</a>
-                                    <i class="ri-arrow-down-s-line"></i>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="profile-authentication.php" class="nav-link">User Login
-                                            </a>
-
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="vendor_register.php" class="nav-link">Vendor Login
-                                            </a>
-
-                                        </li>
-                                    </ul>
-                                </li> -->
-
-
-
-
+                            <?php if (isset($_SESSION['user_details']) == FALSE) {
+                            ?>
                                 <li class="nav-item">
                                     <a href="profile-authentication.php"><i class="flaticon-user"></i> Register</a>
                                     <i class="ri-arrow-down-s-line"></i>
@@ -572,9 +548,8 @@ session_start(); ?>
                                     <?php } ?>
                                 </ul>
                             </li>
-
-
-                            <li class="nav-item">
+                            <!-- if need unlock the user account dropdown list -->
+                            <!-- <li class="nav-item">
                                 <a href="profile.php" class="nav-link" style="margin-left:-28px;">
                                     <?php if (isset($_SESSION['user_details'])) { ?>
                                         <img src="upload/profile/<?php echo $_SESSION['user_details']['user_img'] ?>" class="sc-himrzO kCyZje rounded-circle" style="width: 30px;
@@ -618,19 +593,17 @@ session_start(); ?>
                                     <a class="dropdown-item" href="#">
                                         Logout
                                     </a>
+                                </ul>
+                            </li> -->
+                        </ul>
 
                     </div>
-                    </li>
 
-                    </ul>
+
+                </nav>
             </div>
-            </nav>
         </div>
     </div>
-    </div>
-
-
-
 
     <style>
         .nav-items {
@@ -646,292 +619,311 @@ session_start(); ?>
         }
     </style>
 
-    <body>
-        <!-- Start Profile Authentication Area -->
-        <h3 class="text-center" style="margin-top:29px;font-weight:500">User Login/Register</h3>
-        <div class="profile-authentication-area ptb-100">
-            <div class="container" style="margin-top:29px;">
-                <div class="profile-authentication-tabs">
-                    <div class="authentication-tabs-list">
+    <!-- Start Profile Authentication Area -->
+    <h3 class="text-center" style="margin-top:29px;font-weight:500">User Login/Register</h3>
+    <div class="profile-authentication-area ptb-100">
+        <div class="container" style="margin-top:29px;">
+            <div class="profile-authentication-tabs">
+                <div class="authentication-tabs-list">
 
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="register-tab" data-bs-toggle="tab" href="#user_log" role="tab" aria-controls="register">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  " id="login-tab" data-bs-toggle="tab" href="#register" role="tab" aria-controls="login">Register</a>
-                            </li>
-                            <!-- <li class="nav-item">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="register-tab" data-bs-toggle="tab" href="#user_log" role="tab" aria-controls="register">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  " id="login-tab" data-bs-toggle="tab" href="#register" role="tab" aria-controls="login">Register</a>
+                        </li>
+                        <!-- <li class="nav-item">
                                 <a class="nav-link" href="forgot_pasword.php" role="tab">Reset Password</a>
                             </li> -->
-                        </ul>
-                    </div>
-                    <div class="tab-content" id="myTabContent">
-                        <!-- registeration page -->
-                        <div class="tab-pane fade " id="register" role="tabpanel">
-                            <div class="eeza-authentication-form">
-                                <?php if (isset($_POST['register'])) {
+                    </ul>
+                </div>
+                <div class="tab-content" id="myTabContent">
+                    <!-- registeration page -->
+                    <div class="tab-pane fade " id="register" role="tabpanel">
+                        <div class="eeza-authentication-form">
+                            <?php if (isset($_POST['register'])) {
 
-                                    // Check if email already exists
-                                    $existingEmailQuery = "SELECT COUNT(*) FROM `user_details` WHERE `email_address`='" . $_POST['email'] . "' ";
-                                    $existingEmailResult = $db->query($existingEmailQuery);
-                                    $emailCount = $existingEmailResult->fetch_row()[0];
+                                // Check if email already exists
+                                $existingEmailQuery = "SELECT COUNT(*) FROM `user_details` WHERE `email_address`='" . $_POST['email'] . "' ";
+                                $existingEmailResult = $db->query($existingEmailQuery);
+                                $emailCount = $existingEmailResult->fetch_row()[0];
 
-                                    if ($emailCount > 0) {
-                                        echo "<script>alert('Email already exists. Please enter a different email.');</script>";
+                                if ($emailCount > 0) {
+                                    echo "<script>alert('Email already exists. Please enter a different email.');</script>";
+                                } else {
+
+                                    $firstname = $_POST['fname'];
+                                    $email = $_POST['email'];
+                                    $password = $_POST['password'];
+                                    $cpassword = $_POST['cpassword'];
+                                    $mobile = $_POST['mobile'];
+                                    $dob = $_POST['dob'];
+                                    $ssn = $_POST['ssn'];
+                                    $zipcode = $_POST['zipcode'];
+                                    $country = $_POST['country'];
+                                    $state = $_POST['state'];
+                                    $city = $_POST['city'];
+                                    $image = $_FILES['image']['name'];
+                                    $otp = rand(100000, 999999);
+
+                                    // Check the file extension
+                                    if ($image != "") {
+                                        $product_image1Extension = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+                                        $allowedExtensions = array("jpg", "jpeg", "png", "gif");
+                                        if (!in_array($product_image1Extension, $allowedExtensions)) {
+                                            echo "Only JPG, JPEG, PNG, and GIF files are allowed.";
+                                        } else {
+                                            // Move uploaded files to a permanent location
+                                            $targetDir = "./upload/profile/";
+                                            $targetproduct_image1 = $targetDir . basename($image);
+                                            move_uploaded_file($_FILES['image']['tmp_name'], $targetproduct_image1);
+                                        }
                                     } else {
-
-                                        $firstname = $_POST['fname'];
-                                        $email = $_POST['email'];
-                                        $password = $_POST['password'];
-                                        $cpassword = $_POST['cpassword'];
-                                        $mobile = $_POST['mobile'];
-                                        $dob = $_POST['dob'];
-                                        $ssn = $_POST['ssn'];
-                                        $zipcode = $_POST['zipcode'];
-                                        $country = $_POST['country'];
-                                        $state = $_POST['state'];
-                                        $city = $_POST['city'];
-                                        $image = $_FILES['image']['name'];
-                                        $otp = rand(100000, 999999);
-
-                                        // Check the file extension
-                                        if ($image != "") {
-                                            $product_image1Extension = strtolower(pathinfo($image, PATHINFO_EXTENSION));
-                                            $allowedExtensions = array("jpg", "jpeg", "png", "gif");
-                                            if (!in_array($product_image1Extension, $allowedExtensions)) {
-                                                echo "Only JPG, JPEG, PNG, and GIF files are allowed.";
-                                            } else {
-                                                // Move uploaded files to a permanent location
-                                                $targetDir = "./upload/profile/";
-                                                $targetproduct_image1 = $targetDir . basename($image);
-                                                move_uploaded_file($_FILES['image']['tmp_name'], $targetproduct_image1);
-                                            }
-                                        } else {
-                                            $image = "";
-                                        }
-                                        //    -----------
-                                        $sql = "INSERT INTO `user_details`(`user_name`, `mobile_number`, `email_address`, `password`, `cpassword`, `dob`, `ssn_no`, `country`, `state`, `city`, `zipcode`, `user_img`,`status`,`otp`) VALUES ('$firstname','$mobile','$email','$password','$cpassword',' $dob ','$ssn','$country','$state','$city','$zipcode','$image','0',' $otp')";
-                                        $result = $db->query($sql);
-                                        if ($result) {
-                                            // echo "Successfully registered";
-                                            // ini_set();
-                                            ini_set("SMTP", "ssl://smtp.gmail.com");
-                                            ini_set("smtp_port", "25");
-                                            echo '<script type="text/javascript" >alert("temperroy data saved with status 0")</script>';
-                                            $mailto = $email;
-                                            $from = "development2@teckzy.com";
-                                            $name = $firstname;
-                                            $subject = "Treasuse Troove Verification for User Registration";
-                                            $message = "Dear " . $name . "/n/nWe have received a request for User Registration to Treasure Troove /n/nThe OTP for user verification is - " . $otp;
-                                            $header = "FROM: " . $from;
-                                            $result = mail($mailto, $subject, $message, $header);
-                                            echo '<script type="text/javascript" >alert("mail progress over wait for result....")</script>';
-                                            if (true) {
-                                                echo '<script type="text/javascript" >alert("meassage sent   VVVVVVVVV "+<?= $otp ?>)</script>';
-                                                $code = base64_encode($email); ?>
-                                                <form method="POST" action="validate_otp.php" enctype="multipart/form-data">
-                                                    <input type="hidden" name="code" id="email" value="<?= $code ?>">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter the OTP" required>
-                                                    </div>
-                                                    <button type="submit" name="validate_otp" id="validate_otp" value="" class="default-btn">Vefify OTP<i class="flaticon-send"></i></button>
-                                                    <!-- <button type="submit" name="register" class="default-btn">Register <i class="flaticon-send"></i></button> -->
-                                                </form>
-                                    <?php
-
-                                            }
-                                        } else {
-                                            echo '<script type="text/javascript" >alert(" XXXXXXXXX meassage not send")</script>';
-                                            echo "ERROR: Could not execute $sql." . $db->error;
-                                        }
+                                        $image = "";
                                     }
-                                    ?>
+                                    //    -----------
+                                    $sql = "INSERT INTO `user_details`(`user_name`, `mobile_number`, `email_address`, `password`, `cpassword`, `dob`, `ssn_no`, `country`, `state`, `city`, `zipcode`, `user_img`,`status`,`otp`) VALUES ('$firstname','$mobile','$email','$password','$cpassword',' $dob ','$ssn','$country','$state','$city','$zipcode','$image','0',' $otp')";
+                                    $result = $db->query($sql);
+                                    if ($result) {
+                                        require './Mail/phpmailer/PHPMailerAutoload.php';
+                                        $mail = new PHPMailer();
+                                        $mail->IsSMTP();
+                                        $mail->SMTPDebug  = 2;
+                                        $mail->Debugoutput = 'html';
+                                        $mail->Host       = 'smtp.gmail.com';
+                                        $mail->Port       = 587;
+                                        $mail->SMTPSecure = 'tls';
+                                        $mail->SMTPAuth   = true;
+                                        //Username to use for SMTP authentication - use full email address for gmail
+                                        $mail->Username   = "development2@teckzy.com";
+                                        $mail->Password   = "yourpassword";
+                                        //Set who the message is to be sent from
+                                        $mail->SetFrom('development2@teckzy.com', 'Teckzy');
+                                        //Set an alternative reply-to address
+                                        $mail->AddReplyTo('development2@teckzy.com', 'Teckzy');
+                                        //Set who the message is to be sent to
+                                        $mail->AddAddress($email,  $firstname);
+                                        $mail->Subject = 'PHPMailer GMail SMTP test';
+                                        //Read an HTML message body from an external file, convert referenced images to embedded, convert HTML into a basic plain-text alternative body
+                                        $mail->MsgHTML(file_get_contents('contents.html'), dirname(__FILE__));
+                                        //Replace the plain text body with one created manually
+                                        // $mail->AltBody = 'This is a plain-text message body';
+                                        //Attach an image file
+                                        // $mail->AddAttachment('images/phpmailer_mini.gif');
+                                        //Send the message, check for errors
+                                        echo '<script type="text/javascript" >alert("mail progress over wait for result has sent or not....")</script>';
+                                        if (!$mail->Send()) {
+                                            $sql = "DELETE FROM `user_details` WHERE email_address='$email' AND mobile_number='$mobile' AND status='0' ";
+                                            $result = $db->query($sql);
+                                            echo "Mailer Error: " . $mail->ErrorInfo;
+                                        } else {
+                                            echo "Message sent!";
 
-                                <?php } else { ?>
-                                    <form method="POST" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <input type="text" name="fname" class="form-control" placeholder=" Name" id="username">
-                                            <p id="name_error" style="color:red;"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="email" class="form-control" placeholder=" email" id="email">
-                                            <p id="email_error" style="color:red;"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" name="password" class="form-control" placeholder="Password" id="password">
-                                            <p id="pass_error" style="color:red;"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" id="cpassword">
-                                            <p id="cpass_error" style="color:red;"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="mobile" class="form-control" maxlength="10" minlength="10" placeholder=" Mobile Number" id="mobile">
-                                            <p id="mobile_error" style="color:red;"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-4 pl-5 text-muted">
-                                                    Choose Your <br> Profile Image
+                                            echo '<script type="text/javascript" >alert("meassage sent   VVVVVVVVV "+<?= $otp ?>)</script>';
+                                            $code = base64_encode($email); ?>
+                                            <form method="POST" action="validate_otp.php" enctype="multipart/form-data">
+                                                <input type="hidden" name="code" id="email" value="<?= $code ?>">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter the OTP" required>
                                                 </div>
-                                                <div class="col-lg-8">
-                                                    <input type="file" name="image" class="form-control" placeholder="upload your Profile Image" id="profile">
-                                                </div>
-                                            </div>
-                                            <p id="prof_error" style="color:red;"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-4 pl-5 text-muted">
-                                                    Date Of <br> Birth
-                                                </div>
-                                                <div class="col-lg-8">
-                                                    <input type="date" name="dob" class="form-control" placeholder="DOB" id="">
-                                                </div>
-                                            </div>
-                                            <p id="r" style="color:red;"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="ssn" class="form-control" minlength="9" maxlength="9" placeholder="Social Security Number" id="">
-                                            <p id="r" style="color:red;"></p>
-                                        </div>
+                                                <button type="submit" name="validate_otp" id="validate_otp" value="" class="default-btn">Vefify OTP<i class="flaticon-send"></i></button>
+                                                <!-- <button type="submit" name="register" class="default-btn">Register <i class="flaticon-send"></i></button> -->
+                                            </form>
+                                <?php
 
+                                        }
+                                    } else {
+                                        echo '<script type="text/javascript" >alert(" XXXXXXXXX meassage not send")</script>';
+                                        echo "ERROR: Could not execute $sql." . $db->error;
+                                    }
+                                }
+                                ?>
+
+                            <?php } else { ?>
+                                <form method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="text" name="fname" class="form-control" placeholder=" Name" id="username">
+                                        <p id="name_error" style="color:red;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="email" class="form-control" placeholder=" email" id="email">
+                                        <p id="email_error" style="color:red;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control" placeholder="Password" id="password">
+                                        <p id="pass_error" style="color:red;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" id="cpassword">
+                                        <p id="cpass_error" style="color:red;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="mobile" class="form-control" maxlength="10" minlength="10" placeholder=" Mobile Number" id="mobile">
+                                        <p id="mobile_error" style="color:red;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-4 pl-5 text-muted">
+                                                Choose Your <br> Profile Image
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <input type="file" name="image" class="form-control" placeholder="upload your Profile Image" id="profile">
+                                            </div>
+                                        </div>
+                                        <p id="prof_error" style="color:red;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-4 pl-5 text-muted">
+                                                Date Of <br> Birth
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <input type="date" name="dob" class="form-control" placeholder="DOB" id="">
+                                            </div>
+                                        </div>
+                                        <p id="r" style="color:red;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="ssn" class="form-control" minlength="9" maxlength="9" placeholder="Social Security Number" id="">
+                                        <p id="r" style="color:red;"></p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select name="country" class="form-control" onChange="getSubcat(this.value);" style="width: 100%; padding: 0.375rem 0.75rem;    border-color: #ced4da;">
+                                            <option value="">Select countries</option>
+                                            <?php $query = mysqli_query($db, "select * from countries");
+                                            while ($row = mysqli_fetch_array($query)) {
+                                            ?>
+                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                                            <?php
+                                            } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="innercategory" for="basicinput"></label>
                                         <div class="form-group">
-                                            <select name="country" class="form-control" onChange="getSubcat(this.value);" style="width: 100%; padding: 0.375rem 0.75rem;    border-color: #ced4da;">
-                                                <option value="">Select countries</option>
-                                                <?php $query = mysqli_query($db, "select * from countries");
-                                                while ($row = mysqli_fetch_array($query)) {
-                                                ?>
-                                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
-                                                <?php
-                                                } ?>
+                                            <select style="width: 100%; padding: 0.375rem 0.75rem;    border-color: #ced4da;" onChange="getInnersubcat(this.value);" class="form-control" name="state" id="subcategory">
+                                                <option value="" class="form-group">Select States</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="innercategory" for="basicinput"></label>
-                                            <div class="form-group">
-                                                <select style="width: 100%; padding: 0.375rem 0.75rem;    border-color: #ced4da;" onChange="getInnersubcat(this.value);" class="form-control" name="state" id="subcategory">
-                                                    <option value="" class="form-group">Select States</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="" for="basicinput"></label>
-                                            <div class="form-group">
-                                                <select style="width: 100%; padding: 0.375rem 0.75rem;    border-color: #ced4da;" class="form-control" name="city" id="innercategory">
-                                                    <option value="" class="form-group">Select City</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="zipcode" class="form-control about" maxlength="6" minlength="6" placeholder="zip/postalcode" id="">
-                                            <p id="state_error" style="color:red;"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea name="about" class="about" placeholder="Write about you.." id="about" style="resize:none;" rows="4" cols="50"></textarea>
-                                            <p id="about_error" style="color:red;"></p>
-                                        </div>
-                                        <div class="remember-me-wrap">
-                                            <p>
-                                                <input type="checkbox" id="test2" required>
-                                                <label for="test2">I Accept All <a href="terms-of-service.php">Terms & Conditions</a></label>
-                                            <p id="test_error" style="color:red;"></p>
-                                            </p>
-                                        </div>
-                                        <button type="submit" name="register" class="default-btn">Register <i class="flaticon-send"></i></button>
-                                    </form>
-                                <?php } ?>
-                            </div>
-                            <script src="./assets/js/jquery.min.js"></script>
-                            <script>
-                                $(document).ready(function() {
-                                    $("form").submit(function(event) {
-                                        var fname = $("#username").val();
-                                        var email = $("#email").val();
-                                        var password = $("#password").val();
-                                        var cpassword = $("#cpassword").val();
-                                        var mobile = $("#mobile").val();
-                                        var isChecked = $("#test2").is(":checked");
-                                        if (fname == "") {
-                                            // alert("Please  name.");
-                                            document.getElementById('name_error').innerHTML = "Please  Name";
-                                            event.preventDefault();
-                                        } else if (fname.length <= 3) {
-                                            document.getElementById('name_error').innerHTML = "Username must have more than 3 letters.";
-                                            event.preventDefault();
-                                        } else {
-                                            document.getElementById('name_error').innerHTML = "";
-                                        }
-                                        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                                        if (email == "" || !emailPattern.test(email)) {
-                                            // alert("Please enter a valid email address.");
-                                            document.getElementById('email_error').innerHTML = "Please enter a valid email address.";
-                                            event.preventDefault();
-                                        } else {
-                                            document.getElementById('email_error').innerHTML = "";
-                                        }
-                                        if (password == "") {
-                                            // alert("Please  password.");
-                                            document.getElementById('pass_error').innerHTML = "Please  Password";
-                                            event.preventDefault();
-                                        } else {
-                                            document.getElementById('pass_error').innerHTML = "";
-                                        }
-                                        if (cpassword == "") {
-                                            // alert("Please confirm your password.");
-                                            document.getElementById('cpass_error').innerHTML = "Please  Confirm Password";
-                                            event.preventDefault();
-                                        } else if (password != cpassword) {
-                                            // alert("Passwords do not match.");
-                                            document.getElementById('cpass_error').innerHTML = "Password do not match";
-                                            event.preventDefault();
-                                        } else {
-                                            document.getElementById('cpass_error').innerHTML = "";
-                                        }
-                                        // Mobile Number Validation
-                                        var mobilePattern = /^[6-9]\d{9}$/;
-                                        if (mobile == "" || !mobilePattern.test(mobile)) {
-                                            $('#mobile_error').html("Please enter a valid 10-digit mobile number starting with 6-9");
-                                            event.preventDefault();
-                                        } else {
-                                            $('#mobile_error').html("");
-                                        }
-                                        if (!isChecked) {
-                                            // alert("Please accept the terms and conditions.");
-                                            document.getElementById('test_error').innerHTML = "Please accept the terms and conditions.";
-                                            event.preventDefault();
-                                        } else {
-                                            document.getElementById('test_error').innerHTML = "";
-                                        }
-                                    });
-                                });
-                            </script>
-                        </div>
-                        <!-- login page -->
-                        <div class="tab-pane fade show active" id="user_log" role="tabpanel">
-                            <div class="eeza-authentication-form">
-                                <form method="POST" action="profile_login.php" id="login-form">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="log_email" name="log_email" placeholder="Email" Required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="log_password" name="log_password" placeholder="Password" required>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 remember-me-wrap">
-                                            <p>
-                                                <input type="checkbox" name="remember_me" id="test1" value="1">
-                                                <label for="test1">Remember me</label>
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 lost-your-password-wrap">
-                                            <a href="forgot_pasword.php" class="lost-your-password">Lost your password?</a>
+                                        <label class="" for="basicinput"></label>
+                                        <div class="form-group">
+                                            <select style="width: 100%; padding: 0.375rem 0.75rem;    border-color: #ced4da;" class="form-control" name="city" id="innercategory">
+                                                <option value="" class="form-group">Select City</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <button type="submit" name="login_button" id="login_button" value="login" class="default-btn">Log In <i class="flaticon-send"></i></button>
+                                    <div class="form-group">
+                                        <input type="text" name="zipcode" class="form-control about" maxlength="6" minlength="6" placeholder="zip/postalcode" id="">
+                                        <p id="state_error" style="color:red;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="about" class="about" placeholder="Write about you.." id="about" style="resize:none;" rows="4" cols="50"></textarea>
+                                        <p id="about_error" style="color:red;"></p>
+                                    </div>
+                                    <div class="remember-me-wrap">
+                                        <p>
+                                            <input type="checkbox" id="test2" required>
+                                            <label for="test2">I Accept All <a href="terms-of-service.php">Terms & Conditions</a></label>
+                                        <p id="test_error" style="color:red;"></p>
+                                        </p>
+                                    </div>
+                                    <button type="submit" name="register" class="default-btn">Register <i class="flaticon-send"></i></button>
                                 </form>
-                                <!-- <span class="sub-title"><span>Or</span></span>
+                            <?php } ?>
+                        </div>
+                        <script src="./assets/js/jquery.min.js"></script>
+                        <script>
+                            $(document).ready(function() {
+                                $("form").submit(function(event) {
+                                    var fname = $("#username").val();
+                                    var email = $("#email").val();
+                                    var password = $("#password").val();
+                                    var cpassword = $("#cpassword").val();
+                                    var mobile = $("#mobile").val();
+                                    var isChecked = $("#test2").is(":checked");
+                                    if (fname == "") {
+                                        // alert("Please  name.");
+                                        document.getElementById('name_error').innerHTML = "Please  Name";
+                                        event.preventDefault();
+                                    } else if (fname.length <= 3) {
+                                        document.getElementById('name_error').innerHTML = "Username must have more than 3 letters.";
+                                        event.preventDefault();
+                                    } else {
+                                        document.getElementById('name_error').innerHTML = "";
+                                    }
+                                    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                    if (email == "" || !emailPattern.test(email)) {
+                                        // alert("Please enter a valid email address.");
+                                        document.getElementById('email_error').innerHTML = "Please enter a valid email address.";
+                                        event.preventDefault();
+                                    } else {
+                                        document.getElementById('email_error').innerHTML = "";
+                                    }
+                                    if (password == "") {
+                                        // alert("Please  password.");
+                                        document.getElementById('pass_error').innerHTML = "Please  Password";
+                                        event.preventDefault();
+                                    } else {
+                                        document.getElementById('pass_error').innerHTML = "";
+                                    }
+                                    if (cpassword == "") {
+                                        // alert("Please confirm your password.");
+                                        document.getElementById('cpass_error').innerHTML = "Please  Confirm Password";
+                                        event.preventDefault();
+                                    } else if (password != cpassword) {
+                                        // alert("Passwords do not match.");
+                                        document.getElementById('cpass_error').innerHTML = "Password do not match";
+                                        event.preventDefault();
+                                    } else {
+                                        document.getElementById('cpass_error').innerHTML = "";
+                                    }
+                                    // Mobile Number Validation
+                                    var mobilePattern = /^[6-9]\d{9}$/;
+                                    if (mobile == "" || !mobilePattern.test(mobile)) {
+                                        $('#mobile_error').html("Please enter a valid 10-digit mobile number starting with 6-9");
+                                        event.preventDefault();
+                                    } else {
+                                        $('#mobile_error').html("");
+                                    }
+                                    if (!isChecked) {
+                                        // alert("Please accept the terms and conditions.");
+                                        document.getElementById('test_error').innerHTML = "Please accept the terms and conditions.";
+                                        event.preventDefault();
+                                    } else {
+                                        document.getElementById('test_error').innerHTML = "";
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                    <!-- login page -->
+                    <div class="tab-pane fade show active" id="user_log" role="tabpanel">
+                        <div class="eeza-authentication-form">
+                            <form method="POST" action="profile_login.php" id="login-form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="log_email" name="log_email" placeholder="Email" Required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="log_password" name="log_password" placeholder="Password" required>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 remember-me-wrap">
+                                        <p>
+                                            <input type="checkbox" name="remember_me" id="test1" value="1">
+                                            <label for="test1">Remember me</label>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 lost-your-password-wrap">
+                                        <a href="forgot_pasword.php" class="lost-your-password">Lost your password?</a>
+                                    </div>
+                                </div>
+                                <button type="submit" name="login_button" id="login_button" value="login" class="default-btn">Log In <i class="flaticon-send"></i></button>
+                            </form>
+                            <!-- <span class="sub-title"><span>Or</span></span>
                                 <div id="login-message"></div>
                                 <div class="login-with-account">
                                     <ul>
@@ -939,172 +931,171 @@ session_start(); ?>
                                         <li><a href="#" class="google">Log In with Google <i class="ri-google-line"></i></a></li>
                                     </ul>
                                 </div> -->
-                            </div>
                         </div>
-                        <!-- reset - password -->
-                        <div class="tab-pane fade" id="reset-password" role="tabpanel">
-                            <div class="eeza-authentication-form">
-                                <form method="POST" action="reset_password.php">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="email" placeholder="Enter Your email">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="new_password" placeholder="Enter Your New Password">
-                                    </div>
-                                    <div class="remember-me-wrap">
-                                        <p>
-                                            <input type="checkbox" id="test3">
-                                            <label for="test3">Remember me</label>
-                                        </p>
-                                    </div>
-                                    <button type="submit" name="" class="default-btn"> Submit<i class="flaticon-send"></i></button>
-                                </form>
+                    </div>
+                    <!-- reset - password -->
+                    <div class="tab-pane fade" id="reset-password" role="tabpanel">
+                        <div class="eeza-authentication-form">
+                            <form method="POST" action="reset_password.php">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="email" placeholder="Enter Your email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="new_password" placeholder="Enter Your New Password">
+                                </div>
+                                <div class="remember-me-wrap">
+                                    <p>
+                                        <input type="checkbox" id="test3">
+                                        <label for="test3">Remember me</label>
+                                    </p>
+                                </div>
+                                <button type="submit" name="" class="default-btn"> Submit<i class="flaticon-send"></i></button>
+                            </form>
 
 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('#login_button').click(function(e) {
-                    e.preventDefault();
-                    var email = $('#log_email').val();
-                    var password = $('#log_password').val();
-                    var saveCredential = $('#test1').is(":checked");
-                    if (saveCredential) {
-                        alert(password);
-                    }
-                    $.ajax({
-                        url: 'profile_login.php',
-                        type: 'post',
-                        data: {
-                            log_email: email,
-                            log_password: password
-                        },
-                        success: function(response) {
-                            if (response === 'success') {
-                                window.location.href = 'index.php';
-                            } else {
-                                // $('#login-message').html('Invalid email or password.');
-                                window.location.href = 'profile-authentication.php';
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                            $('#login-message').html('Error occurred while logging in.');
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#login_button').click(function(e) {
+                e.preventDefault();
+                var email = $('#log_email').val();
+                var password = $('#log_password').val();
+                var saveCredential = $('#test1').is(":checked");
+                if (saveCredential) {
+                    alert(password);
+                }
+                $.ajax({
+                    url: 'profile_login.php',
+                    type: 'post',
+                    data: {
+                        log_email: email,
+                        log_password: password
+                    },
+                    success: function(response) {
+                        if (response === 'success') {
+                            window.location.href = 'index.php';
+                        } else {
+                            // $('#login-message').html('Invalid email or password.');
+                            window.location.href = 'profile-authentication.php';
                         }
-                    });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        $('#login-message').html('Error occurred while logging in.');
+                    }
                 });
             });
-        </script>
-        <!-- Start Profile Authentication Area -->
-        <?php
-        include("include/footer.php"); ?>
-        <!-- go to back page button -->
-        <style>
-            .back {
-                border: none;
-                cursor: pointer;
-                color: var(--white-color);
-                background: #00b9ff;
-                width: 35px;
-                text-align: center;
-                height: 35px;
-                border-radius: 50%;
-                -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-                box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-            }
+        });
+    </script>
+    <!-- Start Profile Authentication Area -->
+    <?php include("include/footer.php"); ?>
+    <!-- go to back page button -->
+    <style>
+        .back {
+            border: none;
+            cursor: pointer;
+            color: var(--white-color);
+            background: #00b9ff;
+            width: 35px;
+            text-align: center;
+            height: 35px;
+            border-radius: 50%;
+            -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+        }
 
-            .back i {
-                right: 0;
-                left: 0;
-                top: 45%;
-                -webkit-transform: translateY(-45%);
-                transform: translateY(-45%);
-                text-align: center;
-                font-size: 13px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        </style>
+        .back i {
+            right: 0;
+            left: 0;
+            top: 45%;
+            -webkit-transform: translateY(-45%);
+            transform: translateY(-45%);
+            text-align: center;
+            font-size: 13px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <!--  End of the search your Product  items -->
+    <!-- go back button -->
+    <script>
+        // function goBack() {
+        //     // This will take you back to the previous page in the browser's history.
+        //     history.back();
+        // }
+        // $(document).ready(function() {
+        //     $(".innercategory").click(function() {
+        //         alert("sridah");
 
-        <!--  End of the search your Product  items -->
-        <!-- go back button -->
-        <script>
-            // function goBack() {
-            //     // This will take you back to the previous page in the browser's history.
-            //     history.back();
-            // }
-            // $(document).ready(function() {
-            //     $(".innercategory").click(function() {
-            //         alert("sridah");
+        // $.ajax({
+        //     type: "POST",
+        //     url: "innercategory.php",
+        //     data: 'sub_cat_id=' + val,                 
+        //     success: function(data) {
+        //         $("#innercategory").html(data);
 
-            // $.ajax({
-            //     type: "POST",
-            //     url: "innercategory.php",
-            //     data: 'sub_cat_id=' + val,                 
-            //     success: function(data) {
-            //         $("#innercategory").html(data);
+        //     }
+        // });
+        //     })
+        // });
+    </script>
 
-            //     }
-            // });
-            //     })
-            // });
-        </script>
-        <script>
-            // function getSubcat(val) {
-            //     // alert(val);    
-            //     // exit();        
-            //     $.ajax({
-            //         type: "POST",
-            //         url: "get_subcat.php",
-            //         data: 'cat_id=' + val,
+    <script>
+        // function getSubcat(val) {
+        //     // alert(val);    
+        //     // exit();        
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "get_subcat.php",
+        //         data: 'cat_id=' + val,
 
-            //         success: function(data) {
-            //             $("#subcategory").html(data);
-            //         }
-            //     });
+        //         success: function(data) {
+        //             $("#subcategory").html(data);
+        //         }
+        //     });
 
-            // }
+        // }
 
-            function selectCountry(val) {
-                $("#search-box").val(val);
-                $("#suggesstion-box").hide();
-            }
-        </script>
+        function selectCountry(val) {
+            $("#search-box").val(val);
+            $("#suggesstion-box").hide();
+        }
+    </script>
 
+    <script>
+        function getSubcat(states) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("subcategory").innerHTML = this.responseText;
 
-        <script>
-            function getSubcat(states) {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("subcategory").innerHTML = this.responseText;
+                }
 
-                    }
+            };
+            xhttp.open("GET", "get_subcat.php?cat_id=" + states, true);
 
-                };
-                xhttp.open("GET", "get_subcat.php?cat_id=" + states, true);
+            xhttp.send();
+        }
 
-                xhttp.send();
-            }
+        function getInnersubcat(cities) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("innercategory").innerHTML = this.responseText;
 
-            function getInnersubcat(cities) {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("innercategory").innerHTML = this.responseText;
+                }
 
-                    }
+            };
+            xhttp.open("GET", "get_subcat.php?sub_cat_id=" + cities, true);
 
-                };
-                xhttp.open("GET", "get_subcat.php?sub_cat_id=" + cities, true);
-
-                xhttp.send();
-            }
-        </script>
-        <!-- go to back page end -->
+            xhttp.send();
+        }
+    </script>
+    <!-- go to back page end -->

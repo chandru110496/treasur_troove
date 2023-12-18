@@ -31,7 +31,7 @@ if (isset($_SESSION['user_details'])) {
 } else {
     // header('Location :profile-authentication.php');
 
-    print_r("<script>alert('Login First To View Cart'); location.href='profile-authentication.php'</script>");
+    print_r("<script>alert('Login or Register First'); location.href='profile-authentication.php'</script>");
 }
 
 ?>
@@ -310,7 +310,7 @@ if ($reg_status != '') {
                 $(".fetch_cart").html("");
                 if (data == 'not availabel') {
                     $(".fetch_cart").append("<tr  ><td class='text-center' style='height:308px' colspan='6' ><h1>" + " Your Cart Is Empty Is Show" + "</h1></td></tr>");
-                   $('#checkout_form').css('display','none');
+                    $('#checkout_form').css('display', 'none');
                 } else {
                     $.each(data, function(key, value) {
 
@@ -342,6 +342,7 @@ if ($reg_status != '') {
 
                         // functions to add quantity of the product in the cart
                         function updateQuantityAndTotalPrice(new_qty) {
+
                             $(`#old_qty${value.id}`).val($(`#prd_qty${value.id}`).val());
                             $(`#prd_qty${value.id}`).val(new_qty);
                             let prd_price = Number($(`.amount${value.id}`).attr('data-price'));
@@ -351,6 +352,16 @@ if ($reg_status != '') {
                             $(`.product-subtotal${value.id}`).html(`Rs.  ${new_total_price} `);
                             $(`.product-subtotal${value.id}`).attr('data-totalPrice', new_total_price);
                             // alert($(`.product-subtotal${value.id}`).attr('data-totalPrice'));
+                            const prd_id=value.id;
+                            const qty=new_qty
+                            const t_amount=new_total_price;
+                            $.ajax({
+                                type: "GET",
+                                url: `ajax/set_cart_quantity.php?product_id=${prd_id}&quantity=${qty}&amount=${t_amount}`, //C:\xampp\htdocs\_treasuretroove_backup_from_live by jeeva bro\set_cart_quantity.php
+                                success: function(response) {
+
+                                }
+                            });
 
                         }
 

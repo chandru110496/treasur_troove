@@ -46,6 +46,7 @@ curl_close($curl);
 <script>
     user_id = <?= $user_id ?>
 </script>
+
 <style>
     .bid {
         justify-content: center;
@@ -53,6 +54,7 @@ curl_close($curl);
         /* z-index: -1; */
     }
 </style>
+
 <style>
     .btn_grad_blgr {
 
@@ -74,6 +76,7 @@ curl_close($curl);
         margin-left: 10px;
     }
 </style>
+
 <style>
     .product-con {
         display: flex;
@@ -89,11 +92,11 @@ curl_close($curl);
     .list-pro {
         display: flex;
         margin-left: 10px;
-        ;
         flex-wrap: wrap;
         margin: 0 20px;
     }
 </style>
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
 
@@ -121,9 +124,6 @@ for search results */
 
     /* 
 for search results */
-
-
-
 
     img {
         width: 100%;
@@ -471,6 +471,7 @@ for search results */
         /* You can add more styles specific to smaller screens here */
     }
 </style>
+
 <style>
     .back {
         border: none;
@@ -497,8 +498,6 @@ for search results */
         margin-right: auto;
     }
 </style>
-
-
 
 <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom bid">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor" aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation">
@@ -536,8 +535,6 @@ for search results */
         } */
     </style>
 
-
-
 </nav>
 
 <div id="scrollButtonContainer">
@@ -545,6 +542,7 @@ for search results */
         <i class="ri-arrow-left-line button"></i>
     </button>
 </div>
+
 <style>
     #scrollButtonContainer {
         position: fixed;
@@ -631,199 +629,185 @@ for search results */
         </section>
     </nav>
 
-
     <section id="products" class="pro-con">
-        <div class="list-pro">
-            <?php
-            // print_r($_SESSION['currency_type']);
+        <div class="container">
+            <div class="row">
+                <?php
+                // print_r($_SESSION['currency_type']);
 
-            if ($currency != "" || $currency == NULL || $currency == "INR") {
-                $currency = 1;
-            } else {
-                // $currency=$_SESSION['currency_type']; 
-            }
-            ?>
-
-            <?php
-            // Escaping the variables to prevent SQL injection.
-
-            $sql = "SELECT * FROM `product_details` WHERE status = 'approved' AND `balanced_stock`!=0";
-
-            $result = $db->query($sql);
-            // print_r($result);
-            while ($row = mysqli_fetch_assoc($result)) {
-
-                $product_image1 = $row['product_image1'];
-                $product_id = $row['product_id'];
-                $product_name = $row['product_name'];
-                $product_new_price = $row['product_new_price'];
-                $original_price = $row['original_price'];
-                $product_old_price = $row['product_old_price'];
-                print_r($product_id);
-                if (isset($_SESSION['user_details'])) {
-                    $user_id = $_SESSION['user_details']['user_id'];
-                    $sqls = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency = $ro['cur_type'];
-                    }
-                    // print_r($currency);
-                    $data = json_decode($response, true);
-                    $usd = $data['conversion_rates'][$currency];
-                    $convert_price = (int) $original_price * (int)$usd;
-                    $ssql = "UPDATE `product_details` SET `product_new_price` = '$convert_price' WHERE `product_id` = '$product_id'";
-                    $convert = mysqli_query($db, $ssql);
-                } else if (isset($_SESSION['vendor_details'])) {
-                    $vendor_id = $_SESSION['vendor_details']['vendor_id'];
-                    $sqls = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$vendor_id'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency = $ro['cur_type'];
-                    }
-                    // print_r($currency);
-                    $data = json_decode($response, true);
-                    // print_r($data['conversion_rates']['INR']);
-                    $usd = $data['conversion_rates'][$currency];
-                    //    $usd=$data['conversion_rates']['BIF'];
-                    // print_r($usd);
-                    $convert_price = (int)$product_new_price * (int)$usd;
-                    // print_r($convert_price);
-                    // print_r($result);
-                    $ssql = "UPDATE `product_details` SET `product_new_price` = '$convert_price' WHERE `status` = 'approved'";
-                    $convert = mysqli_query($db, $ssql);
-                } else if (isset($_SESSION['s_provider'])) {
-                    $s_provider = $_SESSION['s_provider']['user_id'];
-                    $sqls = "SELECT * FROM `service_provider` WHERE `user_id` ='$s_provider'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency = $ro['cur_type'];
-                    }
-                    // print_r($currency);
-                    $data = json_decode($response, true);
-                    // print_r($data['conversion_rates']['INR']);
-                    $usd = $data['conversion_rates'][$currency];
-                    // $usd=$data['conversion_rates']['BIF'];
-                    // print_r($usd);
-                    $convert_price = (int)$product_new_price * (int)$usd;
-
-
-
-                    $ssql = "UPDATE `product_details` SET `product_new_price` = '$convert_price' WHERE `status` = 'approved'";
-                    $convert = mysqli_query($db, $ssql);
+                if ($currency != "" || $currency == NULL || $currency == "INR") {
+                    $currency = 1;
+                } else {
+                    // $currency=$_SESSION['currency_type']; 
                 }
+                // Escaping the variables to prevent SQL injection.
 
+                $sql = "SELECT * FROM `product_details` WHERE status = 'approved' AND `balanced_stock`!=0";
 
+                $result = $db->query($sql);
+                // print_r($result);
+                while ($row = mysqli_fetch_assoc($result)) {
 
-                // $cur_type=$_SESSION['user_details']['cur_type'];
-                if (isset($_SESSION['user_details'])) {
-                    $user_id = $_SESSION['user_details']['user_id'];
-                    $get_qry = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
-                    $get_exc = mysqli_query($db, $get_qry);
-                    $user_details = mysqli_fetch_assoc($get_exc);
-                    $user_currency_type = $user_details['cur_type'];
-                    // print_r();
-                    // print_r($cur_type);
-                    $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
+                    $product_image1 = $row['product_image1'];
+                    $product_id = $row['product_id'];
+                    $product_name = $row['product_name'];
+                    $product_new_price = $row['product_new_price'];
+                    $original_price = $row['original_price'];
+                    $product_old_price = $row['product_old_price'];
+                    print_r($product_id);
+                    if (isset($_SESSION['user_details'])) {
+                        $user_id = $_SESSION['user_details']['user_id'];
+                        $sqls = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency = $ro['cur_type'];
+                        }
+                        // print_r($currency);
+                        $data = json_decode($response, true);
+                        $usd = $data['conversion_rates'][$currency];
+                        $convert_price = (int) $original_price * (int)$usd;
+                        $ssql = "UPDATE `product_details` SET `product_new_price` = '$convert_price' WHERE `product_id` = '$product_id'";
+                        $convert = mysqli_query($db, $ssql);
+                    } else if (isset($_SESSION['vendor_details'])) {
+                        $vendor_id = $_SESSION['vendor_details']['vendor_id'];
+                        $sqls = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$vendor_id'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency = $ro['cur_type'];
+                        }
+                        // print_r($currency);
+                        $data = json_decode($response, true);
+                        // print_r($data['conversion_rates']['INR']);
+                        $usd = $data['conversion_rates'][$currency];
+                        //    $usd=$data['conversion_rates']['BIF'];
+                        // print_r($usd);
+                        $convert_price = (int)$product_new_price * (int)$usd;
+                        // print_r($convert_price);
                         // print_r($result);
-                        $currency_symbol = $ro['symbol'];
+                        $ssql = "UPDATE `product_details` SET `product_new_price` = '$convert_price' WHERE `status` = 'approved'";
+                        $convert = mysqli_query($db, $ssql);
+                    } else if (isset($_SESSION['s_provider'])) {
+                        $s_provider = $_SESSION['s_provider']['user_id'];
+                        $sqls = "SELECT * FROM `service_provider` WHERE `user_id` ='$s_provider'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency = $ro['cur_type'];
+                        }
+                        // print_r($currency);
+                        $data = json_decode($response, true);
+                        // print_r($data['conversion_rates']['INR']);
+                        $usd = $data['conversion_rates'][$currency];
+                        // $usd=$data['conversion_rates']['BIF'];
+                        // print_r($usd);
+                        $convert_price = (int)$product_new_price * (int)$usd;
+
+
+
+                        $ssql = "UPDATE `product_details` SET `product_new_price` = '$convert_price' WHERE `status` = 'approved'";
+                        $convert = mysqli_query($db, $ssql);
                     }
-                    // print_r($currency_symbol);
-                } else if (isset($_SESSION['vendor_details'])) {
-                    $user_id = $_SESSION['vendor_details']['vendor_id'];
-                    $get_qry = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
-                    $get_exc = mysqli_query($db, $get_qry);
-                    $user_details = mysqli_fetch_assoc($get_exc);
-                    $user_currency_type = $user_details['cur_type'];
-                    // print_r();
-                    // print_r($cur_type);
-                    $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency_symbol = $ro['symbol'];
-                    }
-                    // print_r($currency_symbol);
-                } else if (isset($_SESSION['s_provider'])) {
-                    $user_id = $_SESSION['s_provider']['user_id'];
-                    $get_qry = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
-                    $get_exc = mysqli_query($db, $get_qry);
-                    $user_details = mysqli_fetch_assoc($get_exc);
-                    $user_currency_type = $user_details['cur_type'];
-                    // print_r();
-                    // print_r($cur_type);
-                    $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
-                    $stmt = $db->query($sqls);
-                    if ($ro = mysqli_fetch_assoc($stmt)) {
-                        // print_r($result);
-                        $currency_symbol = $ro['symbol'];
-                    }
-                    // print_r($currency_symbol);
-                }
 
-            ?>
-                <style>
-                    .abs {
-                        position: absolute;
-                    }
-                </style>
+                    // $cur_type=$_SESSION['user_details']['cur_type'];
+                    if (isset($_SESSION['user_details'])) {
+                        $user_id = $_SESSION['user_details']['user_id'];
+                        $get_qry = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
+                        $get_exc = mysqli_query($db, $get_qry);
+                        $user_details = mysqli_fetch_assoc($get_exc);
+                        $user_currency_type = $user_details['cur_type'];
+                        // print_r();
+                        // print_r($cur_type);
+                        $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency_symbol = $ro['symbol'];
+                        }
+                        // print_r($currency_symbol);
+                    } else if (isset($_SESSION['vendor_details'])) {
+                        $user_id = $_SESSION['vendor_details']['vendor_id'];
+                        $get_qry = "SELECT * FROM `vendor_details` WHERE `vendor_id` ='$user_id'";
+                        $get_exc = mysqli_query($db, $get_qry);
+                        $user_details = mysqli_fetch_assoc($get_exc);
+                        $user_currency_type = $user_details['cur_type'];
+                        // print_r();
+                        // print_r($cur_type);
+                        $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency_symbol = $ro['symbol'];
+                        }
+                        // print_r($currency_symbol);
+                    } else if (isset($_SESSION['s_provider'])) {
+                        $user_id = $_SESSION['s_provider']['user_id'];
+                        $get_qry = "SELECT * FROM `service_provider` WHERE `user_id` ='$user_id'";
+                        $get_exc = mysqli_query($db, $get_qry);
+                        $user_details = mysqli_fetch_assoc($get_exc);
+                        $user_currency_type = $user_details['cur_type'];
+                        // print_r();
+                        // print_r($cur_type);
+                        $sqls = "SELECT * FROM `currency` WHERE `currency`.`name` ='$user_currency_type'";
+                        $stmt = $db->query($sqls);
+                        if ($ro = mysqli_fetch_assoc($stmt)) {
+                            // print_r($result);
+                            $currency_symbol = $ro['symbol'];
+                        }
+                        // print_r($currency_symbol);
+                    } ?>
+                    <style>
+                        .abs {
+                            position: absolute;
+                        }
+                    </style>
 
-                <div class="card" style="position: relative;">
-                    <script>
-                        var product = <?php echo $product_id; ?>
-                    </script>
-                    <!-- <i onclick="myFunction(this)" class="fas fa-heart" id="wishlist-icon"></i> -->
-                    <i>
-                        <div class="abs"><a href="add_wishlist.php?product_id=<?php echo $product_id ?>&user_id=<?php echo $user_id ?>"><i class="fa fa-heart" title="add to your Wishlist" style="top:10px;position:absolute"></i></a>
-                    </i>
-                </div>
-                <script>
-                    function myFunction(x) {
-                        x.classList.toggle("active");
-                    }
-                </script>
+                    <div class="col-6 col-sm-4">
+                        <div class="card" >
+                            <script>
+                                var product = <?php echo $product_id; ?>
+                            </script>
+                            <!-- <i onclick="myFunction(this)" class="fas fa-heart" id="wishlist-icon"></i> -->
+                            <i>
+                                <div class="abs"><a href="add_wishlist.php?product_id=<?php echo $product_id ?>&user_id=<?php echo $user_id ?>"><i class="fa fa-heart" title="add to your Wishlist" style="top:10px;position:absolute"></i></a>
+                            </i>
+                        </div>
+                        <script>
+                            function myFunction(x) {
+                                x.classList.toggle("active");
+                            }
+                        </script>
 
-                <div class="card-img-top" data-proId="<?php echo $product_id ?>"> <img style="width:188px;height:190px;object-fit:cover; border-radius: 15px 15px 0 0;" class="card-img-top-b" src="./upload/product/<?php echo $product_image1; ?>" alt="Card image cap">
-                </div>
+                        <div class="card-img-top" data-proId="<?php echo $product_id ?>"> <img style="width:188px;height:190px;object-fit:cover; border-radius: 15px 15px 0 0;" class="card-img-top-b" src="./upload/product/<?php echo $product_image1; ?>" alt="Card image cap">
+                        </div>
 
+                        <!-- The Modal -->
+                        <div class="card-body">
+                            <p class="card-text"><?php echo $product_name; ?></p>
+                            <?php if (isset($_SESSION['user_details'])) { ?>
 
-                <!-- The Modal -->
-                <div class="card-body">
-                    <p class="card-text"><?php echo $product_name; ?></p>
+                                <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;"><?php echo $currency_symbol ?><?php echo $product_old_price; ?></b><b><?php echo  $currency_symbol ?><?php echo $convert_price ?></b> </p>
 
-                    <?php
-                    if (isset($_SESSION['user_details'])) { ?>
+                            <?php } else if (isset($_SESSION['vendor_details'])) { ?>
+                                <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;"><?php echo $currency_symbol ?><?php echo $product_old_price; ?></b><b><?php echo  $currency_symbol ?><?php echo $convert_price ?></b> </p>
+                            <?php } else { ?>
 
-                        <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;"><?php echo $currency_symbol ?><?php echo $product_old_price; ?></b><b><?php echo  $currency_symbol ?><?php echo $convert_price ?></b>
-                        </p>
-
-                    <?php } else if (isset($_SESSION['vendor_details'])) { ?>
-
-                        <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;"><?php echo $currency_symbol ?><?php echo $product_old_price; ?></b><b><?php echo  $currency_symbol ?><?php echo $convert_price ?></b>
-                        </p>
-
-                    <?php } else { ?>
-
-                        <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;">$<?php echo $product_old_price; ?></b><b>$<?php echo $product_new_price ?></b>
-                        </p>
-                    <?php } ?>
-
-                    <!-- <button class="add-to-cart-btn" data-product-id=<?php echo $product_id; ?>> Buy
-                                Now</button> -->
-                    <button class="btn  btn-lg btn_grad_blgr  text-truncate mt-auto">
-                        <a href="#" id="<?php echo $product_id; ?>" name="add" data-product-id=<?php echo $product_id; ?> style="cursor:pointer" class="add_to_cart add<?php echo $product_id; ?> primary-btn button">ADD TO CART</a>
-                    </button>
-                </div>
+                                <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;">$<?php echo $product_old_price; ?></b><b>$<?php echo $product_new_price ?></b> </p>
+                            <?php } ?>
+                            <button class="btn  btn-lg btn_grad_blgr  text-truncate mt-auto">
+                                <a href="#" id="<?php echo $product_id; ?>" name="add" data-product-id=<?php echo $product_id; ?> style="cursor:pointer" class="add_to_cart add<?php echo $product_id; ?> primary-btn button">ADD TO CART</a>
+                            </button>
+                        </div>
+                    </div>
+                <?php } ?>
+            <!-- row close -->
+            </div>
+            <!-- container close -->
         </div>
-    <?php } ?>
     </section>
 </div>
-
-
+<!-- pop_up for the individual images while clicking on it -->
 <div class="w3-container">
     <div id="id01" class="w3-modal fullpopupimgsss">
         <div class="w3-modal-content">
@@ -992,10 +976,7 @@ for search results */
         </div>
     </div>
 </div>
-<!-- </div>
-</div>
-</div>
-</div> -->
+
 <script>
     $(document).ready(function() {
 
@@ -1026,12 +1007,14 @@ for search results */
         }
     }
 </script>
-
 <!-- get the details of th products -->
 <?php include("include/footer.php"); ?>
 
 <script>
+    
     $(document).ready(function() {
+
+        
         $(".jewel").hide();
         $(".card-img-top").click(function() {
             var proId = $(this).attr('data-proId');
@@ -1154,7 +1137,6 @@ for search results */
     }
     getCartCount();
 </script>
-
 <!-- search your Product  items -->
 <script>
     //search result

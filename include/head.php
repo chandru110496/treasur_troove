@@ -1,9 +1,14 @@
+<!--  which is included for following pages
+1.buy.php
+2.
+-->
 <?php
 include("include/database.php");
-// ini_set('error-reporting', 0);
-// ini_set('display-errors', 0);
+ini_set('error-reporting', 0);
+ini_set('display-errors', 0);
 session_start();
-// $cur_type=$_SESSION['user_details']['cur_type'];
+if (isset($_SESSION['user_details']))
+    $cur_type = $_SESSION['user_details']['cur_type'];
 $haspermision = false;
 if (isset($_SESSION['user_details'])) {
     $id = $_SESSION['user_details']['user_id'];
@@ -34,8 +39,6 @@ if ($haspermision) {
 <!doctype html>
 
 <html lang="zxx">
-
-<!-- Mirrored from templates.envytheme.com/eeza/default/index.php by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 15 Sep 2022 09:04:54 GMT -->
 
 <head>
     <!-- Required meta tags -->
@@ -764,7 +767,6 @@ if ($haspermision) {
 </head>
 
 <body>
-
     <style>
         .product-con {
             display: flex;
@@ -820,9 +822,7 @@ if ($haspermision) {
                     </a>
                     <!-- Start Navbar Area -->
 
-
                     <div class="main">
-
                         <div class="header-top">
                             <button class="button-nav">
                                 <span class="line"></span>
@@ -830,7 +830,6 @@ if ($haspermision) {
                                 <span class="line"></span>
                             </button>
                         </div>
-
                         <!-- navigation open -->
                         <div class="navigation" id="navigation-demo">
                             <nav>
@@ -866,12 +865,6 @@ if ($haspermision) {
 
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent" style="margin-right:0px;">
                         <ul class="navbar-nav m-auto" style="margin-right: 20px;">
-                            <!-- <li class="nav-item">
-                                    <a href="wearhouse-landingpg.php" class="nav-link active">
-                                        Warehouse
-                                    </a>
-                                </li> -->
-
                             <li class="nav-item">
                                 <a href="bid.php" class="nav-link">
                                     Bid
@@ -1616,11 +1609,6 @@ if ($haspermision) {
 
         });
     </script>
-    <!-- </body>
-
-</html> -->
-
-
 
 
     <!-- <?php print_r($_SESSION); ?> -->
