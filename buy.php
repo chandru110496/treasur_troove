@@ -68,13 +68,13 @@ curl_close($curl);
         color: white;
     }
 
-    .card {
+    /* .card {
         width: 190px;
         display: inline-block;
         margin-bottom: 30px;
         border-radius: 15px;
         margin-left: 10px;
-    }
+    } */
 </style>
 
 <style>
@@ -89,12 +89,13 @@ curl_close($curl);
         width: 100%;
     }
 
-    .list-pro {
+    /* .list-pro {
         display: flex;
         margin-left: 10px;
         flex-wrap: wrap;
         margin: 0 20px;
-    }
+        
+    } */
 </style>
 
 <style>
@@ -511,7 +512,6 @@ for search results */
             <span type="button" id="clear_search_text" style="cursor:pointer; z-index: index; position: relative;right: 25px;">&times;</span>
             <button class="btn-nobg search-btn" type="submit">
                 <i class="fa fa-search" style="cursor:pointer;" aria-hidden="true"> </i>
-                <!-- <i class="fa fa-search search" style="cursor:pointer;" aria-hidden="true"></i>   -->
             </button>
             <div id="search_results" class="searchResult"></div>
         </div>
@@ -630,6 +630,7 @@ for search results */
     </nav>
 
     <section id="products" class="pro-con">
+        <!-- <div class="list-pro"> -->
         <div class="container">
             <div class="row">
                 <?php
@@ -647,14 +648,14 @@ for search results */
                 $result = $db->query($sql);
                 // print_r($result);
                 while ($row = mysqli_fetch_assoc($result)) {
-
+                    // print_r($row);
                     $product_image1 = $row['product_image1'];
                     $product_id = $row['product_id'];
                     $product_name = $row['product_name'];
                     $product_new_price = $row['product_new_price'];
                     $original_price = $row['original_price'];
                     $product_old_price = $row['product_old_price'];
-                    print_r($product_id);
+                    // print_r($product_id);
                     if (isset($_SESSION['user_details'])) {
                         $user_id = $_SESSION['user_details']['user_id'];
                         $sqls = "SELECT * FROM `user_details` WHERE `user_id` ='$user_id'";
@@ -762,48 +763,48 @@ for search results */
                             position: absolute;
                         }
                     </style>
-
-                    <div class="col-6 col-sm-4">
-                        <div class="card" >
+                    <div class="col">
+                        <div class="card">
                             <script>
                                 var product = <?php echo $product_id; ?>
                             </script>
                             <!-- <i onclick="myFunction(this)" class="fas fa-heart" id="wishlist-icon"></i> -->
-                            <i>
-                                <div class="abs"><a href="add_wishlist.php?product_id=<?php echo $product_id ?>&user_id=<?php echo $user_id ?>"><i class="fa fa-heart" title="add to your Wishlist" style="top:10px;position:absolute"></i></a>
-                            </i>
-                        </div>
-                        <script>
-                            function myFunction(x) {
-                                x.classList.toggle("active");
-                            }
-                        </script>
+                            <!-- <i>
+                                <div class="abs"><a href="add_wishlist.php?product_id=<?php echo $product_id ?>&user_id=<?php echo $user_id ?>"><i class="fa fa-heart" title="add to your Wishlist" style="top:10px;position:absolute"></i></a> </div>
+                            </i> -->
+                            <a href="add_wishlist.php?product_id=<?php echo $product_id ?>&user_id=<?php echo $user_id ?>"><i class="fa fa-heart" title="add to your Wishlist" style="top:10px;position:absolute"></i></a>
 
-                        <div class="card-img-top" data-proId="<?php echo $product_id ?>"> <img style="width:188px;height:190px;object-fit:cover; border-radius: 15px 15px 0 0;" class="card-img-top-b" src="./upload/product/<?php echo $product_image1; ?>" alt="Card image cap">
-                        </div>
+                            <script>
+                                function myFunction(x) {
+                                    x.classList.toggle("active");
+                                }
+                            </script>
 
-                        <!-- The Modal -->
-                        <div class="card-body">
-                            <p class="card-text"><?php echo $product_name; ?></p>
-                            <?php if (isset($_SESSION['user_details'])) { ?>
+                            <div class="card-img-top" data-proId="<?php echo $product_id ?>">
+                                <img style="width:188px;height:190px;object-fit:cover; border-radius: 15px 15px 0 0;" class="card-img-top" src="./upload/product/<?php echo $product_image1; ?>" alt="Card image cap">
+                            </div>
 
-                                <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;"><?php echo $currency_symbol ?><?php echo $product_old_price; ?></b><b><?php echo  $currency_symbol ?><?php echo $convert_price ?></b> </p>
+                            <!-- The Modal -->
+                            <div class="card-body">
+                                <p class="card-text"><?php echo $product_name; ?></p>
+                                <?php if (isset($_SESSION['user_details'])) { ?>
 
-                            <?php } else if (isset($_SESSION['vendor_details'])) { ?>
-                                <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;"><?php echo $currency_symbol ?><?php echo $product_old_price; ?></b><b><?php echo  $currency_symbol ?><?php echo $convert_price ?></b> </p>
-                            <?php } else { ?>
+                                    <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;"><?php echo $currency_symbol ?><?php echo $product_old_price; ?></b><b><?php echo  $currency_symbol ?><?php echo $convert_price ?></b> </p>
 
-                                <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;">$<?php echo $product_old_price; ?></b><b>$<?php echo $product_new_price ?></b> </p>
-                            <?php } ?>
-                            <button class="btn  btn-lg btn_grad_blgr  text-truncate mt-auto">
-                                <a href="#" id="<?php echo $product_id; ?>" name="add" data-product-id=<?php echo $product_id; ?> style="cursor:pointer" class="add_to_cart add<?php echo $product_id; ?> primary-btn button">ADD TO CART</a>
-                            </button>
+                                <?php } else if (isset($_SESSION['vendor_details'])) { ?>
+                                    <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;"><?php echo $currency_symbol ?><?php echo $product_old_price; ?></b><b><?php echo  $currency_symbol ?><?php echo $convert_price ?></b> </p>
+                                <?php } else { ?>
+
+                                    <p class="card-text"><b style="text-decoration: line-through;opacity:0.9;font-size:13px;">$<?php echo $product_old_price; ?></b><b>$<?php echo $product_new_price ?></b> </p>
+                                <?php } ?>
+                                <button class="btn  btn-lg btn_grad_blgr  text-truncate mt-auto">
+                                    <a href="#" id="<?php echo $product_id; ?>" name="add" data-product-id=<?php echo $product_id; ?> style="cursor:pointer" class="add_to_cart add<?php echo $product_id; ?> primary-btn button">ADD TO CART</a>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 <?php } ?>
-            <!-- row close -->
             </div>
-            <!-- container close -->
         </div>
     </section>
 </div>
@@ -812,9 +813,8 @@ for search results */
     <div id="id01" class="w3-modal fullpopupimgsss">
         <div class="w3-modal-content">
             <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright" style="border:none;">&times;</span>
-
             <div class="card-wrapper">
-                <div class="card" style="min-width:95%;border:none;">
+                <div class="card" style="min-width:95%;border:none; height: fit-content;  ">
                     <!-- card left -->
                     <div class="one">
                         <div class="product-imgs">
@@ -867,18 +867,10 @@ for search results */
                         <!-- card right -->
                         <div class="product-content">
                             <h2 class="product-title">NIke Shoes</h2>
-                            <!-- <a href="#" class="product-link">visit nike store</a> -->
 
                             <div style="display:flex;">product Rating:<br><span class="star full-star">★</span>
                                 <div class="rating"></div>
-                                <!-- ( <div class="total_rating">) -->
-
-                                <!-- </div> -->
                             </div>
-                            <!-- <div class="rating-display"> <span><?php echo $stars; ?>
-                                    (<?php echo round($avg_rating, 2); ?>)(<?php echo $total_ratings; ?>)</span>
-                            </div><br> -->
-                            <!-- star rating ended successfully -->
                             <div class="detail">
                                 <img src="assets/images/delivery-truck (1).png" style="width:39px;" alt="">
                                 <div class="p">
@@ -895,7 +887,6 @@ for search results */
                             <form action="submit_rating.php" method="POST">
                                 <label for="rating"><u><b>Rate This Product:</b></u></label>
                                 <input type="hidden" id="product_id_input" name="product_id" value="">
-
 
                                 <div class="rating-stars">
                                     <input type="radio" id="star5" name="rating" value="5">
@@ -946,7 +937,7 @@ for search results */
                                 <input type="hidden" name="variant_id" id="variant_id<?php echo $product_id; ?>" value="<?php echo $product_id; ?>"> -->
                                 <!-- <input type="hidden" name="quantity" id="quantity<?php echo $product_id; ?>" class="form-control" value="1"> -->
                                 <button class="btn text-truncate mt-auto">
-                                    <a href="#" id="<?php echo $product_id; ?>" name="add" style="cursor:pointer" class="add_to_cart add<?php echo $product_id; ?> primary-btn button">ADD TO CART</a>
+                                    <a href="#" id="<?php echo $product_id; ?>" name="add" style="cursor:pointer" data-product-id=<?php echo $product_id; ?> class="add_to_cart add<?php echo $product_id; ?> primary-btn button">ADD TO CART</a>
                                 </button>
                                 <!-- <button type="button" class="btn">Buy Now</button> -->
 
@@ -1011,10 +1002,9 @@ for search results */
 <?php include("include/footer.php"); ?>
 
 <script>
-    
     $(document).ready(function() {
 
-        
+
         $(".jewel").hide();
         $(".card-img-top").click(function() {
             var proId = $(this).attr('data-proId');
@@ -1088,55 +1078,7 @@ for search results */
 
     });
 </script>
-<!--  end of the get the details of th products -->
-<script>
-    $(document).ready(function() {
-        $('.add_to_cart').click(function() {
-            var productId = $(this).data('product-id');
-            // alert(productId);
-            // alert(user_id);
-            // alert('add to cart');
 
-            $.ajax({
-                url: 'add_to_cart.php',
-                method: 'POST',
-                data: {
-                    product_id: productId
-                },
-                dataType: "JSON",
-                success: function(response) {
-                    alert('Product added to cart successfully!');
-                    $(".fetch_cart_count").html(response.count);
-                    getCartCount();
-                },
-                error: function(xhr, status, error) {
-                    alert(
-                        'An error occurred while adding the product to cart. Please try again.'
-                    );
-                }
-            });
-        });
-    })
-
-    function getCartCount() {
-        // alert("getcartcount");
-        // alert(user_id); 
-        $.ajax({
-            type: "post",
-            url: "add_to_cart.php",
-            data: {
-                user_id,
-                action: "getCartCount"
-            },
-            dataType: "json",
-            success: function(response) {
-                // alert(response['count'] + "   from method call");
-                $(".fetch_cart_count").html(response.count);
-            }
-        });
-    }
-    getCartCount();
-</script>
 <!-- search your Product  items -->
 <script>
     //search result

@@ -1,6 +1,11 @@
 <!--  which is included for following pages
 1.buy.php
-2.
+2.profile.php
+3.bid.php 
+4.index.php
+5.wishlist
+6.deal.php
+
 -->
 <?php
 include("include/database.php");
@@ -10,6 +15,7 @@ session_start();
 if (isset($_SESSION['user_details']))
     $cur_type = $_SESSION['user_details']['cur_type'];
 $haspermision = false;
+
 if (isset($_SESSION['user_details'])) {
     $id = $_SESSION['user_details']['user_id'];
     $sqls = "SELECT * FROM `user_details` WHERE `user_id` ='$id'";
@@ -81,6 +87,7 @@ if ($haspermision) {
 
 
     <title>Treasure Troove</title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
 
 
     <style>
@@ -1085,41 +1092,43 @@ if ($haspermision) {
                                 }
                             </script>
                             <!--  start of translatation of web-page  -->
-                            <html>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                            <script type="text/javascript">
+                                function googleTranslateElementInit() {
+                                    new google.translate.TranslateElement({
+                                        pageLanguage: 'en',
+                                        includedLanguages: 'ta,ar,bn,es,fr,hi,id,ja,ko,ms,pt,ru,zh-CN'
+                                    }, 'google_translate_element');
+                                }
 
-                            <head>
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                <script type="text/javascript">
-                                    function googleTranslateElementInit() {
-                                        new google.translate.TranslateElement({
-                                            pageLanguage: 'en',
-                                            includedLanguages: 'ta,ar,bn,es,fr,hi,id,ja,ko,ms,pt,ru,zh-CN'
-                                        }, 'google_translate_element');
-                                    }
+                                function translateText() {
+                                    var selectedLang = $("#language").val();
+                                    googleTranslateElementInit();
+                                    setTimeout(function() {
+                                        $('.skiptranslate').remove();
+                                        $('body').children().each(function() {
+                                            $(this).html($(this).html().replace(/(&#xA0;)/g, " "));
+                                            $(this).html($(this).html().replace(/(&nbsp;)/g, " "));
+                                            $(this).html($(this).html().replace(/(&amp;)/g, "&"));
+                                            $(this).html($(this).html().replace(/(&#39;)/g, "'"));
+                                        });
+                                        $('.goog-te-menu-value span:first-child').text(selectedLang);
+                                        $('.goog-te-menu-value span:first-child').css('text-transform', 'capitalize');
+                                    }, 1000);
+                                }
+                            </script>
+                            <li >
+                                <div  id="google_translate_element"></div>
+                            </li>
+                            <!-- style for translate type -->
+                            <style>
+                                .goog-te-combo{
+                                    background-color: #fff;
+                                    color: rgb(47, 72, 88);
+                                    margin-top: 20px;
+                                }
+                            </style>
 
-                                    function translateText() {
-                                        var selectedLang = $("#language").val();
-                                        googleTranslateElementInit();
-                                        setTimeout(function() {
-                                            $('.skiptranslate').remove();
-                                            $('body').children().each(function() {
-                                                $(this).html($(this).html().replace(/(&#xA0;)/g, " "));
-                                                $(this).html($(this).html().replace(/(&nbsp;)/g, " "));
-                                                $(this).html($(this).html().replace(/(&amp;)/g, "&"));
-                                                $(this).html($(this).html().replace(/(&#39;)/g, "'"));
-                                            });
-                                            $('.goog-te-menu-value span:first-child').text(selectedLang);
-                                            $('.goog-te-menu-value span:first-child').css('text-transform', 'capitalize');
-                                        }, 1000);
-                                    }
-                                </script>
-                            </head>
-
-                            <body>
-                                <div id="google_translate_element"></div>
-                            </body>
-
-                            </html>
                             <!-- end of translation of web page -->
                             <!-- currency start here -->
                             <li class="nav-item">
@@ -1157,7 +1166,7 @@ if ($haspermision) {
                                     <?php } else if (isset($_SESSION['vendor_details'])) { ?>
                                         <img src="upload/vendors/<?php echo $resultProfile['vendor_image'] ?>" class="sc-himrzO kCyZje rounded-circle" style="width: 25px;height: 25px;">
                                     <?php } else { ?>
-                                        <img src="#" alt="profile">
+                                        <img src="upload/profile/blank-profile-picture.webp" class="sc-himrzO kCyZje rounded-circle" style="width: 25px;height: 25px;">
                                     <?php
                                     }
                                     if (isset($_SESSION['user_details'])) {
@@ -1173,7 +1182,7 @@ if ($haspermision) {
                                 </a>
                                 <ul class="dropdown-menu">
                                     <?php if (!isset($_SESSION['user_details'])) { ?>
-                                        <a class="dropdown-item" href="profile-authentication.php">Register</a>
+                                        <a class="dropdown-item" href="profile-authentication.php">Register/Login</a>
                                     <?php } ?>
                                     <a class="dropdown-item" href="savelife.php"> Save a Life</a>
                                     <a class="dropdown-item" href="paymenthistory.php">Payment History</a>
@@ -1241,116 +1250,168 @@ if ($haspermision) {
                     <div style="position: relative;left:60px" class="col-lg-1">
                         <div class="header__cart">
                             <ul>
-                                <li><a href="cart.php"><i class="fa fa-shopping-cart"></i> <span class="fetch_cart_count" style="background-color:#01acfe;margin-top:-10px;">0</span></a></li>
+                                <li><a href="cart.php"><i class="fa fa-shopping-cart"></i> <span class="fetch_cart_count" style="background-color:#01acfe;position: absolute; top: -5px; ">0</span></a></li>
                             </ul>
                         </div>
                     </div>
                     <!--  add to cart end here -->
 
                     <!-- whishlist start here -->
-                    <div style="position: relative;left:10px;top:-25px" class="col-lg-1">
+                    <div style="position: relative;left:20px;top:-25px" class="col-lg-1">
                         <div class="header__cart">
                             <ul>
-                                <li><a href="wishlist.php"><i class="fa fa-solid fa-heart"></i> <span class="fetch_wishlist_count" style="background-color:#01acfe;margin-left:50px;margin-top:-11px;">0</span></a></li>
+                                <li><a href="wishlist.php"><i class="fa fa-solid fa-heart"></i> <span class="fetch_wishlist_count" style="background-color:#01acfe; position: absolute; left: 25px; ">0</span></a></li>
                             </ul>
                         </div>
                     </div>
                     <!--  whishlist end here -->
+
+                    <!-- notification start -->
                     <?php
-                    $sqlc = "SELECT COUNT(*) AS is_read FROM war_title WHERE is_read=0 ";
-                    $resultc = $db->query($sqlc);
-                    if ($resultc->num_rows > 0) {
-                        $rowc = $resultc->fetch_assoc();
-                        $totalCount = $rowc["is_read"];
-                    } else {
-                        $totalCount = 0;
+
+                    $to_show = false;
+                    $id;
+                    $user_type;
+
+                    if (isset($_SESSION['user_details'])) {
+                        $id = $_SESSION['user_details']['user_id'];
+                        $user_type = 'user_id';
+                        $to_show = true;
+                    } else if (isset($_SESSION['vendor_details'])) {
+                        $id = $_SESSION['vendor_details']['vendor_id'];
+                        $user_type = 'vendor_id';
+                        $to_show = true;
+                    } else if (isset($_SESSION['s_provider'])) {
+                        $id = $_SESSION['s_provider']['user_id'];
+                        $user_type = 'service_user_id';
+                        $to_show = true;
+                    }
+
+
+                    if ($to_show) {
+                        $sqlc = "SELECT  count(*) is_read  FROM war_title WHERE  $user_type='$id' AND  is_read='0' AND status='0' ";
+                        $resultc = $db->query($sqlc);
+                        if ($resultc->num_rows > 0) {
+                            $rowc = $resultc->fetch_assoc();
+                            $totalCount = $rowc["is_read"];
+                        } else {
+                            $totalCount = 0;
+                        }
                     }
                     // echo "Total records in the table: " .$totalCount;
                     ?>
                     <div class="notification-icon" data-Id="<?php echo $messageId ?>" onclick="toggleNotifi()">
                         <!-- <i class="fa fa-bell"></i> -->
                         <span class="material-icons" style="font-size:25px;margin-top:5px;">notifications</span>
-                        <span class="icon-button__badge" style="font-size:13px;margin-top:5px;"><?php echo $totalCount ?></span>
+                        <span class="icon-button__badge" style="font-size:13px;margin-top:5px;"><?php echo ($to_show) ? $totalCount : 0 ?></span>
                     </div>
-                    <div style="z-index: 1;" class="notifi-box" id="box">
-                        <h2>Notifications <span><?php echo $totalCount ?></span></h2>
-                        <div class="" id="sideScrollbar">
-                            <div class="" id="sideBarInside">
-                                <?php
-                                $sql = "SELECT * FROM `war_title` ORDER BY `id` DESC";
-                                $result = $db->query($sql);
-                                $rowCount = $result->num_rows;
-                                $displayLimit = 3;
-                                $showReadMore = $rowCount > $displayLimit;
-                                $counter = 0;
-                                if ($rowCount > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $messageId = $row["id"];
-                                        $content = $row["description"];
-                                        $isRead = $row["is_read"];
-                                        $title = $row["title"];
-                                        $status = $row["status"];
+                    <?php
+                    if ($to_show) {
+                    ?>
+                        <div style="z-index: 1;" class="notifi-box" id="box">
+                            <h2>Notifications <span class="notifi_count"><?php echo $totalCount ?></span></h2>
+                            <div class="" id="sideScrollbar">
+                                <div class="" id="sideBarInside">
+                                    <?php
+                                    // $sql = "SELECT * FROM `war_title` ORDER BY `notification_id` DESC";
+                                    $sql = " SELECT  *  FROM war_title  WHERE  $user_type='$id' AND status='0' ORDER BY created_at DESC ";
+                                    $result = $db->query($sql);
+                                    $rowCount = $result->num_rows;
+                                    $displayLimit = 2;
+                                    $showReadMore = $rowCount > $displayLimit;
+                                    $counter = 0;
+                                    if ($rowCount > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            $messageId = $row["notification_id"];
+                                            $content = $row["description"];
+                                            $isRead = $row["is_read"];
+                                            $title = $row["title"];
+                                            $status = $row["status"];
+                                            $badge_text = ($isRead == 0) ? 'New' : 'Old';
 
-                                        if ($row["is_read"] == 0) {
                                             $cssStyle = 'font-weight:bold;color:#1657CB;';
-                                            $findNew = '<span class="badge">New</span>';
+                                            // $findNew = '<span class="badge">New</span>';
+                                            $findNew = '<span class="badge">' . $badge_text . '</span>';
                                             $display = $counter < $displayLimit ? 'block' : 'none';
                                             echo "<div class='notifi-item' data-message-id='$messageId' style='display:$display;'>";
                                             echo " <div class='text content'>";
                                             echo " <h4 style='$cssStyle'>$title $findNew</h4> ";
                                             echo "  <p>$content</p>";
-                                            echo "<button class='close-btn' onclick=\"closeNotification('$messageId')\">Close</button>";
+                                            if ($isRead == 0) {
+                                                echo "<button class='close-btn ' style='color:green;' onclick=\"readNotification('$messageId')\" >Mark As Read</button> &nbsp;";
+                                            }
+                                            echo "<button class='close-btn ' style='color:red;' onclick=\"closeNotification('$messageId')\">Close</button>";
                                             echo " </div> ";
                                             echo "</div>";
 
                                             $counter++;
-                                        } elseif ($row["is_read"] == 1) {
-                                            $cssStyle = 'display:none;';
-                                            $findNew = '<span class="badge"></span>';
                                         }
+                                    } else {
+                                        echo "No messages found.";
                                     }
-                                } else {
-                                    echo "No messages found.";
-                                }
-                                ?>
-                                <?php if ($showReadMore) : ?>
-                                    <!-- <button id="">Read More</button> -->
-                                    <div class="notifi-footer" id="read-more-btn" onclick='sideBar()'>
-                                        <div class="text">
-                                            <h2>Read More</h2>
+                                    ?>
+                                    <?php if ($showReadMore) : ?>
+                                        <!-- <button id="">Read More</button> -->
+                                        <div class="notifi-footer" id="read-more-btn" onclick='sideBar()'>
+                                            <div class="text">
+                                                <h2>Read More</h2>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php
+                    }
+                    ?>
+
+                    <!--  notification ends here -->
                 </nav>
             </div>
             <script>
                 function closeNotification(messageId) {
-                    var notification = document.querySelector(`[data-message-id='${messageId}']`);
-                    if (notification) {
-                        notification.style.display = 'none';
-                        updateNotificationCount(); // Call the function to update notification count
-                        markNotificationAsRead(messageId); // Call the function to mark the notification as read in the database
-                    }
-                }
-                // Function to close the popup (if you want to hide the entire popup)
-                function closePopup() {
-                    var popup = document.getElementById("box"); // Assuming the popup container has an ID "box"
-                    popup.style.display = "none";
+                    $.ajax({ // C:\xampp\htdocs\_treasuretroove_backup_from_live by jeeva bro\notifi_ajax.php
+                        type: "POST",
+                        url: "notifi_ajax.php",
+                        data: {
+                            messageId,
+                            action: 'close_notification'
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            // console.log(response);
+                            $('.icon-button__badge').html(response[0]);
+                            $('.notifi_count').html(response[0]);
+                            $('#sideBarInside').html(response[1]);
+                            var sideScrollBar = document.getElementById("sideScrollbar");
+                            var sideBarInside = document.getElementById("sideBarInside");
+                            sideScrollBar.classList.remove("scrolling-area");
+                            sideBarInside.classList.remove("scrolling-element-inside");
+                        }
+                    });
                 }
 
-                function updateNotificationCount() {
-                    // Get the current total count from the badge element
-                    var badge = document.querySelector(".icon-button__badge");
-                    var totalCount = parseInt(badge.textContent);
-
-                    // Decrease the count by 1 if it's greater than 0
-                    if (totalCount > 0) {
-                        totalCount--;
-                        badge.textContent = totalCount;
-                    }
+                function readNotification(messageId) {
+                    // alert(messageId);
+                    $.ajax({ // C:\xampp\htdocs\_treasuretroove_backup_from_live by jeeva bro\notifi_ajax.php
+                        type: "POST",
+                        url: "notifi_ajax.php",
+                        data: {
+                            messageId,
+                            action: 'mark_as_read'
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            // console.log(response);
+                            $('.icon-button__badge').html(response[0]);
+                            $('.notifi_count').html(response[0]);
+                            $('#sideBarInside').html(response[1]);
+                            var sideScrollBar = document.getElementById("sideScrollbar");
+                            var sideBarInside = document.getElementById("sideBarInside");
+                            sideScrollBar.classList.remove("scrolling-area");
+                            sideBarInside.classList.remove("scrolling-element-inside");
+                        }
+                    });
                 }
                 var box = document.getElementById('box');
                 var down = false;
@@ -1360,6 +1421,24 @@ if ($haspermision) {
                         box.style.height = '0px';
                         box.style.opacity = 0;
                         down = false;
+                        $.ajax({ // C:\xampp\htdocs\_treasuretroove_backup_from_live by jeeva bro\notifi_ajax.php
+                            type: "POST",
+                            url: "notifi_ajax.php",
+                            data: {
+                                action: 'getNotificationDetails'
+                            },
+                            dataType: "json",
+                            success: function(response) {
+                                // console.log(response);
+                                $('.icon-button__badge').html(response[0]);
+                                $('.notifi_count').html(response[0]);
+                                $('#sideBarInside').html(response[1]);
+                                var sideScrollBar = document.getElementById("sideScrollbar");
+                                var sideBarInside = document.getElementById("sideBarInside");
+                                sideScrollBar.classList.remove("scrolling-area");
+                                sideBarInside.classList.remove("scrolling-element-inside");
+                            }
+                        });
                     } else {
                         box.style.height = 'auto';
                         box.style.display = 'block';
@@ -1373,30 +1452,10 @@ if ($haspermision) {
                     var sideBarInside = document.getElementById("sideBarInside");
                     sideScrollBar.classList.add("scrolling-area");
                     sideBarInside.classList.add("scrolling-element-inside");
+                    $('.notifi-footer').hide();
                 }
 
-                function handleNotifiItemClick(event) {
-                    const messageId = event.currentTarget.dataset.messageId;
-                    const updateUrl = 'notifi_ajax.php';
-                    // alert(messageId);
-                    $.ajax({
-                        url: updateUrl,
-                        type: 'POST',
-                        data: {
-                            messageId: messageId
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                            alert("Read Message");
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                }
-                $(document).ready(function() {
-                    $('.notifi-item').on('click', handleNotifiItemClick);
-                });
+
 
                 // read more 
                 const readMoreBtn = document.getElementById("read-more-btn");
@@ -1411,6 +1470,8 @@ if ($haspermision) {
                     });
                 }
             </script>
+
+            <!-- entire notification part gets over here -->
             <style>
                 /* notification st  */
 
@@ -1591,6 +1652,27 @@ if ($haspermision) {
     <!-- add color for nav buttons -->
     <script>
         $(document).ready(function() {
+
+            $('.searchInputBox #clear_search_text').click(function() {
+                // alert("trigeed clear");
+                document.getElementById('search').value = "";
+                // alert("clear");
+            });
+
+            $("#search_results").empty();
+            $("#search").keyup(function() {
+                var search = $(this).val();
+                if (search === '') {
+                    // alert(search);
+                    $("#search_results").empty();
+                }
+            })
+
+            // if ($("#search").val() === '')
+            //     $("#search_results").empty();
+
+        });
+        $(document).ready(function() {
             $('.nav-link').click(function() {
                 // Remove active class from all nav links
                 $('.nav-link').removeClass('active');
@@ -1610,5 +1692,117 @@ if ($haspermision) {
         });
     </script>
 
+    <!-- for loading count of chart and wislist -->
+    <script>
+        $(document).ready(function() {
+            function getCartCount() {
+                // alert("getcartcount");
+                // alert(user_id); 
+                $.ajax({
+                    type: "post",
+                    url: "add_to_cart.php",
+                    data: {
+                        user_id,
+                        action: "getCartCount"
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        // alert(response['count'] + "   from method call");
+                        $(".fetch_cart_count").html(response.count);
+                    }
+                });
+            }
+            getCartCount();
+
+            function getWishListCount() {
+                $.ajax({
+                    type: "post",
+                    url: "add_to_cart.php",
+                    data: {
+                        user_id,
+                        action: "getWishlistCount"
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        // alert(response['count'] + "   from method call");
+                        $(".fetch_wishlist_count").html(response.count);
+                    }
+                });
+            }
+            getWishListCount();
+        })
+    </script>
+    <!--  end of the get the details of th products -->
+    <script>
+        $(document).ready(function() {
+            $('.add_to_cart').click(function() {
+                var productId = $(this).data('product-id');
+                // alert(productId);
+                // alert(user_id);
+                // alert('add to cart');
+
+                $.ajax({
+                    url: 'add_to_cart.php',
+                    method: 'POST',
+                    data: {
+                        product_id: productId
+                    },
+                    dataType: "JSON",
+                    success: function(response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Product Added to Your Cart",
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        $(".fetch_cart_count").html(response.count);
+                        getCartCount();
+                        getWishListCount();
+                    },
+                    error: function(xhr, status, error) {
+                        alert(
+                            'An error occurred while adding the product to cart. Please try again.'
+                        );
+                    }
+                });
+            });
+        })
+
+        function getCartCount() {
+            // alert("getcartcount");
+            // alert(user_id); 
+            $.ajax({
+                type: "post",
+                url: "add_to_cart.php",
+                data: {
+                    user_id,
+                    action: "getCartCount"
+                },
+                dataType: "json",
+                success: function(response) {
+                    // alert(response['count'] + "   from method call");
+                    $(".fetch_cart_count").html(response.count);
+                }
+            });
+        }
+        getCartCount();
+
+        function getWishListCount() {
+            $.ajax({
+                type: "post",
+                url: "add_to_cart.php",
+                data: {
+                    user_id,
+                    action: "getWishlistCount"
+                },
+                dataType: "json",
+                success: function(response) {
+                    // alert(response['count'] + "   from method call");
+                    $(".fetch_wishlist_count").html(response.count);
+                }
+            });
+        }
+        getWishListCount();
+    </script>
 
     <!-- <?php print_r($_SESSION); ?> -->

@@ -30,7 +30,7 @@ if ($stmt == 1) {
     $exc = $db->query($get_qry);
     $result = $exc->fetch_assoc();
     // echo json_encode($result);
-    $price = $result['product_new_price'];
+    $price = $result['product_new_price']+$result['product_old_price'];
 
 
     //  to update or insert the user / vendor details to the bid_userlist table  

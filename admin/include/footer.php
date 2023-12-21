@@ -1,16 +1,10 @@
-<script>
-    const service_request_id = '';
-    const cus_id = '';
-    const service_id = '';
-    const car_id = '';
-    const workshop_id = '';
-</script>
-</div>
 <!-- /#wrapper -->
 
+</div>
+
 <!-- GLOBAL SCRIPTS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/plugins/bootstrap/bootstrap.min.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="js/plugins/popupoverlay/jquery.popupoverlay.js"></script>
@@ -36,6 +30,7 @@
         </ul>
     </div>
 </div>
+
 <!-- popup change password -->
 <!-- Button trigger modal -->
 
@@ -43,6 +38,9 @@
     Launch demo modal
 </button> -->
 <!-- Modal -->
+
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -73,6 +71,8 @@
         </div>
     </div>
 </div>
+
+
 <!-- /#logout -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <!-- Logout Notification jQuery -->
@@ -120,64 +120,67 @@
 
 <script>
     $(document).ready(function() {
-  $(".get_cat").change(function(){
-     
-      var val = $(this).val();
-    //    alert(val);
-      $.ajax({
-          url:"get_sub_cat.php",
-          type:"post",
-          data:{category_id:val},
-          success:function(resp){
-                  $('#getsubcategory').html(resp);
-          }
-      });
-  
-  });
-}); 
+        $(".get_cat").change(function() {
 
+            var val = $(this).val();
+            //    alert(val);
+            $.ajax({
+                url: "get_sub_cat.php",
+                type: "post",
+                data: {
+                    category_id: val
+                },
+                success: function(resp) {
+                    $('#getsubcategory').html(resp);
+                }
+            });
+
+        });
+    });
 </script>
 <!-- <script>
     $(document).ready(function() {
-         $(".dropdowns").on('change','.get_cat',function(){
-        $(".get_cat").change(function(){
-            
-            var val = $(this).val();
-            / alert(val);
-            $.ajax({
-                url:"get_sub_cat.php",
-                type:"post",
-                data:{category_id:val},
-                success:function(resp){
-                var data=JSON.parse(resp);
-                var html=`<option value="${data.0
+        $(".dropdowns").on('change', '.get_cat', function() {
+            $(".get_cat").change(function() {
+
+                var val = $(this).val();
+                / alert(val);
+                $.ajax({
+                    url: "get_sub_cat.php",
+                    type: "post",
+                    data: {
+                        category_id: val
+                    },
+                    success: function(resp) {
+                        var data = JSON.parse(resp);
+                        var html = `<option value="${data.0
                 }">${data.1}</option>`;
-console.log(data);
-                         $('#getsubcategory').html(resp);
-                         $('#fstOp').append(resp);
-                }
+                        console.log(data);
+                        $('#getsubcategory').html(resp);
+                        $('#fstOp').append(resp);
+                    }
+                });
+
             });
-        
-        });
-        $(document.body).on('change','.get_inner_cat',function(){
-             $(".get_innet_cat").change(function(){
-              alert("haridas");
-                            var val = $(this).val();
-                            $.ajax({
-                                url:"get_inner_cat.php",
-                                type:"post",
-                                data:{category_id:val},
-                                success:function(resp){
-                                        $('#get_in_cat').html(resp);
-                                }
-                            });
-        
-        });
-}); 
-}); 
-}); 
+            $(document.body).on('change', '.get_inner_cat', function() {
+                $(".get_innet_cat").change(function() {
+                    alert("haridas");
+                    var val = $(this).val();
+                    $.ajax({
+                        url: "get_inner_cat.php",
+                        type: "post",
+                        data: {
+                            category_id: val
+                        },
+                        success: function(resp) {
+                            $('#get_in_cat').html(resp);
+                        }
+                    });
 
-
+                });
+            });
+        });
+    });
 </script> -->
 
 

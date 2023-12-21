@@ -1,26 +1,26 @@
-<?php  
+<?php
 session_start();
 
 include("../include/database.php");
 
-if(isset($_POST['submit'])){
-    $page=$_POST['page'];
-    $firstname=$_POST['fname'];
-    $lastname=$_POST['lname'];
-    $email=$_POST['email'];  
-    $phone=$_POST['phone'];
-    $password=$_POST['password'];
-    $cpassword=$_POST['cpassword'];
-    $rcode=$_POST['rcode'];
-    // $en_ps = base64_encode($passcode);
-     $sql="INSERT INTO `register`( `user_name`, `last_name`, `email`, `phone`, `password`, `cpassword`, `rcode`) VALUES ('$firstname','$lastname','$email','$phone','$password','$cpassword','$rcode')";
-    $result=$db->query($sql);
-    if($result==TRUE){
+if (isset($_POST['submit'])) {
+  $page = $_POST['page'];
+  $firstname = $_POST['fname'];
+  $lastname = $_POST['lname'];
+  $email = $_POST['email'];
+  $phone = $_POST['phone'];
+  $password = $_POST['password'];
+  $cpassword = $_POST['cpassword'];
+  $rcode = $_POST['rcode'];
+  // $en_ps = base64_encode($passcode);
+  $sql = "INSERT INTO `register`( `user_name`, `last_name`, `email`, `phone`, `password`, `cpassword`, `rcode`) VALUES ('$firstname','$lastname','$email','$phone','$password','$cpassword','$rcode')";
+  $result = $db->query($sql);
+  if ($result == TRUE) {
 
-        $to = "development2@teckzy.com";
-$subject = "Taaza Meat New Registration!";
+    $to = "development2@teckzy.com";
+    $subject = "Taaza Meat New Registration!";
 
-$message = "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml' xmlns:o='urn:schemas-microsoft-com:office:office'>
+    $message = "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml' xmlns:o='urn:schemas-microsoft-com:office:office'>
 <head>
   <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -154,7 +154,7 @@ $message = "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-micr
                             <td style='overflow-wrap:break-word;word-break:break-word;padding:0px 10px 31px;font-family:'Cabin',sans-serif;' align='left'>
 
                               <div style='color: #e5eaf5; line-height: 140%; text-align: center; word-wrap: break-word;'>
-                                <p style='font-size: 14px; line-height: 140%;'><span style='font-size: 28px; line-height: 39.2px;'><strong><span style='line-height: 39.2px; font-size: 28px;'>New Registration - {".$firstname." ".$lastname."}! </span></strong>
+                                <p style='font-size: 14px; line-height: 140%;'><span style='font-size: 28px; line-height: 39.2px;'><strong><span style='line-height: 39.2px; font-size: 28px;'>New Registration - {" . $firstname . " " . $lastname . "}! </span></strong>
                                   </span>
                                 </p>
                               </div>
@@ -233,37 +233,32 @@ $message = "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-micr
 </body>
 </html>";
 
-// Always set content-type when sending HTML email
-$headers = "MIME-Version: 1.0" . "\r\n";
-$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    // Always set content-type when sending HTML email
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-// More headers
-$headers .= 'From: <sudipli799@gmail.com>' . "\r\n";
-$headers .= 'Cc: development1@gmail.com' . "\r\n";
+    // More headers
+    $headers .= 'From: <sudipli799@gmail.com>' . "\r\n";
+    $headers .= 'Cc: development1@gmail.com' . "\r\n";
 
-mail($to,$subject,$message,$headers);
+    mail($to, $subject, $message, $headers);
 
-        $sql = "SELECT * FROM `register` WHERE  email = '$email' AND  password = '$password'";
-         $result = $db->query($sql);
-        //  echo '<pre>'.print_r($result).'</pre>';
-         $user_details = mysqli_fetch_assoc($result);
-         $_SESSION['user_details'] = $user_details;
-        //  echo '<pre>'.print_r($_SESSION).'</pre>';
-         if($result->num_rows==1){  
-             if($page == ''){
-                 header("Location: ../index.php?reg_status=1");
-             } else{
-                 header("Location: ../shoping-cart.php?reg_status=1");
-             }
-          
-            
-           }
-         else {
-            header("Location: ../login.php?status=1&page=$page");
-        }
+    $sql = "SELECT * FROM `register` WHERE  email = '$email' AND  password = '$password'";
+    $result = $db->query($sql);
+    //  echo '<pre>'.print_r($result).'</pre>';
+    $user_details = mysqli_fetch_assoc($result);
+    $_SESSION['user_details'] = $user_details;
+    //  echo '<pre>'.print_r($_SESSION).'</pre>';
+    if ($result->num_rows == 1) {
+      if ($page == '') {
+        header("Location: ../index.php?reg_status=1");
+      } else {
+        header("Location: ../shoping-cart.php?reg_status=1");
+      }
+    } else {
+      header("Location: ../login.php?status=1&page=$page");
     }
-        else{
-            header("Location: ../index.php?reg_status=2");
-        }
+  } else {
+    header("Location: ../index.php?reg_status=2");
+  }
 }
-?>

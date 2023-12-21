@@ -11,11 +11,22 @@ if (isset($_SESSION['user_details'])) {
 } else if (isset($_SESSION['s_provider'])) {
   $id = $_SESSION['s_provider']['user_id'];
 } else {
-  echo '<script>alert("Login First To View Account Details")</script>';
+  // echo '<script>alert("Login First To View Account Details")</script>';
 ?>
-  <meta http-equiv="refresh" content="0;URL='profile-authentication.php'" />
+  <!-- <meta http-equiv="refresh" content="0;URL='profile-authentication.php'" /> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "Login Fist to View Product",
+                showConfirmButton: false,
+                timer: 1500
+            }).then(function() {
+                window.location.href = "profile-authentication.php";
+            });
+        </script>
 <?php
-  header('Loaction:profile-authentication.php');
+  // header('Loaction:profile-authentication.php');
 } ?>
 <!doctype html>
 <html lang="zxx">

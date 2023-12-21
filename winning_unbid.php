@@ -168,7 +168,7 @@ ini_set('display_errors', 0);
         window.scrollBy(10, 100); // Adjust the 100 to the desired scroll amount
     }
 </script>
-    <h1 class="text-center" >Winning Bid list</h1><br>
+    <h1 class="text-center" >Winning Bid Un-Paid List</h1><br>
     <div class="cart-area ptb-100" style="padding-top: 15px;">
             <div class="container">
 <div class="parent">

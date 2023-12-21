@@ -38,10 +38,10 @@ function updateCart($productId, $user_id, $user, $db)
   if ($row = $smt->fetch_assoc())
     $result = $row;
   // UPDATE `my_cart` SET `cart_id` = '1' WHERE `my_cart`.`unique_id` = 1;
-  $quantity=$result['quantity']+1;
-  $amount=$quantity*$result['price'];
-  $sql_u="UPDATE my_cart SET quantity ='$quantity' , amount='$amount' WHERE $user=$user_id AND product_id=$productId AND status!='Completed' ";
-  $smt=$db->query($sql_u);
+  $quantity = $result['quantity'] + 1;
+  $amount = $quantity * $result['price'];
+  $sql_u = "UPDATE my_cart SET quantity ='$quantity' , amount='$amount' WHERE $user=$user_id AND product_id=$productId AND status!='Completed' ";
+  $smt = $db->query($sql_u);
 }
 
 function addProductToCart($productId, $user_id, $user, $db)
@@ -64,6 +64,15 @@ function getCartCount($user_id, $user, $db)
   if ($row = $count_smt->fetch_assoc())
     $cart_count = $row;
   echo json_encode($cart_count);
+}
+function getWishListCount($user_id, $user, $db)
+{
+  $sql_wishlist_count = "SELECT COUNT(DISTINCT product_id) count FROM wishlist WHERE user_id=$user_id ";
+  $count_smt = $db->query($sql_wishlist_count);
+  $wish_count = "";
+  if ($row = $count_smt->fetch_assoc())
+    $wish_count = $row;
+  echo json_encode($wish_count);
 }
 
 if (isset($_POST['product_id'])) {
@@ -88,5 +97,9 @@ if (isset($_POST['action'])) {
   if ($_REQUEST['action'] == 'getCartCount') {
     $user_id = $_REQUEST['user_id'];
     getCartCount($user_id, $user, $db);
+  }
+  if ($_REQUEST['action'] == 'getWishlistCount') {
+    $user_id = $_REQUEST['user_id'];
+    getWishListCount($user_id, $user, $db);
   }
 }

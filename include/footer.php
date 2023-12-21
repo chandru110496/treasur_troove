@@ -41,6 +41,7 @@
 <script src="assets/js/main.js"></script>
 <script src="js/main.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js"></script>
 <!-- <script src="js/wearhouse.js"></script> -->

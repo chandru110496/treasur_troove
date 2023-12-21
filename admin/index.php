@@ -1,6 +1,4 @@
 <?php include("include/header.php");
-include('include/conn.php'); ?>
-<?php
 
 // ini_set('error_reporting', 0);
 // ini_set('display_errors', 0);
@@ -74,9 +72,7 @@ $TodayCancel = "SELECT * FROM `order` where `cancel_status`='Admin-canceled'&'Us
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-title">
-                    <h1>Dashboard
-                        <!-- <small>Content Overview</small> -->
-                    </h1>
+                    <h1>Dashboard</h1>
                     <ol class="breadcrumb">
                         <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
                         <!-- <li class="pull-right">
@@ -381,4 +377,6 @@ $TodayCancel = "SELECT * FROM `order` where `cancel_status`='Admin-canceled'&'Us
 
     <!-- end MAIN PAGE CONTENT -->
     <script src="./js/jquery.min.js"></script>
-    <?php include("include/footer.php"); ?>
+</div>
+
+<?php include("include/footer.php"); ?>

@@ -1,5 +1,5 @@
 <?php
-include("include/header.php");
+include("include/head.php");
 date_default_timezone_set('Asia/Kolkata');
 if (isset($_SESSION['user_details'])) {
     $user_id = $_SESSION['user_details']['user_id'];
@@ -9,34 +9,499 @@ if (isset($_SESSION['user_details'])) {
     $user_id = $_SESSION['s_provider']['user_id'];
 }
 ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor" aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-</button>
-<!-- search your Products -->
-<div class="container" style="justify-content:stretch;">
-    <!-- niy search -->
-    <div class="searchInputBox pull-right">
-        <!-- <input type="search" id="search" placeholder=" search..." class="search-input" autocomplete="off" /> -->
-        <input type="search" id="search" placeholder="search..." style="padding-left: 25px;" class="search-input" autocomplete="off" />
-        <span type="btn" id="clear_search_text" style="cursor:pointer; z-index: index;">&times;</span>
-        <button class="btn-nobg search-btn" type="submit">
-            <i class="fa fa-search" style="cursor:pointer;" aria-hidden="true"> </i>
-        </button>
-        <div id="search_results" class="searchResult"></div>
-    </div>
-    <!-- niy search -->
-    <!-- <input type="search"  id="live_search" style="border-radius:15px;width:234px;" placeholder="Search..."> -->
+<script>
+    user_id = <?= $user_id ?>
+</script>
 
-    <!-- search your Products End -->
-    <div class="div">
-        <h5 onclick="show()" style="margin-top:1px;"> <img title="Filter" src="assets/images/products/filter.png" alt="Filter" style="width: 20px;
+<style>
+    .bid {
+        justify-content: center;
+        align-items: center;
+        /* z-index: -1; */
+    }
+</style>
+
+<style>
+    .btn_grad_blgr {
+
+        height: 32px;
+        align-items: center;
+        margin-bottom: 7px;
+    }
+
+    .btn_grad_blgr:hover {
+        background: #043fa9;
+        color: white;
+    }
+
+    /* .card {
+        width: 190px;
+        display: inline-block;
+        margin-bottom: 30px;
+        border-radius: 15px;
+        margin-left: 10px;
+    } */
+</style>
+
+<style>
+    .product-con {
+        display: flex;
+        width: 100%;
+    }
+
+    .pro-con {
+        margin: 10px;
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* .list-pro {
+        display: flex;
+        margin-left: 10px;
+        flex-wrap: wrap;
+        margin: 0 20px;
+        
+    } */
+</style>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+    .detail {
+        display: flex;
+    }
+
+    .detail img {
+        width: 48px;
+        height: 33px;
+        margin-top: -6px;
+        margin-right: 5px;
+    }
+
+    /* 
+for search results */
+    .searchResult {
+        position: absolute;
+        background: ghostwhite;
+        width: 10%;
+        margin-left: 100px;
+        z-index: 2;
+        margin-top: 13px;
+    }
+
+    /* 
+for search results */
+
+    img {
+        width: 100%;
+        display: block;
+    }
+
+    .img-display {
+        overflow: hidden;
+    }
+
+
+    .img-showcase {
+        display: flex;
+        width: 100%;
+        transition: all 0.5s ease;
+    }
+
+    .img-showcase img {
+        min-width: 100%;
+    }
+
+    .img-select {
+        display: flex;
+    }
+
+    .img-item {
+        margin: 0.3rem;
+    }
+
+    .img-item:nth-child(1),
+    .img-item:nth-child(2),
+    .img-item:nth-child(3) {
+        margin-right: 0;
+    }
+
+    .img-item:hover {
+        opacity: 0.8;
+    }
+
+    .product-content {
+        padding: 2rem 1rem;
+    }
+
+    .product-title {
+        font-size: 3rem;
+        text-transform: capitalize;
+        font-weight: 700;
+        position: relative;
+        color: #12263a;
+        margin: 1rem 0;
+    }
+
+    .product-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 4px;
+        width: 80px;
+        background: #12263a;
+    }
+
+    .product-link {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: 0.9rem;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+
+        color: #fff;
+        padding: 0 0.3rem;
+        transition: all 0.5s ease;
+    }
+
+    .product-link:hover {
+        opacity: 0.9;
+    }
+
+    .product-rating {
+        color: #ffc107;
+    }
+
+    .product-rating span {
+        font-weight: 600;
+        color: #252525;
+    }
+
+    .product-price {
+        margin: 1rem 0;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .product-price span {
+        font-weight: 400;
+    }
+
+    .last-price span {
+        color: #f64749;
+        text-decoration: line-through;
+    }
+
+    .new-price span {
+        color: #256eff;
+    }
+
+    .product-detail h2 {
+        text-transform: capitalize;
+        color: #12263a;
+        padding-bottom: 0.6rem;
+    }
+
+    .product-detail p {
+        font-size: 0.9rem;
+        padding: 0.3rem;
+        opacity: 0.8;
+    }
+
+    .product-detail ul {
+        margin: 1rem 0;
+        font-size: 0.9rem;
+    }
+
+    .product-detail ul li {
+        margin: 0;
+        list-style: none;
+        background: url(https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/checked.png) left center no-repeat;
+        background-size: 18px;
+        padding-left: 1.7rem;
+        margin: 0.4rem 0;
+        font-weight: 600;
+        opacity: 0.9;
+    }
+
+    .product-detail ul li span {
+        font-weight: 400;
+    }
+
+    .purchase-info {
+        margin: 1.5rem 0;
+    }
+
+    .purchase-info input,
+    .purchase-info .btn {
+        border: 1.5px solid #ddd;
+        border-radius: 25px;
+        text-align: center;
+        padding: 0.45rem 0.8rem;
+        outline: 0;
+        margin-right: 0.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .purchase-info input {
+        width: 60px;
+    }
+
+    .purchase-info .btn {
+        cursor: pointer;
+        color: #fff;
+    }
+
+    .purchase-info .btn:first-of-type {
+        background: #256eff;
+    }
+
+    .purchase-info .btn:last-of-type {
+        background: #f64749;
+    }
+
+    .purchase-info .btn:hover {
+        opacity: 0.9;
+    }
+
+    .social-links {
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+    }
+
+    .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        color: #000;
+        margin: 0 0.2rem;
+        margin-top: -26px;
+        border-radius: 50%;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: all 0.5s ease;
+    }
+
+    .social-links a:hover {
+        background: white;
+        border-color: transparent;
+        color: #fff;
+    }
+
+    .product-imgs {
+        width: 120%;
+        height: 50%;
+    }
+
+    .one {
+        display: flex;
+    }
+
+    .parent {
+        display: flex;
+    }
+
+    .container input {
+        border: 1px solid grey;
+        position: relative;
+
+    }
+
+    .container input:hover {
+        border: 1px solid #0000fe;
+    }
+
+    .container input:focus {
+        outline: none;
+    }
+
+    .search {
+        position: absolute;
+        top: 27px;
+        left: 223px;
+        color: #0000fe;
+    }
+
+    .fas.fa-heart {
+        color: grey;
+        cursor: pointer;
+    }
+
+    .fas.fa-heart.active {
+        color: #1657cb;
+    }
+
+
+    .w3-button {
+        background: #1657cb;
+        color: white;
+        border-radius: 1px;
+    }
+
+    .w3-button:hover {
+        background: #043fa9;
+        color: white;
+    }
+
+    .btn_grad_blgr {
+        border-radius: 15px;
+        padding: 9px 19px;
+        align-items: center;
+        font-size: 11px;
+        font-weight: 500;
+        background: #1657cb;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    /* star Rating */
+    .star {
+        font-size: 20px;
+        /* Adjust the size as needed */
+        color: #FFD700;
+        /* Star color */
+        margin-right: 2px;
+        /* Space between stars */
+    }
+
+    .empty-star {
+        color: #ccc;
+        /* Empty star color */
+    }
+
+    .rating-stars {
+        direction: rtl;
+        display: inline-block;
+    }
+
+    .rating-stars input[type="radio"] {
+        display: none;
+    }
+
+    .rating-stars label {
+        font-size: 20px;
+        color: #ccc;
+        cursor: pointer;
+        padding: 0 2px;
+    }
+
+    .rating-stars label:hover,
+    .rating-stars label:hover~label,
+    .rating-stars input[type="radio"]:checked~label {
+        color: #ff9800;
+        /* Change this color to your preferred color */
+    }
+
+    /* @media screen and (min-width: 992px){
+            .card{
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 1.5rem;
+            }
+            .card-wrapper{
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .product-imgs{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .product-content{
+                padding-top: 0;
+            }
+                } */
+
+    @media (max-width: 768px) {
+        #showw {
+            display: block;
+            /* Show the hidden section */
+            width: 100%;
+            /* Take full width of the screen */
+            height: auto;
+            /* Adjust height automatically */
+            overflow-y: scroll;
+        }
+
+        .containers {
+            height: auto;
+            /* Adjust height automatically */
+        }
+
+        /* You can add more styles specific to smaller screens here */
+    }
+</style>
+
+<style>
+    .back {
+        border: none;
+        cursor: pointer;
+        color: var(--white-color);
+        background: #00b9ff;
+        width: 45px;
+        text-align: center;
+        height: 45px;
+        border-radius: 50%;
+        -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .back i {
+        right: 0;
+        left: 0;
+        top: 45%;
+        -webkit-transform: translateY(-45%);
+        transform: translateY(-45%);
+        text-align: center;
+        font-size: 13px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom bid">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor" aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- search your Products -->
+    <div class="container" style="justify-content:stretch;">
+        <!-- niy search -->
+
+        <!-- <div class="searchInputBox pull-right">
+            <input type="search" id="search" placeholder="search..." style="padding-left: 25px;" class="search-input" autocomplete="off" />
+            <span type="btn" id="clear_search_text" style="cursor:pointer; z-index: index;">&times;</span>
+            <button class="btn-nobg search-btn" type="submit">
+                <i class="fa fa-search" style="cursor:pointer;" aria-hidden="true"> </i>
+            </button>
+            <div id="search_results" class="searchResult"></div>
+        </div> -->
+        <div class="searchInputBox pull-right">
+            <input type="search" id="search" placeholder=" search..." style="padding-left: 25px;" class="search-input" autocomplete="off" />
+            <span type="button" id="clear_search_text" style="cursor:pointer; z-index: index; position: relative;right: 25px;">&times;</span>
+            <button class="btn-nobg search-btn" type="submit">
+                <i class="fa fa-search" style="cursor:pointer;" aria-hidden="true"> </i>
+            </button>
+            <div id="search_results" class="searchResult"></div>
+        </div>
+        <!-- niy search -->
+        <!-- <input type="search"  id="live_search" style="border-radius:15px;width:234px;" placeholder="Search..."> -->
+
+        <!-- search your Products End -->
+        <div class="div">
+            <h5 onclick="show()" style="margin-top:1px;"> <img title="Filter" src="assets/images/products/filter.png" alt="Filter" style="width: 20px;
     height: 22px;
     margin-left: 10px;margin-top:1px;"> </h5>
+        </div>
     </div>
-</div>
 
-<h1 style="margin-right: 600px;font-size:px;">BID</h1>
+    <h1 style="margin-right: 600px;font-size:px;">BID</h1>
 
 </nav>
 
@@ -227,7 +692,7 @@ background: #0d6efd;} */
                 if ($currency != "" || $currency == NULL || $currency == "INR") {
                     $currency = 1;
                 } else {
-                    // $currency=$_SESSION['currency_type']; 
+                    $currency=$_SESSION['currency_type']; 
                 }
                 ?>
 
@@ -244,9 +709,9 @@ background: #0d6efd;} */
                     "ORDER BY `bid_product_details`.`bid_close` ASC;";
                 $result = $db->query($sql);
                 // print_r($result);
-                $contains = true;
+                $contains = false;
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $contains = false;
+                    $contains = true;
                     // print_r($row);
                     $bid_id = $row['bid_id'];
                     $bid_name = $row['product_name'];
@@ -301,7 +766,7 @@ background: #0d6efd;} */
                         }
                         // print_r($currency);
                         $data = json_decode($response, true);
-                        // print_r($response);
+                        // print_r($data);
                         // print_r($data['conversion_rates']['INR']);
 
                         // ------------------>>>>>>>>>>>>>>>>>>>
@@ -445,7 +910,7 @@ background: #0d6efd;} */
                                                 <?php }
 
                                                 ?>
-                                                <?php echo $currency_symbol; ?> <?php echo $bid_price; ?> </button>
+                                                <?php echo $currency_symbol; ?> <?php echo ($bid_price + $bid_inc_price); ?> </button>
 
                                                 <div class="retail" style="margin-bottom:3px;color:#323030;font-size:14px;">
                                                     <b>Retail:<?php echo  $currency_symbol . " ";
@@ -472,6 +937,10 @@ background: #0d6efd;} */
                             let secondsRemaining<?php echo $bid_id; ?> = totalSeconds<?php echo $bid_id; ?>;
                             let timerId<?php echo $bid_id; ?> = setInterval(() => {
                                 // Calculate the number of hours, minutes, and seconds remaining
+                                if ((secondsRemaining<?php echo $bid_id; ?>) < 91) {
+                                    document.getElementById("timer<?= $bid_id ?>").setAttribute("style", 'color:red')
+                                }
+
                                 const hoursRemaining<?php echo $bid_id; ?> = Math.floor(secondsRemaining<?php echo $bid_id; ?> / 3600);
                                 const minutesRemaining<?php echo $bid_id; ?> = Math.floor((secondsRemaining<?php echo $bid_id; ?> % 3600) / 60);
                                 const secondsInMinuteRemaining<?php echo $bid_id; ?> = Math.floor(secondsRemaining<?php echo $bid_id; ?> % 60);
@@ -514,16 +983,20 @@ background: #0d6efd;} */
                         loadBet();
                         setInterval(() => {
                             $.ajax({
-                                type: "POST",
-                                url: `update_bid_amount.php?bid_id=<?php echo $bid_id; ?>`, //C:\xampp\htdocs\_treasuretroove_backup_from_live by jeeva bro\update_bid_amount.php                             
+                                type: "GET",
+                                url: `update_bid_amount.php?bid_id=<?php echo $bid_id; ?>&user_id=<?= $user_id ?>`, //C:\xampp\htdocs\_treasuretroove_backup_from_live by jeeva bro\update_bid_amount.php                             
+                                dataType: "Json",
                                 success: function(response) {
-                                    // console.log(response);
-                                    $("#bidbtn<?php echo $bid_id; ?>").html(response);
-                                    $("#bidbtn<?php echo $bid_id; ?>").attr("data-min_amo", response);
+                                    console.log(response);
+                                    // $("#bidbtn<?php echo $bid_id; ?>").html(response);
+                                    // $("#bidbtn<?php echo $bid_id; ?>").attr("data-min_amo", response);
+
+                                    $("#bidbtn<?php echo $bid_id; ?>").html(response[0] + " " + response[1]);
+                                    $("##bidbtn<?php echo $bid_id; ?>").attr("data-min_amo", response[1]);
                                 }
                             });
 
-                        }, 15000)
+                        }, 3000)
                     </script>
 
                     <!-- script for bid start -->
@@ -567,7 +1040,7 @@ background: #0d6efd;} */
 
 
                 <?php }
-                if ($contains) { ?>
+                if (!$contains) { ?>
                     <div class="text-center">
                         <img style="height:300px; width:780px; position:relative; left:175px" src="./upload/deal/giphy.gif" alt="">
                     </div>
@@ -1454,6 +1927,7 @@ for search results */
         });
     });
 </script>
+
 <!-- go to back page button -->
 <style>
     .back {

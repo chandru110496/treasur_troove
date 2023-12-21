@@ -1,7 +1,3 @@
-<!--  which is included for 
-1. bid.php
-2. index.php
--->
 <?php
 include("include/database.php");
 ini_set('error-reporting', 0);
@@ -1153,17 +1149,17 @@ if (isset($_SESSION['user_details']) || isset($_SESSION['vendor_details']) || is
                         <!-- notification icon start here -->
                         <div class="notification-icon" data-Id="<?php echo $messageId ?>" onclick="toggleNotifi()">
                             <!-- <i class="fa fa-bell"></i> -->
-                            <span class="material-icons" style="font-size:25px;margin-top:4px;">notifications</span>
-                            <span class="icon-button__badge noti_count" style="font-size:13px;margin-top:-4px;">
+                            <span class="material-icons" style="font-size:25px;margin-top:4px;">Notifications</span>
+                            <span class="icon-button__badge " style="font-size:13px;margin-top:-4px;">
                                 <?php echo $totalCount ?>
                             </span>
                         </div>
                         <!-- notification ends here -->
                         <!-- container to display the notification if click on notification icon start -->
-                        <div class="notifi-box " id="box">
-                            <h2>Notifications <span class=" noti_count">
-                                    <?php echo $totalCount ?>
-                                </span></h2>
+                        <div class="notifi-box" id="box">
+                            <h2>Notifications
+                                <span class="notifi_count"><?php echo $totalCount ?> </span>
+                            </h2>
                             <div class="" id="sideScrollbar">
                                 <div class="" id="sideBarInside">
                                     <?php
@@ -1235,13 +1231,14 @@ if (isset($_SESSION['user_details']) || isset($_SESSION['vendor_details']) || is
                     function updateNotificationCount() {
                         // Get the current total count from the badge element
                         var badge = document.querySelector(".icon-button__badge");
+                        var noti_count = document.querySelector('.notifi_count');
                         var totalCount = parseInt(badge.textContent);
 
                         // Decrease the count by 1 if it's greater than 0
                         if (totalCount > 0) {
                             totalCount--;
                             badge.textContent = totalCount;
-                            document.querySelector(".noti_count").textContent = "" + totalCount;
+                            noti_count.innerHTML = totalCount;
                             $('.noti_count').fadeOut(); // Hide all content divs
                             $('.noti_count').fadeIn(); // Show the requested part
                         }
@@ -1656,3 +1653,43 @@ if (isset($_SESSION['user_details']) || isset($_SESSION['vendor_details']) || is
                 });
             </script>
             <!-- scritp for nav_link highlight and notifiction popup  end-->
+
+
+            <!-- for getting count of cart and wishlist -->
+            <script>
+                function getCartCount() {
+                    // alert("getcartcount");
+                    // alert(user_id); 
+                    $.ajax({
+                        type: "post",
+                        url: "add_to_cart.php",
+                        data: {
+                            user_id,
+                            action: "getCartCount"
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            // alert(response['count'] + "   from method call");
+                            $(".fetch_cart_count").html(response.count);
+                        }
+                    });
+                }
+                getCartCount();
+
+                function getWishListCount() {
+                    $.ajax({
+                        type: "post",
+                        url: "add_to_cart.php",
+                        data: {
+                            user_id,
+                            action: "getWishlistCount"
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            // alert(response['count'] + "   from method call");
+                            $(".fetch_wishlist_count").html(response.count);
+                        }
+                    });
+                }
+                getWishListCount();
+            </script>

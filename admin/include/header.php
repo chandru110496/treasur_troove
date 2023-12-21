@@ -227,36 +227,34 @@ if (!isset($_SESSION['admin_name'])) {
                         </ul>
                     </li>
                     <!-- <li class="panel">
-                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle"
-                            data-target="#csss">
+                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#csss">
                             <i class="fa fa-users"></i>Users Upload <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="collapse nav" id="csss">
                             <li>
-                                <a href="javascript:;" data-parent="#csss" data-toggle="collapse" class="accordion-toggle"
-                            data-target="#csssd">Upload deal Products<i class="fa fa-caret-down"></i>       
+                                <a href="javascript:;" data-parent="#csss" data-toggle="collapse" class="accordion-toggle" data-target="#csssd">Upload deal Products<i class="fa fa-caret-down"></i>
                                 </a>
 
 
                                 <ul class="collapse nav" id="csssd">
-                                <li>
-                                <a href="deal.php?type=hot">
-                                    <i class="fa fa-angle-double-right"></i>Hot Deal
-                                </a>
-                            </li>
-                                <li>
-                                <a href="deal_upcoming.php?type=upc">
-                                    <i class="fa fa-angle-double-right"></i>Upcoming Deal Products
-                                </a>
-                            </li>
-                            </ul>
+                                    <li>
+                                        <a href="deal.php?type=hot">
+                                            <i class="fa fa-angle-double-right"></i>Hot Deal
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="deal_upcoming.php?type=upc">
+                                            <i class="fa fa-angle-double-right"></i>Upcoming Deal Products
+                                        </a>
+                                    </li>
+                                </ul>
 
 
 
 
                             </li>
-                            
-                            
+
+
                         </ul>
                     </li> -->
                     <li class="panel">
@@ -287,8 +285,7 @@ if (!isset($_SESSION['admin_name'])) {
                         </a>
                     </li>
                     <!-- <li class="panel">
-                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle"
-                            data-target="#csss">
+                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#csss">
                             <i class="fa fa-users"></i> Attributes <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="collapse nav" id="csss">
@@ -375,15 +372,14 @@ if (!isset($_SESSION['admin_name'])) {
                     <li>
                         <a href="notifications.php"><i class="fa fa-angle-double-right"></i>
                             Notification
-
                         </a>
                     </li>
                     <?php if ($_SESSION['type'] == 'admin') { ?>
                         <!-- <li>
-                        <a class="" href="Payments.php">
-                            <i class="fa fa-money"></i>Payments
-                        </a>
-                    </li> -->
+                            <a class="" href="Payments.php">
+                                <i class="fa fa-money"></i>Payments
+                            </a>
+                        </li> -->
                         <li class="panel">
                             <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#csrep">
                                 <i class='fa fa-list-alt'></i> Reports <i class="fa fa-caret-down"></i>
@@ -395,10 +391,10 @@ if (!isset($_SESSION['admin_name'])) {
                                     </a>
                                 </li>
                                 <!-- <li>
-                        <a class="" href="Job_report.php">
-                            <i class="fa fa-user"></i>Job Reports
-                        </a>
-                    </li> -->
+                                    <a class="" href="Job_report.php">
+                                        <i class="fa fa-user"></i>Job Reports
+                                    </a>
+                                </li> -->
                                 <li>
                                     <a class="" href="user.php">
                                         <i class="fa fa-users"></i>Users Reports
@@ -435,8 +431,6 @@ if (!isset($_SESSION['admin_name'])) {
                                     <i class="fa fa-angle-double-right"></i> Bid Products Reports
                                 </a>
                             </li>
-
-
                             <!-- <li>
                                 <a href="slider.php">
                                     <i class="fa fa-angle-double-right"></i> Invest items Reports
@@ -497,12 +491,11 @@ if (!isset($_SESSION['admin_name'])) {
                                     <a href="faq.php">
                                         <i class="fa fa-angle-double-right"></i>FAQ</a>
                                 </li>
-
                                 <li>
                                     <a href="slider.php">
                                         <i class="fa fa-angle-double-right"></i> About Us
                                     </a>
-                                    </a>
+
                                 </li>
                             </ul>
                         </li><?php } ?>
